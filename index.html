@@ -16,6 +16,16 @@
             margin: 0 auto;
         }
 
+        /* Gaya untuk teks Welcome dengan background abu-abu */
+        .welcome-box {
+            background: #2a2a2a; /* Abu-abu agak terang */
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block; /* Supaya background ngikutin panjang teks */
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
         /* Ngatur Jarak Judul biar ga kejauhan */
         h1, h2 {
             margin-bottom: 5px; 
@@ -24,29 +34,38 @@
         }
 
         h2 {
-            margin-top: 30px;
+            margin-top: 35px;
             font-size: 1.2rem;
             letter-spacing: 1px;
-            text-transform: uppercase; /* Biar kayak header pro */
+            text-transform: uppercase;
         }
 
         p {
-            margin-top: 0;      /* Biar nempel sama judul di atasnya */
+            margin-top: 0;
             margin-bottom: 15px;
-            opacity: 0.8;       /* Biar teks isi agak redup dikit, estetik */
+            opacity: 0.8;
             font-size: 0.95rem;
         }
 
-        /* Foto Profil - Biar ga kegedean dan rapi */
+        /* Foto Profil */
         .profile-img {
             width: 100%;
-            max-width: 400px;   /* Batas maksimal gede foto */
-            border-radius: 12px; /* Sudutnya tumpul biar modern */
-            margin: 10px 0;
-            filter: grayscale(20%); /* Efek dikit biar keren */
+            max-width: 400px;
+            border-radius: 12px;
+            margin: 10px 0 5px 0;
+            filter: grayscale(20%);
         }
 
-        /* Video biar responsive */
+        /* Keterangan Gambar (Caption) */
+        .img-caption {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #aaaaaa;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Video Container */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -63,6 +82,23 @@
             border: 0;
         }
 
+        /* Instagram Link Style */
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #e0e0e0;
+            margin-top: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .social-link img {
+            width: 22px;
+            height: 22px;
+        }
+
         .footer {
             margin-top: 50px;
             font-size: 0.8rem;
@@ -74,12 +110,16 @@
 
     <h1>01% Done</h1>
     <p>Step by step every day, it doesn't have to be perfect.</p>
+    
+    <div class="welcome-box">
+        Welcome to Kai's personal web.
+    </div>
 
     <h2>ABOUT ME</h2>
     <p>A place for unfinished thoughts and quiet progress. A myth.</p>
-    <p>Welcome to Kai's personal web.</p>
 
     <img src="profile.jpg" alt="Profile" class="profile-img">
+    <span class="img-caption">"A casual selfie taken while resting. nothing planned, just me as i am."</span>
 
     <h2>LISTEN / WATCH</h2>
     <div class="video-container">
@@ -88,6 +128,11 @@
 
     <h2>JOURNAL</h2>
     <p>Today I learned that even slow steps forward are still steps forward.</p>
+
+    <a href="https://instagram.com/sarangmokel" class="social-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
+        @sarangmokel
+    </a>
 
     <div class="footer">
         © 2025 itskaiden
