@@ -3,77 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01% Done</title>
+    <title>01% Done | Kai</title>
     <style>
-        /* Gaya Dasar (Aesthetic Dark Mode) */
+        /* Gaya Dasar & Anatomi Website */
         body {
             background: #121212; 
             color: #e0e0e0;     
             font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.4;
-            padding: 40px 20px;
-            max-width: 500px;  
-            margin: 0 auto;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
 
-        /* Welcome Box paling atas */
-        .welcome-box {
-            background: #2a2a2a; 
-            padding: 10px 15px;
-            border-radius: 8px;
-            display: inline-block;
-            margin-bottom: 25px;
+        /* 1. NAVIGATION MENU (Paling Atas) */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(18, 18, 18, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            letter-spacing: 1px;
             font-size: 0.9rem;
-            font-weight: 500;
         }
 
-        h1, h2 {
-            margin-bottom: 5px; 
+        .nav-links a {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-left: 20px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
             color: #ffffff;
-            font-weight: 700;
+        }
+
+        /* 2. HERO SECTION (Headline & Subheadline) */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .welcome-badge {
+            background: #2a2a2a; 
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ffffff;
         }
 
         h1 {
-            font-size: 2rem;
-            margin-top: 0;
+            font-size: 2.5rem;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .subheadline {
+            font-size: 1rem;
+            color: #aaaaaa;
+            margin-top: 10px;
+        }
+
+        /* Container Utama Konten */
+        .container {
+            max-width: 600px;  
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 3. CONTENT SECTIONS (About, Media, Journal) */
+        section {
+            margin-bottom: 60px;
         }
 
         h2 {
-            margin-top: 35px;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            color: #ffffff;
         }
 
-        p {
-            margin-top: 0;
-            margin-bottom: 15px;
-            opacity: 0.8;
-            font-size: 0.95rem;
-        }
-
+        /* Foto Profil dengan Hover Effect sesuai referensi */
         .profile-img {
             width: 100%;
-            max-width: 400px;
             border-radius: 12px;
-            margin: 10px 0 5px 0;
-            filter: grayscale(20%);
+            margin-bottom: 10px;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: grayscale(30%);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.02);
+            filter: grayscale(0%);
         }
 
         .caption {
             font-size: 0.85rem;
             font-style: italic;
-            color: #aaaaaa;
-            margin-bottom: 15px;
+            color: #777;
+            text-align: center;
             display: block;
         }
 
+        /* Video Container */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 12px;
+            background: #1a1a1a;
         }
 
         .video-container iframe {
@@ -84,63 +138,80 @@
             border: 0;
         }
 
+        /* 4. FOOTER AREA */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #2a2a2a;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
         .social-link {
             display: flex;
+            justify-content: center;
             align-items: center;
             gap: 10px;
             text-decoration: none;
             color: #e0e0e0;
-            margin-top: 25px;
             font-weight: 600;
-            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
-        .social-link img {
-            width: 22px;
-            height: 22px;
-        }
+        .social-link img { width: 20px; }
 
-        .footer {
-            margin-top: 50px;
-            font-size: 0.8rem;
-            color: #555;
-        }
     </style>
 </head>
 <body>
 
-    <div class="welcome-box">
-        Welcome to Kai's personal web.
+    <nav>
+        <div class="nav-logo">ITS KAIDEN</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#journal">Journal</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="welcome-badge">Welcome to my personal space</div>
+        <h1>01% Done</h1>
+        <p class="subheadline">just taking it slow, one pixel at a time.</p>
     </div>
 
-    <h1>01% Done</h1>
-    <p>making progress, even if it's barely noticeable.</p>
+    <div class="container">
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>A place for unfinished thoughts and quiet progress.</p>
+            <img src="profile.jpg" alt="Profile" class="profile-img">
+            <span class="caption">"A casual selfie taken while resting. nothing planned, just me as i am."</span>
+        </section>
 
-    <h2>ABOUT ME</h2>
-    <p>A place for unfinished thoughts and quiet progress.</p>
+        <section id="work">
+            <h2>Listen / Watch</h2>
+            <span class="caption" style="text-align: left; margin-bottom: 15px;">"This is a music video i made with my friends, go check it out!"</span>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/42wfEs7oIP8" allowfullscreen></iframe>
+            </div>
+        </section>
 
-    <img src="profile.jpg" alt="Profile" class="profile-img">
-    <span class="caption">"A casual selfie taken while resting. nothing planned, just me as i am haha."</span>
+        <section id="journal">
+            <h2>Journal</h2>
+            <p>
+                honestly, being 01% done is better than 00%. today was a mix of "we're so back" and "it's over," but i'm choosing to romanticize the struggle. currently learning that i don't have to have everything figured out right now. just vibes, good music, and making sure my pixels look right. we move.
+            </p>
+        </section>
 
-    <h2>LISTEN / WATCH</h2>
-    <span class="caption">"This is a music video i made with my friends, go check it out!"</span>
-    <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/42wfEs7oIP8" allowfullscreen></iframe>
     </div>
 
-    <h2>JOURNAL</h2>
-    <p>
-        honestly, being 01% done is better than 00%. today was a mix of "we're so back" and "it's over," but i'm choosing to romanticize the struggle. currently learning that i don't have to have everything figured out right now. just vibes, good music, and making sure my pixels look right. we move.
-    </p>
-
-    <a href="https://instagram.com/sarangmokel" class="social-link" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
-        @sarangmokel
-    </a>
-
-    <div class="footer">
-        © 2025 kaiden
-    </div>
+    <footer>
+        <a href="https://instagram.com/sarangmokel" class="social-link" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG">
+            @sarangmokel
+        </a>
+        <p>© 2025 ITSKAIDEN — ALL RIGHTS RESERVED.</p>
+    </footer>
 
 </body>
 </html>
