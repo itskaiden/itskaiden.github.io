@@ -41,26 +41,27 @@
         }
 
         .playlist-grid {
-            display: flex; /* Biar sejajar ke samping */
-            overflow-x: auto; /* Bisa digeser */
+            display: flex; 
+            overflow-x: auto; 
             scroll-behavior: smooth;
-            gap: 15px; /*Jarak antar lagu */
-            margin bottom: 40px;
+            gap: 15px; 
             padding-bottom: 10px;
-            scrollbar-width: none; /* Sembunyiin bar di Firefox */
+            scrollbar-width: none; 
         }
 
-        .playlist-grid::-webkit-scrollbar { display: none; } /* Sembunyiin bar di Chrome/Safari */
+        .playlist-grid::-webkit-scrollbar { display: none; } 
         
         .album-link {
-            flex: 0 0 calc(25% - 12px); /*Tetap 4 kolom di layar lebar */ 
-            min-width: 140px; /*Biar di HP nggak kekecilan pas digeser */
-            text-decoration: none; display: block; transition: 0.3s; }
+            flex: 0 0 calc(25% - 12px); 
+            min-width: 140px; 
+            text-decoration: none; display: block; transition: 0.3s; 
+        }
         .album-card { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
         .album-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; transition: 0.4s; }
-        
+        .album-link:hover .album-card img { transform: scale(1.1); filter: brightness(0.6); }
+
         .album-title { 
-            font-size: 9px; /* Huruf kecil sesuai request */
+            font-size: 9px; 
             color: #777; 
             text-transform: uppercase; 
             letter-spacing: 1px; 
@@ -79,17 +80,13 @@
             opacity: 0.8;
         }
 
-        /* Panah Indikator */
-        .scroll-indicator {
+        .scroll-arrow {
             position: absolute;
             right: -10px;
             font-size: 1.2rem;
             color: #444;
             animation: bounce 2s infinite;
             pointer-events: none;
-            background: rgba(30,30,30,0.8);
-            padding: 5px;
-            border-radius: 50%;
         }
 
         @keyframes bounce {
@@ -98,7 +95,7 @@
             60% {transform: translateX(-5px);}
         }
 
-        /* --- SNAPSHOTS GRID 3 KOLOM --- */
+        /* --- SNAPSHOTS GRID --- */
         .snapshots-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); 
             gap: 15px; margin-bottom: 40px;
@@ -107,7 +104,6 @@
         .thumb-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
         .img-caption { padding: 10px; font-size: 0.7rem; color: #666; font-style: italic; }
 
-        /* VIDEO */
         .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; border: 1px solid #333; margin-bottom: 30px; }
         .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
@@ -143,40 +139,34 @@
         </section>
 
         <section id="playlist">
-    <h2>ON PLAYLIST</h2>
+            <h2>ON PLAYLIST</h2>
             <p class="playlist-notes">Tap covers to stream on Spotify!</p>
             <div class="playlist-wrapper">
                 <div class="playlist-grid">
-        <a href="https://open.spotify.com/track/0WNKKSvQmWcdoI7MvYtcqh?si=Yy12VEjOQRqlo9y877XkZw" class="album-link" target="_blank">
-            <div class="album-card"><img src="music1.jpg"></div>
-            <div class="album-title">The Earth is a Very Small Dot</div>
-        </a>
-        <a href="https://open.spotify.com/track/3nqqDo8CcCLke3ZoTgiOKf?si=ydtdunRLSYGqrtAapZxJWg" class="album-link" target="_blank">
-            <div class="album-card"><img src="music2.jpg"></div>
-            <div class="album-title">The Man Who Can’t Be Moved</div>
-        </a>
-        <a href="https://open.spotify.com/track/7uwo3VQxUlRtKudAjluuTr?si=Z4GXCwbdS9y62j7Z7uEP4A" class="album-link" target="_blank">
-            <div class="album-card"><img src="music3.jpg"></div>
-            <div class="album-title">Lampu Merah</div>
-        </a>
-        <a href="https://open.spotify.com/track/1qEmFfgcLObUfQm0j1W2CK?si=fcZD6eJ_Ssec3tu6d9g7mA" class="album-link" target="_blank">
-            <div class="album-card"><img src="music4.jpg"></div>
-            <div class="album-title">Late Night Talking</div>
-        </a>
-        <a href="https://open.spotify.com/track/70LcF31zb1H0PyJoS1Sx1r?si=qMs5wr2GRSWJEETjvVK4Cw" class="album-link" target="_blank">
-            <div class=album-card"><img src="music5.jpg"></div>
-            <div class="album-title">Creep</div>
-        </a>
-    </div>
-</<div class="scroll-arrow">→</div>
+                    <a href="https://open.spotify.com/track/0WNKKSvQmWcdoI7MvYtcqh?si=Yy12VEjOQRqlo9y877XkZw" class="album-link" target="_blank">
+                        <div class="album-card"><img src="music1.jpg"></div>
+                        <div class="album-title">The Earth is a Very Small Dot</div>
+                    </a>
+                    <a href="https://open.spotify.com/track/3nqqDo8CcCLke3ZoTgiOKf?si=ydtdunRLSYGqrtAapZxJWg" class="album-link" target="_blank">
+                        <div class="album-card"><img src="music2.jpg"></div>
+                        <div class="album-title">The Man Who Can’t Be Moved</div>
+                    </a>
+                    <a href="https://open.spotify.com/track/7uwo3VQxUlRtKudAjluuTr?si=Z4GXCwbdS9y62j7Z7uEP4A" class="album-link" target="_blank">
+                        <div class="album-card"><img src="music3.jpg"></div>
+                        <div class="album-title">Lampu Merah</div>
+                    </a>
+                    <a href="https://open.spotify.com/track/1qEmFfgcLObUfQm0j1W2CK?si=fcZD6eJ_Ssec3tu6d9g7mA" class="album-link" target="_blank">
+                        <div class="album-card"><img src="music4.jpg"></div>
+                        <div class="album-title">Late Night Talking</div>
+                    </a>
+                    <a href="https://open.spotify.com/track/70LcF31zb1H0PyJoS1Sx1r?si=qMs5wr2GRSWJEETjvVK4Cw" class="album-link" target="_blank">
+                        <div class="album-card"><img src="music5.jpg"></div>
+                        <div class="album-title">Creep</div>
+                    </a>
+                </div>
+                <div class="scroll-arrow">→</div>
             </div>
         </section>
-    </div>
-
-
-
-
-
     </div>
 
     <img src="profile3.jpg" class="banner-img">
