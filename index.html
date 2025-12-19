@@ -32,7 +32,24 @@
         }
         h2::before, h2::after { content: ""; flex: 1; height: 1px; background: #333; margin: 0 15px; }
 
-        /* --- PLAYLIST STYLING --- */
+        /* --- PLAYLIST SLIDER STYLE --- */
+        .playlist-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .playlist-grid {
+            display: flex; /* Biar sejajar ke samping */
+            overflow-x: auto; /* Bisa digeser */
+            scroll-behavior: smooth;
+            gap: 15px;
+            padding: 10px 0;
+            scrollbar-width: none; /* Sembunyiin bar di Firefox */
+        }
+
+        .playlist-grid::-webkit-scrollbar { display: none; } /* Sembunyiin bar di Chrome/Safari */
         .playlist-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); 
             gap: 15px; margin-bottom: 40px;
@@ -49,6 +66,36 @@
             letter-spacing: 1px; 
             margin-top: 10px; 
             line-height: 1.2;
+        }
+
+        .playlist-notes {
+            font-size: 0.6rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: -20px;
+            margin-bottom: 25px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* Panah Indikator */
+        .scroll-indicator {
+            position: absolute;
+            right: -10px;
+            font-size: 1.2rem;
+            color: #444;
+            animation: bounce 2s infinite;
+            pointer-events: none;
+            background: rgba(30,30,30,0.8);
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(0);}
+            40% {transform: translateX(-10px);}
+            60% {transform: translateX(-5px);}
         }
 
         /* --- SNAPSHOTS GRID 3 KOLOM --- */
@@ -97,7 +144,9 @@
 
         <section id="playlist">
     <h2>ON PLAYLIST</h2>
-    <div class="playlist-grid">
+            <p class="playlist-notes">Tap covers to stream on Spotify!</p>
+            <div class="playlist-wrapper">
+                <div class="playlist-grid">
         <a href="https://open.spotify.com/track/0WNKKSvQmWcdoI7MvYtcqh?si=Yy12VEjOQRqlo9y877XkZw" class="album-link" target="_blank">
             <div class="album-card"><img src="music1.jpg"></div>
             <div class="album-title">The Earth is a Very Small Dot</div>
@@ -115,7 +164,10 @@
             <div class="album-title">Late Night Talking</div>
         </a>
     </div>
-</section>
+</<div class="scroll-indicator">→</div>
+            </div>
+        </section>
+    </div>
 
 
 
