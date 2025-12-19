@@ -45,7 +45,7 @@
             overflow-x: auto; /* Bisa digeser */
             scroll-behavior: smooth;
             gap: 15px;
-            padding: 10px 0;
+            padding-bottom: 10px;
             scrollbar-width: none; /* Sembunyiin bar di Firefox */
         }
 
@@ -54,7 +54,10 @@
             display: grid; grid-template-columns: repeat(4, 1fr); 
             gap: 15px; margin-bottom: 40px;
         }
-        .album-link { text-decoration: none; display: block; transition: 0.3s; }
+        .album-link {
+            flex: 0 0 calc(25% - 12px); /*Tetap 4 kolom di layar lebar */ 
+            min-width: 140px; /*Biar di HP nggak kekecilan pas digeser */
+            text-decoration: none; display: block; transition: 0.3s; }
         .album-card { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #333; }
         .album-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; transition: 0.4s; }
         .album-link:hover .album-card img { transform: scale(1.1); filter: brightness(0.6); }
@@ -168,7 +171,7 @@
             <div class="album-title">Creep</div>
         </a>
     </div>
-</<div class="scroll-indicator">→</div>
+</<div class="scroll-arrow">→</div>
             </div>
         </section>
     </div>
