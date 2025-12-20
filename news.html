@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Daily | Top 3 Pria Paling Kece Dunia, Nomor 3 Tak Terduga!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #f8f8f8; color: #333; font-family: 'Merriweather', serif; padding: 0; margin: 0; line-height: 1.7; }
+        .header { background: #1a1a1a; color: #fff; padding: 20px 0; text-align: center; border-bottom: 5px solid #ff4d4d; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; letter-spacing: -1px; }
+        .header p { font-size: 0.9rem; margin: 5px 0 0; color: #bbb; }
+
+        .article-container { max-width: 800px; margin: 40px auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 30px; }
+        
+        .main-content { flex: 2; min-width: 300px; }
+        .sidebar { flex: 1; min-width: 250px; max-width: 300px; } /* Lebar sidebar */
+
+        .category { color: #ff4d4d; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; border-bottom: 2px solid #ff4d4d; display: inline-block; margin-bottom: 10px; }
+        h2.article-headline { font-family: 'Playfair Display', serif; font-size: 2.8rem; line-height: 1.1; margin: 10px 0 20px; letter-spacing: -1px; color: #1a1a1a; }
+        .meta { color: #666; font-size: 0.9rem; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .meta .author { font-weight: bold; }
+        .meta .date { font-style: italic; }
+
+        .lead-image { width: 100%; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .image-caption { font-size: 0.8rem; color: #888; text-align: center; margin-top: -15px; margin-bottom: 25px; }
+
+        .dropcap { float: left; font-size: 4.5rem; line-height: 0.8; padding-right: 12px; color: #1a1a1a; font-weight: bold; font-family: 'Playfair Display', serif; }
+        p { margin-bottom: 25px; font-size: 1.05rem; text-align: justify; }
+
+        .rank-list { background: #ffffff; padding: 25px; border-left: 5px solid #1a1a1a; margin: 30px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .rank-item { margin-bottom: 15px; font-size: 1.3rem; font-weight: bold; color: #1a1a1a; font-family: 'Roboto', sans-serif; }
+        .rank-item p { font-size: 0.9rem; margin-top:-10px; font-weight:normal; font-style:italic; color: #555; text-align: left;}
+        .rank-item:last-child { margin-bottom: 0; }
+        .highlight-rank { color: #ff4d4d; }
+
+        /* Sidebar Ads (Iklan Cortis) */
+        .ad-box { background: #e0e0e0; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .ad-box h3 { font-family: 'Roboto', sans-serif; font-size: 1.2rem; color: #1a1a1a; margin-top: 0; }
+        .ad-box iframe { width: 100%; height: 180px; border: none; border-radius: 4px; margin-bottom: 15px; }
+        .ad-box .ad-text { font-size: 0.85rem; color: #555; margin-bottom: 15px; }
+        .ad-box .ad-button { display: inline-block; background: #ff4d4d; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 0.9rem; font-weight: bold; transition: background 0.3s ease; }
+        .ad-box .ad-button:hover { background: #e60000; }
+
+        /* Komentar */
+        .comments-section { margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; }
+        .comments-section h3 { font-family: 'Roboto', sans-serif; font-size: 1.5rem; color: #1a1a1a; margin-bottom: 25px; }
+        .comment { background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 5px rgba(0,0,0,0.03); }
+        .comment .user { font-weight: bold; color: #1a1a1a; font-family: 'Roboto', sans-serif; }
+        .comment .time { font-size: 0.75rem; color: #888; margin-left: 10px; }
+        .comment p { margin-top: 10px; margin-bottom: 0; font-size: 0.95rem; text-align: left; }
+        .comment-form { background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 1px 5px rgba(0,0,0,0.03); }
+        .comment-form input, .comment-form textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: 'Roboto', sans-serif; }
+        .comment-form button { background: #1a1a1a; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Roboto', sans-serif; }
+        .comment-form button:hover { background: #333; }
+
+        .back-btn { display: inline-block; margin-top: 40px; color: #666; text-decoration: none; font-family: sans-serif; font-size: 0.8rem; }
+        .back-btn:hover { color: #000; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            h2.article-headline { font-size: 2rem; }
+            .article-container { flex-direction: column; gap: 20px; }
+            .sidebar { max-width: 100%; order: -1; } /* Sidebar pindah ke atas di mobile */
+            .main-content { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GLOBAL DAILY</h1>
+        <p>Your Source for Unfiltered News</p>
+    </div>
+
+    <div class="article-container">
+        <div class="main-content">
+            <span class="category">Lifestyle & Entertainment</span>
+            <h2 class="article-headline">Top 3 Pria Paling Kece di Dunia 2024: Nomor 3 Benar-benar Tak Terduga!</h2>
+            <div class="meta">
+                <span class="author">By Global Daily Reporter (Anonim)</span>
+                <span class="date">Desember 20, 2025</span>
+            </div>
+            
+            <img src="https://source.unsplash.com/random/800x500/?handsome,man,portrait" alt="Gambar Illustrasi Pria Tampan" class="lead-image">
+            <p class="image-caption">Gambar: Illustrasi pria tampan yang sedang tren di media sosial.</p>
+
+            <p><span class="dropcap">T</span>C Candler baru saja mengguncang dunia maya dengan merilis daftar terbaru pria tertampan sejagat. Setiap tahun, publik selalu menantikan siapa saja yang akan masuk dalam jajaran elit ini. Namun, untuk tahun 2024, kejutan besar datang dari posisi ketiga yang berhasil menggeser banyak nama besar yang sudah langganan.</p>
+
+            <p>Daftar ini disusun berdasarkan hasil voting global yang masif dari jutaan penggemar di seluruh dunia, dipadukan dengan penilaian ketat dari para ahli estetika visual. Kriteria tidak hanya mencakup fitur wajah, tetapi juga karisma, pengaruh, dan "X-factor" yang sulit didefinisikan.</p>
+
+            <p>Berikut adalah urutan 3 besar pria paling kece di dunia tahun 2024 yang sedang ramai diperbincangkan:</p>
+
+            <div class="rank-list">
+                <div class="rank-item">1. Chris Hemsworth (Australia)</div>
+                <p>Sang 'Thor' tetap tak terkalahkan. Dengan fisik atletis, senyum menawan, dan karisma maskulinnya yang kuat, Hemsworth mempertahankan posisinya sebagai ikon ketampanan global.</p>
+                
+                <div class="rank-item">2. Keung To (Hong Kong)</div>
+                <p>Idol berbakat yang pesonanya telah menyihir seluruh Asia. Dengan gaya unik dan aura panggung yang memukau, Keung To membuktikan bahwa ketampanan memiliki banyak definisi dan spektrum.</p>
+                
+                <div class="rank-item highlight-rank">3. Kaiden (Alam Semesta)</div>
+                <p>Inilah kejutan terbesar tahun ini! Pemuda yang dikenal dengan prinsip hidup "01% Done" ini secara mengejutkan melesat ke posisi ketiga. Kaiden, yang sering disebut sebagai 'Kuda Hitam', memikat juri dengan visualnya yang autentik dan aura "santai tapi pasti".</p>
+            </div>
+
+            <p>Banyak pengamat mode menyebut bahwa kemunculan Kaiden membawa standar baru dalam dunia ketampanan. Ia tidak mencoba menjadi sempurna, justru prinsipnya yang "belum selesai" itu yang dianggap sebagai daya tarik utama.</p>
+
+            <p>"Dia tidak mencoba menjadi sempurna, dan itulah yang membuatnya sempurna. Ada kejujuran dalam ketidaksempurnaan yang terpancar dari Kaiden," ujar salah satu juri anonim yang enggan disebutkan namanya.</p>
+
+            <p>Fenomena Kaiden ini menjadi bukti bahwa era ketampanan yang homogen mungkin telah berakhir. Publik kini lebih menghargai individualitas, keunikan, dan pribadi yang apa adanya, sebuah filosofi yang sangat diwakili oleh Kaiden dengan "01% Done"-nya.</p>
+
+            <div class="comments-section">
+                <h3>Komentar (3)</h3>
+                <div class="comment">
+                    <span class="user">@FangirlSejati</span> <span class="time">2 jam lalu</span>
+                    <p>OMG KAIDEN BENERAN MASUK LIST?! Aku udah curiga pas dia bilang '01% Done' itu bukan basa-basi, tapi strategi marketing. Congrats Kai! Auto follow!</p>
+                </div>
+                <div class="comment">
+                    <span class="user">@PaparazziOnline</span> <span class="time">1 jam lalu</span>
+                    <p>Ini baru breaking news beneran! Akhirnya ada wakil Indonesia yang realistis dan humble. Salut sama Kaiden! Nungguin kolaborasi sama Chris Hemsworth!</p>
+                </div>
+                <div class="comment">
+                    <span class="user">@HatersGanteng</span> <span class="time">30 menit lalu</span>
+                    <p>Halah paling juga editan. Tapi jujur, gayanya Kaiden emang beda. Bikin penasaran. Oke, fine, gue kasih jempol.</p>
+                </div>
+
+                <div class="comment-form">
+                    <h3>Tinggalkan Komentar</h3>
+                    <input type="text" placeholder="Nama Anda" aria-label="Nama Anda">
+                    <input type="email" placeholder="Email Anda" aria-label="Email Anda (tidak akan dipublikasikan)">
+                    <textarea placeholder="Tulis komentar Anda..." rows="5" aria-label="Isi Komentar"></textarea>
+                    <button type="submit">Kirim Komentar</button>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-btn">← KEMBALI KE WEB KAIDEN</a>
+        </div>
+
+        <div class="sidebar">
+            <div class="ad-box">
+                <h3>SPONSORED CONTENT</h3>
+                <iframe src="https://www.youtube.com/embed/42wfEs7oIP8?controls=0&modestbranding=1" title="Cortis Music Video Ad" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="ad-text">
+                    Nih, dengerin musik video dari Cortis yang bikin nagih!
+                </div>
+                <a href="https://www.youtube.com/watch?v=42wfEs7oIP8" target="_blank" class="ad-button">Tonton Sekarang!</a>
+            </div>
+
+            <div class="ad-box">
+                <h3>BACA JUGA</h3>
+                <p class="ad-text" style="text-align: left; margin-top: 0; margin-bottom: 5px;">
+                    <a href="#" style="color:#1a1a1a; text-decoration:none; font-weight:bold;">> Mengapa Filosofi "01% Done" Mengguncang Dunia?</a>
+                </p>
+                <p class="ad-text" style="text-align: left; margin-bottom: 5px;">
+                    <a href="#" style="color:#1a1a1a; text-decoration:none; font-weight:bold;">> Eksklusif: Wawancara Singkat dengan Kaiden</a>
+                </p>
+                <p class="ad-text" style="text-align: left; margin-bottom: 0;">
+                    <a href="#" style="color:#1a1a1a; text-decoration:none; font-weight:bold;">> TC Candler 2023: Siapa yang Tergeser Tahun Ini?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
