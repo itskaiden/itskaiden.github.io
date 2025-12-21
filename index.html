@@ -221,7 +221,7 @@
     
     <div style="text-align: center; margin-top: 30px;">
     <a href="love.html" class="secret-love-link">
-        (p.s. and a universe just for you) 💕
+        (p.s. and a universe just for you ♡ ) <span class="aesthetic-arrow">→</span>
     </a>
 </div>
 
@@ -236,16 +236,31 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: 1px;
-        transition: all 0.3s ease; /* Biar animasinya halus */
+        transition: all 0.3s ease;
         cursor: pointer;
+        position: relative;
+    }
+
+    .aesthetic-arrow {
+        display: inline-block;
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+        /* Warna panah ngikutin gradasi teks */
+        background: linear-gradient(45deg, #FFCCD1, #D4EDDA);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .secret-love-link:hover {
-        transform: scale(1.1); /* Teks membesar dikit pas disentuh */
-        text-shadow: 0px 0px 10px rgba(255, 204, 209, 0.5); /* Efek glowing pink */
-        border-bottom: 2px dashed #FFCCD1; /* Muncul garis bawah putus-putus */
+        transform: translateY(-3px); /* Naik dikit pas di-hover */
+        text-shadow: 0px 5px 15px rgba(255, 204, 209, 0.3);
+    }
+
+    .secret-love-link:hover .aesthetic-arrow {
+        transform: translateX(8px); /* Panahnya geser ke kanan pas di-hover */
     }
 </style>
+
 
         </section>
     </div>
