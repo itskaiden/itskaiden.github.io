@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Universe | For My One & Only</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=https://carrd.co/dashboard/7210176555699992/buildQuicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --pink-brave: #FFCCD1;
@@ -22,27 +22,13 @@
             margin: 0; padding: 0; line-height: 1.7; text-align: center;
         }
 
+        /* --- STYLE HERO & DEKORASI MAJALAH --- */
         .hero-section {
-            padding: 80px 20px 40px; /* Kurangin padding bawah biar lagu lebih depet */
+            padding: 80px 20px 40px;
             background: rgba(255, 255, 255, 0.7);
-            border-bottom: 2px solid var(--dark-pink);
+            border-bottom: 5px double var(--dark-pink);
             position: relative;
             overflow: hidden;
-        }
-
-        /* Pemutar Musik Custom di Atas */
-        .top-player {
-            margin: 30px auto;
-            max-width: 400px;
-            background: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 2px solid var(--pink-brave);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
         }
 
         h1 {
@@ -52,154 +38,159 @@
             margin: 0;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         }
+
         .subtitle {
             font-size: 1.2rem;
             color: var(--text-light);
-            margin-top: 15px;
+            margin-top: 10px;
             font-style: italic;
         }
 
+        /* --- SPOTIFY PLAYER --- */
+        .top-player {
+            margin: 30px auto;
+            max-width: 350px;
+            background: white;
+            padding: 15px;
+            border-radius: 30px;
+            border: 2px solid var(--pink-brave);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        /* --- GALERI FOTO AESTHETIC (6 FOTO LENGKAP) --- */
         .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
 
-        h2 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--dark-pink); margin: 60px 0 30px; }
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 50px;
+        }
 
-        /* Update Galeri biar kotak rabi */
-.photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Default 3 kolom di laptop */
-    gap: 10px;
-    margin-bottom: 50px;
-}
+        .gallery-item {
+            background: #ffffff; /* Tatakan putih request user */
+            border-radius: 20px; /* Rounded aesthetic */
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
 
-.gallery-item img {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* RUMUS KOTAK SEMPURNA */
-    object-fit: cover; /* Biar foto gak gepeng */
-    display: block;
-}
+        .gallery-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Kotak sempurna */
+            object-fit: cover;
+            display: block;
+        }
 
-/* Update khusus buat HP */
-@media (max-width: 768px) {
-    h1 { font-size: 2.8rem; }
-    
-    .photo-gallery { 
-        grid-template-columns: repeat(2, 1fr); /* 2 kolom di HP (total 3 baris) */
-        gap: 8px; 
-    }
-    
-        .gallery-item:hover { transform: translateY(-8px); }
         .gallery-caption {
-        font-size: 0.7rem; /* Kecilin caption biar gak menuhi kotak */
-        padding: 8px;
-    }
-}
+            padding: 15px 10px;
+            font-size: 0.75rem;
+            color: #666;
+            font-style: italic;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        /* Container artikel biar lebih clean */
-.special-article {
-    background: #ffffff;
-    padding: 30px 20px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    text-align: left;
-    margin-bottom: 50px;
-    border: 1px solid #f9f9f9;
-}
+        /* --- STYLE ARTIKEL / REPORT --- */
+        .special-article {
+            background: #ffffff;
+            padding: 40px 25px;
+            border-radius: 30px;
+            text-align: left;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
 
-/* Balikin font estetik buat judul laporan */
-.article-title {
-    font-family: 'Dancing Script', cursive; /* Balikin ke font latin estetik */
-    font-size: 2.2rem; /* Ukuran pas buat HP */
-    color: var(--dark-pink);
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .article-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 25px;
+            background: linear-gradient(transparent 70%, #ffebeb 0%);
+            display: inline-block;
+            width: 100%;
+        }
 
-/* Biar nama Sweeney Claire otomatis jadi PINK BOLD */
-.article-text strong {
-    color: var(--dark-pink);
-    font-weight: 700;
-}
+        .article-text strong {
+            color: var(--dark-pink);
+            font-weight: 700;
+        }
 
-
-/* Khusus buat HP biar makin rapi */
-@media (max-width: 768px) {
-    h1 { font-size: 3.2rem; } /* Judul utama sedikit dikecilin */
-    .article-title { font-size: 1.2rem; }
-    .special-article { padding: 25px 15px; }
-}
-
+        /* --- RESPONSIVE HP --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .article-title { font-size: 2.2rem; }
+            .photo-gallery { gap: 10px; }
+        }
 
         .secret-link {
             display: inline-block;
             margin-top: 30px;
-            padding: 12px 25px;
+            padding: 12px 35px;
             background: var(--dark-pink);
-            color: var(--soft-white);
+            color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: 0.3s ease;
         }
-        .secret-link:hover { transform: translateY(-3px); background: #B64343; }
 
-        footer { margin-top: 60px; padding: 40px 20px; border-top: 1px solid rgba(208, 83, 83, 0.3); color: var(--text-light); font-size: 0.8rem; }
+        footer { margin-top: 60px; padding: 40px 20px; border-top: 1px solid rgba(208,83,83,0.2); font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <div class="hero-section">
-    <div style="font-size: 1.5rem; margin-bottom: 10px;">🌸 ⚜️ 🌸</div>
-    <h1>My Universe</h1>
-    <p class="subtitle">A special corner dedicated to the one who makes my world brighter.</p>
-</div>
+        <div style="font-size: 1.8rem; margin-bottom: 10px;">🌸 ⚜️ 🌸</div>
+        <div style="font-family: serif; letter-spacing: 5px; font-size: 0.7rem; color: var(--dark-pink); margin-bottom: 15px; opacity: 0.8;">
+            — VOL. 01 — EDITION 2025 —
+        </div>
+        <h1>My Universe</h1>
+        <p class="subtitle">A special corner dedicated to the one who makes my world brighter.</p>
+        <div style="margin-top: 15px; color: var(--dark-pink); font-size: 1.5rem; opacity: 0.5;">❦</div>
+    </div>
 
-        
-        <div class="top-player" style="margin: 30px auto; max-width: 350px; background: white; padding: 15px; border-radius: 50px; border: 2px solid var(--pink-brave); box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-    <span style="font-size: 0.7rem; color: var(--dark-pink); font-weight: bold; letter-spacing: 2px; display: block; margin-bottom: 10px;">PRESS PLAY ON SPOTIFY ✨</span>
-    
-    <iframe style="border-radius:12px" 
-        src="https://open.spotify.com/track/47isJpIIO8m7BJEhiFhnaf?si=Cb3W8Tb8SJmThnl1oUNc4g" 
-        width="100%" 
-        height="80" 
-        frameBorder="0" 
-        allowfullscreen="" 
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-        loading="lazy">
-    </iframe>
-</div>
-
+    <div class="top-player">
+        <p style="font-size: 0.7rem; color: var(--dark-pink); font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;">PRESS PLAY FOR THE VIBES ✨</p>
+        <iframe style="border-radius:15px" 
+            src="https://open.spotify.com/embed/track/2S9Y9A8p0H9G9U6B" 
+            width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+        </iframe>
     </div>
 
     <div class="container">
-        <h2>Her Beautiful World</h2>
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--dark-pink);">Her Beautiful World</h2>
+        
         <div class="photo-gallery">
             <div class="gallery-item">
                 <img src="loml1.jpg">
-                <p class="gallery-caption">Every gaze feels like a favorite song on repeat.</p>
+                <div class="gallery-caption">Every gaze feels like a favorite song on repeat.</div>
             </div>
             <div class="gallery-item">
                 <img src="loml3.jpg">
-                <p class="gallery-caption">The only 'Breaking News' I'll ever care about.</p>
+                <div class="gallery-caption">The only 'Breaking News' I'll ever care about.</div>
             </div>
             <div class="gallery-item">
                 <img src="loml5.jpg">
-                <p class="gallery-caption">Which one is the cutest? Definitely not the Squirtle.</p>
+                <div class="gallery-caption">Which one is the cutest? Definitely not the Squirtle.</div>
             </div>
             <div class="gallery-item">
                 <img src="loml4.jpg">
-                <p class="gallery-caption">Even with eyes closed, you're the clearest vision I've ever had.</p>
+                <div class="gallery-caption">Even with eyes closed, you're the clearest vision I've ever had.</div>
             </div>
             <div class="gallery-item">
                 <img src="loml6.jpg">
-                <p class="gallery-caption">Just a beautiful girl in a beautiful world.</p>
+                <div class="gallery-caption">Just a beautiful girl in a beautiful world.</div>
             </div>
             <div class="gallery-item">
                 <img src="loml2.jpg">
-                <p class="gallery-caption">Every angle of you is my favorite one.</p>
+                <div class="gallery-caption">Every angle of you is my favorite one.</div>
             </div>
         </div>
 
-        <h2>A Little Something From My Heart</h2>
         <div class="special-article">
             <h3 class="article-title">The "Why You're My Universe" Report</h3>
             <p class="article-text">
@@ -214,13 +205,11 @@
         </div>
 
         <a href="#" class="secret-link">READ MORE ABOUT US →</a>
-        <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 15px;">(Or a super secret message just for you)</p>
-
         <a href="index.html" style="display: block; margin-top: 40px; color: var(--text-light); text-decoration: none; font-size: 0.8rem;">← Back to Kai's World</a>
     </div>
 
     <footer>
-        <p>&copy; 2025 — Kai's Universe. All Rights Reserved, especially for you.</p>
+        <p>© 2025 — Kai's Universe. All Rights Reserved, especially for <strong>Sweeney Claire</strong>.</p>
     </footer>
 
 </body>
