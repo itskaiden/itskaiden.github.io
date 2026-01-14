@@ -5,289 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TWILULIT | ITSKAIDEN</title>
     <style>
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 2000; 
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    align-items: center;
-    justify-content: center;
-    cursor: zoom-out;
-}
-
-.modal img {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-    animation: zoomIn 0.3s ease;
-}
-
-@keyframes zoomIn {
-    from {transform: scale(0.5); opacity: 0;}
-    to {transform: scale(1); opacity: 1;}
-}
-        <script>
-    function openModal(src) {
-        document.getElementById("photoModal").style.display = "flex";
-        document.getElementById("modalImg").src = src;
-    }
-
-    function closeModal() {
-        document.getElementById("photoModal").style.display = "none";
-    }
-</script>
-
-
         body {
-            background: #1e1e1e; color: #d1d1d1;     
+            background: #121212; color: #d1d1d1;     
             font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0; line-height: 1.6; text-align: center; 
+            margin: 0; padding: 0; line-height: 1.6; text-align: center;
+            overflow-x: hidden;
         }
 
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 8%; background: #181818; border-bottom: 1px solid #333;
+            padding: 15px 8%; background: #181818; border-bottom: 1px solid #333;
             position: sticky; top: 0; z-index: 1000;
         }
         .nav-links a { color: #888; text-decoration: none; font-size: 0.7rem; margin-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .hero { padding: 80px 20px 40px; background: #1e1e1e; }
-        .circle-tag { font-size: 0.6rem; color: #888; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        h1 { font-size: 3.5rem; margin: 0; color: #fff; letter-spacing: -2px; font-weight: 900; }
+        .hero { padding: 60px 20px 30px; }
+        .circle-tag { font-size: 0.6rem; color: #888; letter-spacing: 5px; text-transform: uppercase; display: block; }
+        h1 { font-size: 2.8rem; margin: 10px 0; color: #fff; letter-spacing: -1px; font-weight: 900; }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 0 15px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
 
         h2 {
-            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 4px;
-            color: #444; margin: 60px 0 30px; display: flex; align-items: center; justify-content: center;
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 3px;
+            color: #444; margin: 50px 0 25px; display: flex; align-items: center; justify-content: center;
         }
         h2::before, h2::after { content: ""; flex: 1; height: 1px; background: #222; margin: 0 15px; }
 
+        /* GRID ROSTER */
         .archive-grid {
             display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* FIX 3 KOLOM */
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px; 
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
+        .thumb-card { background: #181818; border: 1px solid #222; border-radius: 6px; overflow: hidden; }
+        .thumb-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; cursor: zoom-in; }
+        .member-info { padding: 8px 5px; }
+        .member-name { font-size: 0.55rem; color: #fff; font-weight: bold; text-transform: uppercase; }
 
-        .archive-card { 
-            background: #252525; 
-            border: 1px solid #333; 
-            border-radius: 8px; 
-            overflow: hidden;
-            transition: 0.3s;
+        /* MODAL */
+        .modal {
+            display: none; position: fixed; z-index: 2000; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            align-items: center; justify-content: center; cursor: pointer;
         }
+        .modal img { max-width: 90%; max-height: 85%; border-radius: 5px; animation: zoomIn 0.2s ease; }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        .archive-card img { 
-            width: 100%; 
-            aspect-ratio: 1/1; 
-            object-fit: cover; 
-            display: block;
-        }
-
-        .member-info {
-            padding: 8px 5px;
-            background: #252525;
-        }
-
-        .member-name { 
-            font-size: 0.65rem; 
-            color: #fff; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- WORDS SECTION --- */
-        .words-container { text-align: left; margin-bottom: 60px; }
-        .message-box { margin-bottom: 30px; padding-left: 15px; border-left: 1px solid #333; }
+        /* WORDS SECTION */
+        .words-container { text-align: left; margin-bottom: 50px; }
+        .message-box { margin-bottom: 25px; padding-left: 15px; border-left: 1px solid #333; }
         .message-to { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 5px; }
-        .message-text { font-size: 0.9rem; color: #aaa; font-weight: 300; }
+        .message-text { font-size: 0.85rem; color: #aaa; font-weight: 300; line-height: 1.8; }
 
-        footer { padding: 60px 20px; border-top: 1px solid #222; color: #444; font-size: 0.7rem; }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            .member-name { font-size: 0.55rem; } /* Kecilin dikit di HP biar gak kepotong */
-        }
+        /* SPECIAL CARDS */
+        .special-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 40px; }
+        .special-card { background: #181818; border: 1px solid #222; border-radius: 8px; overflow: hidden; }
+        .special-card img { width: 100%; display: block; cursor: zoom-in; }
+
+        footer { padding: 40px 0; color: #333; font-size: 0.6rem; letter-spacing: 1px; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight:900; letter-spacing:2px; color:#fff;">TWILULIT</div>
+        <div style="font-weight:900; letter-spacing:1px; color:#fff;">TWILULIT</div>
         <div class="nav-links">
             <a href="index.html">Main</a>
-            <a href="love.html">Universe</a>
+            <a href="universe.html">Universe</a>
         </div>
     </nav>
 
     <div class="hero">
         <span class="circle-tag">Chapter — 01</span>
         <h1>The Archive.</h1>
-        <p style="color:#555; font-size: 0.8rem; letter-spacing: 1px;">A collection of faces and memories.</p>
+        <p style="color:#444; font-size: 0.75rem;">A collection of faces and memories.</p>
     </div>
 
     <div class="container">
         
-        <section id="gallery">
-            <h2>THE ROSTER</h2>
-            <div class="archive-grid">
-                <div class="thumb-card"><img src="circle1.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">SUNNY 🌻</div></div></div>
-                <div class="thumb-card"><img src="circle2.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">MYRE 🍁</div></div></div>
-                <div class="thumb-card"><img src="circle3.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">MIUKA 🍄</div></div></div>
-                <div class="thumb-card"><img src="circle4.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">ALARA 🌼</div></div></div>
-                <div class="thumb-card"><img src="circle5.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">MECHI 🪷</div></div></div>
-                <div class="thumb-card"><img src="circle6.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; "><div class="member-info"><div class="member-name">ASYAHARU 🌱</div></div></div>
-                <div class="thumb-card"><img src="circle7.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">ALDO 🌿</div></div></div>
-                <div class="thumb-card"><img src="circle8.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">JOWENS 🌳</div></div></div>
-                <div class="thumb-card"><img src="circle9.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">ZIGGY 🌲</div></div></div>
-                <div class="thumb-card"><img src="circle10.jpg"
-                                            onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">JOVIE 🌵</div></div></div>
-                <div class="thumb-card"><img src="circle11.jpg"onclick="openModal( this.src ) "
-                                            style="cursor: zoom-in; ">
-                    <div class="member-info"><div class="member-name">ABIAN 🍀</div></div></div>
-            </div>
-        </section>
-                <h2 style="margin-top: 60px;">TWILULIT BOYS & GIRLS</h2>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 50px;">
-            
-            <div class="archive-card" style="border: 1px solid #444;">
-                <img src="twilulit1.jpg"> <div style="padding: 15px; background: #252525; text-align: center;">
-                    <div style="font-size: 0.85rem; color: #fff; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">
-                        Twilulit Boys
-                    </div>
-                </div>
-            </div>
-
-            <div class="archive-card" style="border: 1px solid #444;">
-                <img src="twilulit2.jpg"> <div style="padding: 15px; background: #252525; text-align: center;">
-                    <div style="font-size: 0.85rem; color: #fff; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">
-                        Twilulit Girls
-                    </div>
-                </div>
-            </div>
-
+        <h2>THE ROSTER</h2>
+        <div class="archive-grid">
+            <div class="thumb-card"><img src="circle1.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">SUNNY 🌻</div></div></div>
+            <div class="thumb-card"><img src="circle2.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">MYRE 🍁</div></div></div>
+            <div class="thumb-card"><img src="circle3.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">MIUKA 🍄</div></div></div>
+            <div class="thumb-card"><img src="circle4.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">ALARA 🌼</div></div></div>
+            <div class="thumb-card"><img src="circle5.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">MECHI 🪷</div></div></div>
+            <div class="thumb-card"><img src="circle6.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">ASYAHARU 🌱</div></div></div>
+            <div class="thumb-card"><img src="circle7.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">ALDO 🌿</div></div></div>
+            <div class="thumb-card"><img src="circle8.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">JOWENS 🌳</div></div></div>
+            <div class="thumb-card"><img src="circle9.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">ZIGGY 🌲</div></div></div>
+            <div class="thumb-card"><img src="circle10.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">JOVIE 🌵</div></div></div>
+            <div class="thumb-card"><img src="circle11.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">ABIAN 🍀</div></div></div>
         </div>
-                <h2 style="margin-top: 80px;">OUR FIRST MILESTONE</h2>
-        <div style="margin-bottom: 50px;">
-            <div class="archive-card" style="border: 1px solid #444; max-width: 600px; margin: 0 auto; background: #252525; border-radius: 8px; overflow: hidden;">
-                <img src="mensive_1.jpg" style="width: 100%; display: block;"> 
-                <div style="padding: 20px;">
-                    <div style="font-size: 0.9rem; color: #fff; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">
-                        Satu Bulan Twilulit Bersama
-                    </div>
-                    <p style="font-size: 0.75rem; color: #666; margin-top: 10px; font-style: italic;">
-                        "Setengah tahun yang lalu, di mana langkah ini baru saja dimulai."
-                    </p>
-                </div>
+
+        <h2>BOYS & GIRLS</h2>
+        <div class="special-grid">
+            <div class="special-card"><img src="twilulit1.jpg" onclick="openModal(this.src)"><div style="padding: 10px; font-size: 0.55rem; color:#fff;">TWILULIT BOYS</div></div>
+            <div class="special-card"><img src="twilulit2.jpg" onclick="openModal(this.src)"><div style="padding: 10px; font-size: 0.55rem; color:#fff;">TWILULIT GIRLS</div></div>
+        </div>
+
+        <h2>DARI HATI</h2>
+        <div class="words-container">
+            <div class="message-box">
+                <span class="message-to">FOR ALL OF YOU</span>
+                <p class="message-text">
+                    Sebelas kepala, satu frekuensi. Terima kasih ya udah jadi warna paling terang di perjalanan "01% Done" gua. Tanpa kalian, mungkin gua engga akan pernah paham rasanya didukung dan dihargai se-tulus ini. 
+                </p>
+            </div>
+            <div class="message-box">
+                <span class="message-to">ABOUT US</span>
+                <p class="message-text">
+                    Dari obrolan random sampai mimpi-mimpi besar, dari tawa yang paling berisik sampai support yang paling sunyi. Semua foto di atas adalah bukti kalau kita saling melengkapi di tengah dunia yang makin chaos.
+                </p>
             </div>
         </div>
 
-        <h2 style="margin-top: 80px;">FLASHBACK: 1st MENSIVE NOTES</h2>
-        <div style="background: #252525; border: 1px solid #333; border-radius: 15px; padding: 40px 25px; text-align: left; margin-bottom: 60px;">
-            <span style="font-size: 0.6rem; color: #ff4d4d; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 25px;">
-                ● A Letter from Seven Months Ago
-            </span>
-            
-            <div style="color: #bbb; font-size: 0.95rem; line-height: 2.2; font-weight: 300;">
-                Ngeliat foto ini rasanya kayak baru kemarin. Padahal udah setengah tahun berlalu sejak kita ngerayain satu bulan pertama di Twilulit.
-
-                Waktu itu kita masih belum saling kenal sedalam sekarang, masih banyak canggungnya, tapi semangatnya luar biasa wkwk. Kita cuma sebelas orang yang engga sengaja dipertemukan, tapi ternyata Tuhan punya rencana yang lebih indah buat kita semua.
-
-                Mensive pertama itu bukan cuma soal perayaan, tapi soal janji kalau kita bakal terus bareng-bareng. Dan liat kita sekarang—setengah tahun kemudian—kita masih di sini, masih solid, dan masih punya frekuensi yang sama.
-
-                Terima kasih ya udah bertahan sejauh ini. Terima kasih karena ga pernah membiarkan grup ini sepi dari tawa. Twilulit bukan sekadar nama, tapi rumah yang kita bangun bareng-bareng di tengah hiruk-pikuk dunia.
-
-                Mari terus berjalan, satu langkah kecil setiap kalinya.
-            </div>
-
-            <div style="margin-top: 35px; padding-top: 20px; border-top: 1px solid #333; font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 1px; text-align: right;">
-                Written with love — For Twilulit Archive
+        <h2>MILESTONE</h2>
+        <div class="special-card" style="margin-bottom: 40px;">
+            <img src="mensive_1.jpg" onclick="openModal(this.src)">
+            <div style="padding: 20px; text-align: left;">
+                <span style="font-size: 0.5rem; color:#ff4d4d; letter-spacing: 2px; display: block; margin-bottom: 10px;">● 1ST MENSIVE NOTES</span>
+                <p style="font-size: 0.85rem; color: #888; margin: 0;">Ngeliat foto ini rasanya kayak baru kemarin. Padahal udah setengah tahun berlalu sejak kita ngerayain satu bulan pertama di Twilulit. Mari terus jalan bareng-bareng.</p>
             </div>
         </div>
 
-        <section id="words">
-            <h2>DARI HATI</h2>
-            <div class="words-container">
-                <div class="message-box">
-                    <span class="message-to">FOR ALL OF YOU</span>
-                    <p class="message-text">
-                        Sebelas kepala, satu frekuensi. Terima kasih ya udah jadi warna paling terang di perjalanan "01% Done" gua. Tanpa kalian, mungkin gua engga akan pernah paham rasanya didukung dan dihargai se-tulus ini. 
-                    </p>
-                </div>
-                <div class="message-box">
-                    <span class="message-to">ABOUT US</span>
-                    <p class="message-text">
-                        Dari obrolan random sampai mimpi-mimpi besar, dari tawa yang paling berisik sampai support yang paling sunyi. Semua foto di atas adalah bukti kalau kita saling melengkapi di tengah dunia yang makin chaos. Kalian selalu punya cara buat bikin dunia yang berisik ini jadi lebih masuk akal. Sebelas nyawa, satu cerita—gua bangga punya kalian semua.
-                    </p>
-                </div>
-                <div class="message-box">
-                    <span class="message-to">THE VISION</span>
-                    <p class="message-text">
-                        Semoga halaman ini jadi saksi kalau kita pernah sedekat ini. Apapun yang terjadi di masa depan nanti, jangan pernah lupa kalau kita pernah berjuang bareng-bareng di sini.
-                    </p>
-                </div>
+        <h2>NOTES</h2>
+        <div class="words-container">
+            <div class="message-box">
+                <span class="message-to">from: Kaiden.</span>
+                <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat diingat nanti.</p>
             </div>
-        </section>
+        </div>
 
-
-        <section id="words">
-            <h2>NOTES</h2>
-            <div class="words-container">
-                <div class="message-box">
-                    <span class="message-to">from: Kaiden.</span>
-                    <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat diingat nanti.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <a href="index.html" style="color: #666; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px;">← BACK TO KAI'S WORLD</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-size: 0.6rem; letter-spacing: 2px; display: block; margin: 50px 0;">← BACK TO KAI'S WORLD</a>
     </div>
 
-    <footer>
-        <p>© 2025 — THE TWILULIT.</p>
-    </footer>
+    <footer>© 2025 — THE TWILULIT ARCHIVE.</footer>
 
     <div id="photoModal" class="modal" onclick="closeModal()">
-    <img id="modalImg">
-</div>
+        <img id="modalImg">
+    </div>
 
-
+    <script>
+        function openModal(src) {
+            document.getElementById("photoModal").style.display = "flex";
+            document.getElementById("modalImg").src = src;
+        }
+        function closeModal() {
+            document.getElementById("photoModal").style.display = "none";
+        }
+    </script>
 </body>
 </html>
