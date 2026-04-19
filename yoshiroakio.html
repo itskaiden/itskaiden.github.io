@@ -93,6 +93,16 @@
     </style>
 </head>
 <body>
+    /* Bikin efek fade in pas web dibuka */
+.container {
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
     <div class="floating-clover leaf1">☘</div>
 <div class="floating-clover leaf2">☘</div>
 <div class="floating-clover leaf3">☘</div>
@@ -155,11 +165,57 @@
             <p style="font-size: 0.9rem; line-height: 2; color: #666; font-style: italic;">
                 Aku ga pinter ngerangkai kata-kata secara langsung, makanya aku bikin web ini. Aku pengen kamu tau kalau di dunia yang kadang berisik dan bikin capek ini, ada aku yang selalu kagum sama kehadiran kamu mut. <br><br>
                 
-                Kamu itu kayak semanggi berdaun empat di tengah padang rumput yang luas. Susah dicari, tapi sekali ketemu, aku ngerasa jadi orang paling beruntung. Makasih ya udah jadi diri kamu sendiri, makasih udah ngebiarin alu jadi bagian dari hari-hari kamu. <br><br>
+                Kamu itu kayak semanggi berdaun empat di tengah padang rumput yang luas. Susah dicari, tapi sekali ketemu, aku ngerasa jadi orang paling beruntung. Makasih ya udah jadi diri kamu sendiri, makasih udah ngebiarin aku jadi bagian dari hari-hari kamu. <br><br>
                 
                 Gak perlu buru-buru, aku bakal tetep di sini, di frekuensi yang sama, nungguin semua cerita kamu selanjutnya. <i>You are more than enough, always.</i>
             </p>
         </div>
+
+                <h2>THE JOURNEY</h2>
+        <div style="position: relative; padding: 20px 0; margin-bottom: 50px;">
+            <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(127, 182, 133, 0.2); transform: translateX(-50%);"></div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div style="width: 45%; text-align: right;">
+                    <div style="font-size: 0.65rem; color: #7fb685; font-weight: bold;">DATE ONE</div>
+                    <p style="font-size: 0.75rem; color: #666; margin: 5px 0;">Hari pertama kita kenal / ngobrol lama.</p>
+                </div>
+                <div style="width: 10px; height: 10px; background: #7fb685; border-radius: 50%; z-index: 1;"></div>
+                <div style="width: 45%;"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div style="width: 45%;"></div>
+                <div style="width: 10px; height: 10px; background: #7fb685; border-radius: 50%; z-index: 1;"></div>
+                <div style="width: 45%; text-align: left;">
+                    <div style="font-size: 0.65rem; color: #7fb685; font-weight: bold;">THE MOMENT</div>
+                    <p style="font-size: 0.75rem; color: #666; margin: 5px 0;">Pas aku sadar kalau kamu itu beda dari yang lain.</p>
+                </div>
+            </div>
+        </div>
+
+                <div style="background: #ffffff; border-radius: 20px; padding: 30px; margin-bottom: 50px; border: 1px dashed #7fb685;">
+            <h3 style="font-size: 0.8rem; color: #7fb685; letter-spacing: 2px; margin-bottom: 20px;">OUR BUCKET LIST</h3>
+            <div style="text-align: left; font-size: 0.85rem; color: #666;">
+                <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                    <input type="checkbox" checked disabled style="margin-right: 10px;"> 
+                    <span>Kenalan lebih jauh sama kamu.</span>
+                </div>
+                <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                    <input type="checkbox" disabled style="margin-right: 10px;"> 
+                    <span>Ngurus Marmut sampai gede.</span>
+                </div>
+                <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                    <input type="checkbox" disabled style="margin-right: 10px;"> 
+                    <span>Ngobrol random sampai lupa waktu.</span>
+                </div>
+                <div style="margin-bottom: 0; display: flex; align-items: center;">
+                    <input type="checkbox" disabled style="margin-right: 10px;"> 
+                    <span>Bikin lebih banyak memori bareng.</span>
+                </div>
+            </div>
+        </div>
+
 
         <div style="text-align: center; margin: 50px 0;">
             <button class="btn-clover" onclick="showSurprise()">Click for a Lucky Charm!</button>
