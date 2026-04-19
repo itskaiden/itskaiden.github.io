@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You — Clover of My Life</title>
+    <style>
+        /* FONT & DASAR */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@600&display=swap');
+
+        body {
+            background-color: #f0f7f4; /* Hijau super soft */
+            color: #4a5d4e;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            /* BACKGROUND DAUN SEMANGGI BAYANGAN */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 15c-2-4-8-4-8 0 0 4 6 8 8 10 2-2 8-6 8-10 0-4-6-4-8 0zm0 30c2 4 8 4 8 0 0-4-6-8-8-10-2 2-8 6-8 10 0 4 6 4 8 0zm-15-15c-4 2-4 8 0 8 4 0 8-6 10-8-2-2-6-8-10-8-4 0-4 6 0 8zm30 0c4-2 4-8 0-8-4 0-8 6-10 8 2 2 6 8 10 8 4 0 4-6 0-8z' fill='%237fb685' fill-opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; position: relative; }
+
+        /* HEADER */
+        header { text-align: center; margin-bottom: 50px; }
+        .clover-icon { font-size: 3rem; color: #7fb685; animation: sway 3s infinite ease-in-out; display: inline-block; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin: 10px 0; color: #5a7d61; }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        /* PHOTO GALLERY */
+        .photo-frame {
+            background: white; padding: 15px;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: rotate(-2deg);
+            margin-bottom: 40px;
+        }
+        .photo-frame img { width: 100%; border-radius: 2px; display: block; }
+        .photo-caption { font-family: 'Dancing Script', cursive; padding-top: 15px; font-size: 1.2rem; text-align: center; }
+
+        /* MESSAGES */
+        .message-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(127, 182, 133, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .message-card h3 { font-size: 0.9rem; letter-spacing: 2px; color: #7fb685; text-transform: uppercase; margin-bottom: 15px; }
+        .message-card p { font-size: 1rem; line-height: 1.8; color: #555; font-weight: 300; }
+
+        /* INTERACTIVE LIST */
+        .reasons-list { list-style: none; padding: 0; }
+        .reasons-list li {
+            background: #fff; margin-bottom: 10px; padding: 15px;
+            border-radius: 12px; border-left: 4px solid #7fb685;
+            font-size: 0.9rem; transition: 0.3s;
+        }
+        .reasons-list li:hover { transform: scale(1.02); background: #f9fdfa; }
+
+        /* FOOTER */
+        footer { text-align: center; margin-top: 60px; padding: 40px 0; color: #99af9e; font-size: 0.8rem; }
+        
+        /* TOMBOL SURPRISE */
+        .btn-clover {
+            background: #7fb685; color: white; border: none;
+            padding: 15px 30px; border-radius: 50px;
+            font-family: 'Quicksand', sans-serif; font-weight: 700;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(127, 182, 133, 0.4);
+        }
+        .btn-clover:hover { background: #6a9b70; transform: translateY(-3px); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="clover-icon">☘</div>
+            <h1>Lucky to know you.</h1>
+            <p style="font-size: 0.8rem; color: #88a08d;">Finding you was like finding a four-leaf clover.</p>
+        </header>
+
+        <div class="photo-frame">
+            <img src="yoshiro1.jpg" alt="His smile">
+            <div class="photo-caption">The prettiest view in my world.</div>
+        </div>
+
+        <section class="message-card">
+            <h3>A Little Note</h3>
+            <p>
+                Kadang aku mikir, kok bisa ya semesta baik banget ngenalin aku sama orang kayak kamu mut? Web ini cuma tempat kecil buat aku bilang kalau kehadiran kamu itu bikin adem banget, kayak duduk di bawah pohon pas cuaca lagi panas-panasnya.
+            </p>
+        </section>
+
+        <h2>WHY YOU?</h2>
+        <ul class="reasons-list">
+            <li>🍀 Kamu punya cara unik buat bikin orang lain nyaman.</li>
+            <li>🍀 Lelucon kamu itu <i>healing</i> banget buat gue.</li>
+            <li>🍀 Karena cuma sama kamu, aku bisa jadi diri aku sendiri.</li>
+        </ul>
+
+        <div style="text-align: center; margin: 50px 0;">
+            <button class="btn-clover" onclick="showSurprise()">Click for a Lucky Charm!</button>
+            <p id="surprise-text" style="margin-top: 20px; font-weight: 700; color: #5a7d61; display: none;">
+                "I hope your day is as wonderful as you are! 💚"
+            </p>
+        </div>
+
+        <footer>
+            Built with luck & love — By Kaiden Einstein.
+        </footer>
+    </div>
+
+    <script>
+        function showSurprise() {
+            const text = document.getElementById('surprise-text');
+            text.style.display = 'block';
+            text.style.animation = 'zoomIn 0.5s ease';
+            
+            // Tambahin efek konfeti warna hijau (opsional kalau mau nambah script lagi)
+            alert("Congratulations! You found the 4th leaf: Me! wkwk");
+        }
+    </script>
+
+</body>
+</html>
