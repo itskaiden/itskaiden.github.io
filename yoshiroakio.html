@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You — Clover of My Life</title>
     <style>
+        /* Animasi daun kecil terbang di pojok-pojok */
+.floating-clover {
+    position: fixed;
+    font-size: 1.5rem;
+    color: rgba(127, 182, 133, 0.2);
+    z-index: -1;
+    user-select: none;
+}
+
+/* Atur posisi daun-daunnya */
+.leaf1 { top: 10%; left: 5%; animation: sway 4s infinite; }
+.leaf2 { top: 70%; right: 10%; animation: sway 5s reverse infinite; }
+.leaf3 { bottom: 20%; left: 15%; animation: sway 3s infinite; }
+
         /* FONT & DASAR */
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Dancing+Script:wght@600&display=swap');
 
@@ -79,6 +93,10 @@
     </style>
 </head>
 <body>
+    <div class="floating-clover leaf1">☘</div>
+<div class="floating-clover leaf2">☘</div>
+<div class="floating-clover leaf3">☘</div>
+
 
     <div class="container">
         <header>
@@ -99,12 +117,49 @@
             </p>
         </section>
 
-        <h2>WHY YOU?</h2>
+                <h2>THE LITTLE THINGS</h2>
+        <p style="font-size: 0.75rem; color: #88a08d; margin-top: -20px; margin-bottom: 30px;">(Hal-hal kecil yang mungkin kamu ga sadar, tapi aku suka)</p>
         <ul class="reasons-list">
-            <li>🍀 Kamu punya cara unik buat bikin orang lain nyaman.</li>
-            <li>🍀 Lelucon kamu itu <i>healing</i> banget buat aku.</li>
-            <li>🍀 Karena cuma sama kamu, aku bisa jadi diri aku sendiri.</li>
+            <li>🍀 <b>Your Kindness:</b> Cara kamu memperlakukan orang lain selalu bikin aku kagum.</li>
+            <li>🍀 <b>The Way You Talk:</b> Aku bisa dengerin kamu cerita berjam-jam tanpa bosen.</li>
+            <li>🍀 <b>Small Support:</b> Makasih ya udah selalu ada, bahkan di hal paling sepele sekalipun.</li>
+            <li>🍀 <b>The Vibes:</b> Deket kamu itu rasanya tenang, kayak rumah yang ga perlu aku cari lagi.</li>
+            <li>🍀 <b>Your Smile:</b> <i>Standard</i> sih, tapi beneran, itu pelangi aku setelah ujan.</li>
         </ul>
+
+                <h2>A MELODY FOR YOU</h2>
+        <div style="background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(127, 182, 133, 0.3); border-radius: 15px; padding: 25px; margin-bottom: 50px; text-align: left;">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                    <span style="color: #5a7d61; font-size: 1.2rem;">♫</span>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: #5a7d61; font-weight: bold;">Something About You</div>
+                    <div style="font-size: 0.6rem; color: #88a08d; text-transform: uppercase;">Curated for My Favorite Person</div>
+                </div>
+            </div>
+            
+            <div style="font-size: 0.75rem; color: #5a7d61;">
+                <div style="padding: 8px 0; border-bottom: 1px solid rgba(127, 182, 133, 0.1);">1. Dari Planet Lain — Sal Priadi</div>
+                <div style="padding: 8px 0; border-bottom: 1px solid rgba(127, 182, 133, 0.1);">2. Perfect — Ed Sheeran</div>
+                <div style="padding: 8px 0; border-bottom: 1px solid rgba(127, 182, 133, 0.1);">3. Untukkmu — Raisa</div>
+                <div style="padding: 8px 0;">4. Simply The Best — Billianne</div>
+            </div>
+        </div>
+
+                <h2>DEAR YOU,</h2>
+        <div class="message-card" style="background: white; border-radius: 30px 5px 30px 5px;">
+            <p style="font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #5a7d61; margin-bottom: 20px;">
+                "To the person who's reading this..."
+            </p>
+            <p style="font-size: 0.9rem; line-height: 2; color: #666; font-style: italic;">
+                Aku ga pinter ngerangkai kata-kata secara langsung, makanya aku bikin web ini. Aku pengen kamu tau kalau di dunia yang kadang berisik dan bikin capek ini, ada aku yang selalu kagum sama kehadiran kamu mut. <br><br>
+                
+                Kamu itu kayak semanggi berdaun empat di tengah padang rumput yang luas. Susah dicari, tapi sekali ketemu, aku ngerasa jadi orang paling beruntung. Makasih ya udah jadi diri kamu sendiri, makasih udah ngebiarin alu jadi bagian dari hari-hari kamu. <br><br>
+                
+                Gak perlu buru-buru, aku bakal tetep di sini, di frekuensi yang sama, nungguin semua cerita kamu selanjutnya. <i>You are more than enough, always.</i>
+            </p>
+        </div>
 
         <div style="text-align: center; margin: 50px 0;">
             <button class="btn-clover" onclick="showSurprise()">Click for a Lucky Charm!</button>
