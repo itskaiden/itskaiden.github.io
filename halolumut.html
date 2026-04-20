@@ -5,23 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf.</title>
     <style>
-    /* PANGGIL FONT SAMBUNG DI SINI JIKA BELUM ADA */
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
-        
-                /* Font Ala iPhone (San Francisco Style) */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        /* Font Ala iPhone */
         .aesthetic-font {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             letter-spacing: -0.02em;
         }
 
+        body {
+            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
+            color: #d1d9d1;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; 
+            padding: 40px 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .confession-card {
+            max-width: 400px; 
+            width: 85%;
+            background: rgba(30, 41, 32, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(121, 134, 116, 0.3);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
         .photo-frame {
             width: 100%;
             border-radius: 15px;
-            margin-bottom: 25px;
-            filter: grayscale(20%) contrast(90%); /* Efek agak pudar biar aesthetic */
+            filter: grayscale(20%) contrast(90%);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-style: italic; 
+            font-size: 1.8rem;
+            color: #a8bfa1; 
+            margin: 25px 0 15px 0; 
+            letter-spacing: 1px;
         }
 
         .long-message {
@@ -29,122 +63,62 @@
             line-height: 2;
             color: #d1d9d1;
             text-align: justify;
-            margin: 30px 0;
+            margin: 25px 0;
             font-style: italic;
             border-left: 2px solid #bfa58a;
             padding-left: 15px;
         }
 
-            .ps-text {
-    font-size: 0.65rem;
-    color: #bfa58a; /* Warna coklat soft yang lo mau */
-    margin-top: 25px; /* Kasih jarak dari tombol */
-    font-style: italic;
-    opacity: 0.7;
-    display: block; /* Pastiin ini block biar langsung muncul */
-}
-
-
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
-
-                body {
-            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
-            color: #d1d9d1;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0; 
-            padding: 20px 0; /* Tambah jarak atas bawah */
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            min-height: 100vh; /* Pake min-height biar fleksibel */
-            overflow-y: auto; /* Biar bisa di-scroll kalau kepanjangan */
-            position: relative;
-        }
-
-        .confession-card {
-            max-width: 400px; 
-            width: 85%; /* Biar gak mentok banget ke pinggir HP */
-            background: rgba(30, 41, 32, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(121, 134, 116, 0.3);
-            padding: 30px; /* Kurangi dikit padding buat layar kecil */
-            border-radius: 20px;
-            text-align: center; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative; 
-            z-index: 10;
-            margin: auto; /* Biar bener-bener di tengah */
-        }
-
-        h1 {
-            font-family: 'Crimson Text', serif;
-            font-style: italic; 
-            font-size: 1.8rem; /* Kecilin dikit buat HP */
-            color: #a8bfa1; 
-            margin-bottom: 15px; 
-            letter-spacing: 1px;
-        }
-
         p {
-            font-size: 0.85rem; /* Kecilin dikit biar gak menuhin layar */
+            font-size: 0.85rem;
             line-height: 1.6;
             color: #9cad9c; 
-            font-weight: 300; 
             margin-bottom: 25px;
         }
 
-
         .highlight { color: #bfa58a; font-weight: 500; }
 
-        .btn-group { display: flex; gap: 15px; justify-content: center; position: relative; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; margin-bottom: 15px; }
 
         .btn {
-            padding: 12px 30px; border-radius: 5px;
-            font-size: 0.8rem; font-weight: bold; cursor: pointer;
+            padding: 12px 25px; border-radius: 5px;
+            font-size: 0.75rem; font-weight: bold; cursor: pointer;
             transition: 0.4s; border: none; text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
-        .btn-yes {
-            background: #4e634f; color: white;
-            box-shadow: 0 5px 15px rgba(78, 99, 79, 0.3);
+        .btn-yes { background: #4e634f; color: white; }
+
+        .btn-no { background: transparent; color: #777; border: 1px solid #444; }
+
+        .ps-text {
+            font-size: 0.65rem;
+            color: #bfa58a;
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 30px;
         }
 
-        .btn-no {
-            background: transparent; color: #555;
-            border: 1px solid #333;
-            position: relative;
+        .cursive-note {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: #a8bfa1;
+            margin: 15px 0;
+            font-style: italic;
         }
 
         .footer-note {
-            margin-top: 40px; font-size: 0.6rem;
-            color: #4a5d4e; letter-spacing: 3px;
+            font-size: 0.55rem;
+            color: #4a5d4e; 
+            letter-spacing: 3px;
+            margin-top: 20px;
         }
-        /* CSS BUAT KATA-KATA SAMBUNG */
-    .cursive-note {
-        font-family: 'Dancing Script', cursive;
-        font-size: 1.3rem; /* Sesuaikan ukurannya biar pas di HP */
-        color: #a8bfa1; /* Hijau sage soft senada sama judul */
-        margin-top: 5px;
-        margin-bottom: 25px;
-        font-style: italic;
-        letter-spacing: 0.5px;
-    }
     </style>
 </head>
 <body>
 
-        <div class="confession-card">
+    <div class="confession-card">
         <img src="URL_FOTO_YOSHIRO_1" alt="Him" class="photo-frame">
-
-                    <img src="URL_FOTO_KITA_2" alt="Us" class="photo-frame" style="margin-top: 40px; margin-bottom: 5px;">
-
-        <div class="cursive-note">
-            "Till the last leaf falls, I’ll be here with you. ♡"
-        </div>
-
-        <div class="footer-note">PRIVATE ARCHIVE — FOR HIM ONLY.</div>
-    </div>
 
         <h1>Petrichor & You</h1>
 
@@ -154,54 +128,54 @@
             You are the personification of a quiet morning after a heavy storm; calming, grounding, and breathtakingly beautiful. Kehadiranmu bukan sekadar kebetulan, melainkan takdir yang paling aku syukuri. <span class="highlight">I admire the way you exist</span>, cara kamu bicara, dan caramu melihat dunia. Bagiku, keindahanmu melampaui kata-kata, as if every star in the sky aligned just to light up your path to me. Terima kasih sudah menjadi bagian paling indah dari ceritaku."
         </div>
 
-        <p>
-            So, <span class="highlight">Yoshiro Akio</span>, would you let me be the one who walks beside you?
-        </p>
+        <p>So, <span class="highlight">Yoshiro Akio</span>, would you let me be the one who walks beside you?</p>
 
         <div class="btn-group">
             <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
                 <input type="text" name="Jawaban_Yoshiro" value="YES, I WILL! ☘️">
             </form>
-
             <button class="btn btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
         </div>
 
         <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
 
-        <img src="URL_FOTO_KITA_2" alt="Us" class="photo-frame" style="margin-top: 40px; margin-bottom: 10px;">
+        <div id="finalMessage" style="display:none; margin: 20px 0; font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.1rem;">
+            "This is the best day of my life. <br> I'll see you soon, Yoshiro. ♡"
+        </div>
+
+        <img src="URL_FOTO_KITA_2" alt="Us" class="photo-frame">
+
+        <div class="cursive-note">
+            "Till the last leaf falls, I’ll be here with you. ♡"
+        </div>
 
         <div class="footer-note">PRIVATE ARCHIVE — FOR HIM ONLY.</div>
     </div>
 
-
-        <script>
+    <script>
         function moveButton() {
-    const btn = document.getElementById('noBtn');
-    const jail = document.getElementById('jailText');
-    
-    // Ganti tulisan pas dia berusaha ngeklik "Not Now"
-    if(jail) {
-        jail.innerText = "p.s: dibilang jangan dipencet masih aja bandel! :p";
-        jail.style.color = "#d1d9d1"; // Ganti warna dikit pas dia ngejar
-    }
-
-    const padding = 50;
-    const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
-    const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
-    
-    btn.style.position = 'fixed';
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
-    btn.style.zIndex = '999'; 
-}
-
+            const btn = document.getElementById('noBtn');
+            const jail = document.getElementById('jailText');
+            if(jail) {
+                jail.innerText = "p.s: dibilang jangan dipencet masih aja bandel! :p";
+                jail.style.color = "#d1d9d1";
+            }
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.zIndex = '999'; 
+        }
 
         async function celebrate() {
             const form = document.getElementById("answerForm");
             const btnGroup = document.querySelector(".btn-group");
             const finalMsg = document.getElementById("finalMessage");
             const yesBtn = document.getElementById("yesBtn");
+            const jail = document.getElementById("jailText");
 
             yesBtn.innerText = "Sending...";
             yesBtn.disabled = true;
@@ -214,21 +188,19 @@
             }).then(response => {
                 if (response.ok) {
                     btnGroup.style.display = "none";
+                    if(jail) jail.style.display = "none";
                     finalMsg.style.display = "block";
-                    if(document.getElementById('jailText')) document.getElementById('jailText').style.display = 'none';
                 } else {
                     alert("Aduh, ada masalah teknis. Coba lagi ya!");
                     yesBtn.innerText = "Yes, I Will";
                     yesBtn.disabled = false;
                 }
             }).catch(error => {
-                alert("Gagal kirim, cek koneksi lo Kai!");
+                alert("Gagal kirim, cek koneksi kamu ya!");
                 yesBtn.innerText = "Yes, I Will";
                 yesBtn.disabled = false;
             });
         }
     </script>
-
-
 </body>
 </html>
