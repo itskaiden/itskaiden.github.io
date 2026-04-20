@@ -90,9 +90,17 @@
             So, <span class="highlight">Yoshiro Akio</span>, would you let me be the one who walks beside you?
         </p>
 
-        <div class="btn-group">
-            <button class="btn btn-yes" onclick="celebrate()">Yes, I Will</button>
+                <div class="btn-group">
+            <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+                <input type="text" name="Jawaban_Yoshiro" value="YES, I WILL! ☘️">
+            </form>
+
+            <button class="btn btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
             <button class="btn btn-no" onmouseover="moveButton(this)">Not Now</button>
+        </div>
+
+        <div id="finalMessage" style="display:none; margin-top: 25px; font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.1rem;">
+            "This is the best day of my life. <br> I'll see you soon, Yoshiro. ♡"
         </div>
 
         <div class="footer-note">PRIVATE ARCHIVE — FOR HIM ONLY.</div>
@@ -106,9 +114,29 @@
             btn.style.top = y + 'px';
         }
 
-        function celebrate() {
-            alert("This is the best day of my life. ☘️");
-            window.location.href = "https://wa.me/NOMOR_WA_LO"; // Langsung redirect ke WA lo
+        async function celebrate() {
+            const form = document.getElementById("answerForm");
+            const btnGroup = document.querySelector(".btn-group");
+            const finalMsg = document.getElementById("finalMessage");
+            const yesBtn = document.getElementById("yesBtn");
+
+            yesBtn.innerText = "Sending...";
+            
+            // Proses kirim ke Formspree
+            const data = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    btnGroup.style.display = "none"; // Hilangkan tombol
+                    finalMsg.style.display = "block"; // Munculkan kata-kata penutup
+                } else {
+                    alert("Aduh, ada masalah teknis. Coba lagi ya, Yoshiro!");
+                    yesBtn.innerText = "Yes, I Will";
+                    yesBtn.disabled = false;
+            });
         }
     </script>
 
