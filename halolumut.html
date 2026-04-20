@@ -8,16 +8,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
 
         body {
-            /* Warna aspal basah ke arah hijau botol tua */
             background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
             color: #d1d9d1;
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden;
+            position: relative;
         }
 
-        /* EFEK HUJAN TIPIS */
         body::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
@@ -26,9 +25,9 @@
 
         .confession-card {
             max-width: 450px; width: 90%;
-            background: rgba(30, 41, 32, 0.8); /* Hijau gelap transparan */
+            background: rgba(30, 41, 32, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(121, 134, 116, 0.3); /* Sentuhan coklat/sage */
+            border: 1px solid rgba(121, 134, 116, 0.3);
             padding: 40px; border-radius: 20px;
             text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             position: relative; z-index: 10;
@@ -37,8 +36,7 @@
         h1 {
             font-family: 'Crimson Text', serif;
             font-style: italic; font-size: 2.2rem;
-            color: #a8bfa1; /* Hijau sage soft */
-            margin-bottom: 20px; letter-spacing: 1px;
+            color: #a8bfa1; margin-bottom: 20px; letter-spacing: 1px;
         }
 
         p {
@@ -46,13 +44,9 @@
             color: #9cad9c; font-weight: 300; margin-bottom: 30px;
         }
 
-        .highlight {
-            color: #bfa58a; /* Sentuhan coklat earthy */
-            font-weight: 500;
-        }
+        .highlight { color: #bfa58a; font-weight: 500; }
 
-        /* TOMBOL JAWABAN */
-        .btn-group { display: flex; gap: 15px; justify-content: center; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; position: relative; }
 
         .btn {
             padding: 12px 30px; border-radius: 5px;
@@ -65,14 +59,12 @@
             background: #4e634f; color: white;
             box-shadow: 0 5px 15px rgba(78, 99, 79, 0.3);
         }
-        .btn-yes:hover { background: #6a856b; transform: scale(1.05); }
 
         .btn-no {
             background: transparent; color: #555;
             border: 1px solid #333;
+            position: relative;
         }
-        /* Trick buat tombol No lari-larian */
-        .btn-no:hover { position: absolute; }
 
         .footer-note {
             margin-top: 40px; font-size: 0.6rem;
@@ -90,13 +82,13 @@
             So, <span class="highlight">Yoshiro Akio</span>, would you let me be the one who walks beside you?
         </p>
 
-                <div class="btn-group">
+        <div class="btn-group">
             <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
                 <input type="text" name="Jawaban_Yoshiro" value="YES, I WILL! ☘️">
             </form>
 
             <button class="btn btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
-            <button class="btn btn-no" onmouseover="moveButton(this)">Not Now</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
         </div>
 
         <div id="finalMessage" style="display:none; margin-top: 25px; font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.1rem;">
@@ -107,9 +99,11 @@
     </div>
 
     <script>
-        function moveButton(btn) {
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'fixed';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
@@ -121,8 +115,8 @@
             const yesBtn = document.getElementById("yesBtn");
 
             yesBtn.innerText = "Sending...";
+            yesBtn.disabled = true;
             
-            // Proses kirim ke Formspree
             const data = new FormData(form);
             fetch(form.action, {
                 method: 'POST',
@@ -130,12 +124,17 @@
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    btnGroup.style.display = "none"; // Hilangkan tombol
-                    finalMsg.style.display = "block"; // Munculkan kata-kata penutup
+                    btnGroup.style.display = "none";
+                    finalMsg.style.display = "block";
                 } else {
-                    alert("Aduh, ada masalah teknis. Coba lagi ya, Yoshiro!");
+                    alert("Aduh, ada masalah teknis. Coba lagi ya!");
                     yesBtn.innerText = "Yes, I Will";
                     yesBtn.disabled = false;
+                }
+            }).catch(error => {
+                alert("Gagal kirim, cek koneksi lo Kai!");
+                yesBtn.innerText = "Yes, I Will";
+                yesBtn.disabled = false;
             });
         }
     </script>
