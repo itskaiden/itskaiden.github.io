@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Leaf.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        body {
+            /* Warna aspal basah ke arah hijau botol tua */
+            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
+            color: #d1d9d1;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+        }
+
+        /* EFEK HUJAN TIPIS */
+        body::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.1; pointer-events: none;
+        }
+
+        .confession-card {
+            max-width: 450px; width: 90%;
+            background: rgba(30, 41, 32, 0.8); /* Hijau gelap transparan */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(121, 134, 116, 0.3); /* Sentuhan coklat/sage */
+            padding: 40px; border-radius: 20px;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative; z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-style: italic; font-size: 2.2rem;
+            color: #a8bfa1; /* Hijau sage soft */
+            margin-bottom: 20px; letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 0.9rem; line-height: 1.8;
+            color: #9cad9c; font-weight: 300; margin-bottom: 30px;
+        }
+
+        .highlight {
+            color: #bfa58a; /* Sentuhan coklat earthy */
+            font-weight: 500;
+        }
+
+        /* TOMBOL JAWABAN */
+        .btn-group { display: flex; gap: 15px; justify-content: center; }
+
+        .btn {
+            padding: 12px 30px; border-radius: 5px;
+            font-size: 0.8rem; font-weight: bold; cursor: pointer;
+            transition: 0.4s; border: none; text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-yes {
+            background: #4e634f; color: white;
+            box-shadow: 0 5px 15px rgba(78, 99, 79, 0.3);
+        }
+        .btn-yes:hover { background: #6a856b; transform: scale(1.05); }
+
+        .btn-no {
+            background: transparent; color: #555;
+            border: 1px solid #333;
+        }
+        /* Trick buat tombol No lari-larian */
+        .btn-no:hover { position: absolute; }
+
+        .footer-note {
+            margin-top: 40px; font-size: 0.6rem;
+            color: #4a5d4e; letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="confession-card">
+        <h1>Petrichor & You</h1>
+        <p>
+            Di antara riuh rendah dunia, aku menemukan ketenangan pas lagi sama kamu. Kayak jalan aspal abis ujan di bawah pohon lebat—<span class="highlight">sejuk, tenang, dan bikin aku pengen diem di sana selamanya.</span>
+            <br><br>
+            So, <span class="highlight">Yoshiro Akio</span>, would you let me be the one who walks beside you?
+        </p>
+
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="celebrate()">Yes, I Will</button>
+            <button class="btn btn-no" onmouseover="moveButton(this)">Not Now</button>
+        </div>
+
+        <div class="footer-note">PRIVATE ARCHIVE — FOR HIM ONLY.</div>
+    </div>
+
+    <script>
+        function moveButton(btn) {
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            alert("This is the best day of my life. ☘️");
+            window.location.href = "https://wa.me/NOMOR_WA_LO"; // Langsung redirect ke WA lo
+        }
+    </script>
+
+</body>
+</html>
