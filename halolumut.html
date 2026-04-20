@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf.</title>
     <style>
-                .ps-text {
-            font-size: 0.65rem;
-            color: #bfa58a;
-            margin-top: 15px;
-            font-style: italic;
-            opacity: 0.8;
-            display: none; /* Muncul pas dia mulai ngejar tombol */
-        }
+            .ps-text {
+    font-size: 0.65rem;
+    color: #bfa58a; /* Warna coklat soft yang lo mau */
+    margin-top: 25px; /* Kasih jarak dari tombol */
+    font-style: italic;
+    opacity: 0.7;
+    display: block; /* Pastiin ini block biar langsung muncul */
+}
+
 
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
 
@@ -122,22 +123,25 @@
 
         <script>
         function moveButton() {
-            const btn = document.getElementById('noBtn');
-            const jail = document.getElementById('jailText');
-            
-            // Munculin tulisan jail pas dia mulai ngejar
-            if(jail) jail.style.display = 'block';
+    const btn = document.getElementById('noBtn');
+    const jail = document.getElementById('jailText');
+    
+    // Ganti tulisan pas dia berusaha ngeklik "Not Now"
+    if(jail) {
+        jail.innerText = "p.s: dibilang jangan dipencet masih aja bandel! :p";
+        jail.style.color = "#d1d9d1"; // Ganti warna dikit pas dia ngejar
+    }
 
-            // Kalkulasi biar gak keluar layar
-            const padding = 50;
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
-            
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            btn.style.zIndex = '999'; 
-        }
+    const padding = 50;
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+    
+    btn.style.position = 'fixed';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+    btn.style.zIndex = '999'; 
+}
+
 
         async function celebrate() {
             const form = document.getElementById("answerForm");
