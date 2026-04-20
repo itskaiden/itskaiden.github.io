@@ -5,44 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf.</title>
     <style>
+                .ps-text {
+            font-size: 0.65rem;
+            color: #bfa58a;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.8;
+            display: none; /* Muncul pas dia mulai ngejar tombol */
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
 
-        body {
+                body {
             background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
             color: #d1d9d1;
             font-family: 'Montserrat', sans-serif;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden;
+            margin: 0; 
+            padding: 20px 0; /* Tambah jarak atas bawah */
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh; /* Pake min-height biar fleksibel */
+            overflow-y: auto; /* Biar bisa di-scroll kalau kepanjangan */
             position: relative;
         }
 
-        body::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.1; pointer-events: none;
-        }
-
         .confession-card {
-            max-width: 450px; width: 90%;
+            max-width: 400px; 
+            width: 85%; /* Biar gak mentok banget ke pinggir HP */
             background: rgba(30, 41, 32, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(121, 134, 116, 0.3);
-            padding: 40px; border-radius: 20px;
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative; z-index: 10;
+            padding: 30px; /* Kurangi dikit padding buat layar kecil */
+            border-radius: 20px;
+            text-align: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative; 
+            z-index: 10;
+            margin: auto; /* Biar bener-bener di tengah */
         }
 
         h1 {
             font-family: 'Crimson Text', serif;
-            font-style: italic; font-size: 2.2rem;
-            color: #a8bfa1; margin-bottom: 20px; letter-spacing: 1px;
+            font-style: italic; 
+            font-size: 1.8rem; /* Kecilin dikit buat HP */
+            color: #a8bfa1; 
+            margin-bottom: 15px; 
+            letter-spacing: 1px;
         }
 
         p {
-            font-size: 0.9rem; line-height: 1.8;
-            color: #9cad9c; font-weight: 300; margin-bottom: 30px;
+            font-size: 0.85rem; /* Kecilin dikit biar gak menuhin layar */
+            line-height: 1.6;
+            color: #9cad9c; 
+            font-weight: 300; 
+            margin-bottom: 25px;
         }
+
 
         .highlight { color: #bfa58a; font-weight: 500; }
 
@@ -90,6 +109,8 @@
             <button class="btn btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
             <button class="btn btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
         </div>
+                <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+
 
         <div id="finalMessage" style="display:none; margin-top: 25px; font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.1rem;">
             "This is the best day of my life. <br> I'll see you soon, Yoshiro. ♡"
@@ -98,14 +119,23 @@
         <div class="footer-note">PRIVATE ARCHIVE — FOR HIM ONLY.</div>
     </div>
 
-    <script>
+        <script>
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            const jail = document.getElementById('jailText');
+            
+            // Munculin tulisan jail pas dia mulai ngejar
+            if(jail) jail.style.display = 'block';
+
+            // Kalkulasi biar gak keluar layar
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+            
             btn.style.position = 'fixed';
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
+            btn.style.zIndex = '999'; 
         }
 
         async function celebrate() {
@@ -126,6 +156,7 @@
                 if (response.ok) {
                     btnGroup.style.display = "none";
                     finalMsg.style.display = "block";
+                    if(document.getElementById('jailText')) document.getElementById('jailText').style.display = 'none';
                 } else {
                     alert("Aduh, ada masalah teknis. Coba lagi ya!");
                     yesBtn.innerText = "Yes, I Will";
@@ -138,6 +169,7 @@
             });
         }
     </script>
+
 
 </body>
 </html>
