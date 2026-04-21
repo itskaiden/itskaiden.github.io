@@ -97,7 +97,7 @@
 <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
 
 <audio id="bgMusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+    <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: rgba(30,41,32,0.8); border: 1px solid #a8bfa1; color: #a8bfa1; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">♫</button>
@@ -192,17 +192,6 @@
         </div>
     </div>
 
-        
-        <div id="askAction" style="display:flex; gap:10px; flex-direction:column; align-items:center;">
-            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
-            <button class="btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
-            <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
-        </div>
-
-        <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
-            "This is the best day of my life. I'll see you soon, Yoshiro. ♡"
-        </div>
-
         <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
             <input type="text" name="Jawaban" value="YES, I WILL! ☘️">
         </form>
@@ -231,17 +220,34 @@
         }
     }
 
-    // Navigasi yang anti-numpuk
     function nextPage(n) {
-        document.querySelectorAll('.page').forEach(p => {
-            p.style.display = 'none'; // Sembunyikan semua secara paksa
-            p.classList.remove('active');
-        });
-        const target = document.getElementById('p' + n);
-        target.style.display = 'flex'; // Tampilkan hanya yang dituju
-        setTimeout(() => target.classList.add('active'), 10);
-        updateProgress(n);
+    // Pancing lagu biar main pas klik tombol pertama kali
+    var audio = document.getElementById("bgMusic");
+    if (n === 1 && audio.paused) {
+        audio.play().catch(e => console.log("Menunggu klik user..."));
+        document.getElementById("musicBtn").innerText = "II";
     }
+
+    const allPages = document.querySelectorAll('.page');
+    allPages.forEach(page => {
+        page.style.display = 'none';
+        page.classList.remove('active');
+    });
+
+    const target = document.getElementById('p' + n);
+    if (target) {
+        target.style.display = 'flex';
+        setTimeout(() => {
+            target.classList.add('active');
+        }, 10);
+    }
+    updateProgress(n);
+}
+
+function prevPage(n) {
+    nextPage(n); // Sama aja fungsinya biar bersih
+}
+
 
     function prevPage(n) {
         nextPage(n); // Gunakan fungsi yang sama biar rapi
