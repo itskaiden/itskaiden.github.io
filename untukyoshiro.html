@@ -169,14 +169,29 @@
         </div>
     </div>
 
-    <div class="page" id="p5">
-    <h2>The Final Page</h2>
-    <div class="message">
-        "Yoshiro Akio, setelah semua catatan yang aku kasih liat hari ini... intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah' yang selama ini aku cari. <br><br>
-        Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda."
+        <div class="page" id="p5">
+        <div class="decoration" style="top:15px; right:15px;">☘️</div>
+        <h2>The Final Page</h2>
+        <div class="message">
+            "Yoshiro Akio, setelah semua catatan yang aku kasih lihat hari ini... intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah' yang selama ini aku cari. <br><br>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda."
+        </div>
+        
+        <div id="askAction" style="display:flex; gap:10px; flex-direction:column; align-items:center; margin-top: 10px;">
+            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will ☘️</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
+            <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+        </div>
+
+        <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
+            "This is the best day of my life. I'll see you soon, Yoshiro. ♡"
+        </div>
+
+        <div class="nav-btns" id="lastNav" style="margin-top: 20px;">
+            <button class="btn-nav" onclick="prevPage(4)">⬅ Back</button>
+        </div>
     </div>
-    ...
-</div>
+
         
         <div id="askAction" style="display:flex; gap:10px; flex-direction:column; align-items:center;">
             <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
@@ -199,30 +214,45 @@
 
 </div>
 
-<script>
+    <script>
+    // Fungsi Musik yang lebih stabil
+    var audio = document.getElementById("bgMusic");
+    var musicBtn = document.getElementById("musicBtn");
+
     function playMusic() {
-        var audio = document.getElementById("bgMusic");
-        var btn = document.getElementById("musicBtn");
-        if (audio.paused) { audio.play(); btn.innerText = "II"; } 
-        else { audio.pause(); btn.innerText = "♫"; }
+        if (audio.paused) {
+            audio.play().catch(function(error) {
+                console.log("Browser memblokir musik, butuh klik user.");
+            });
+            musicBtn.innerText = "II";
+        } else {
+            audio.pause();
+            musicBtn.innerText = "♫";
+        }
     }
 
-    function updateProgress(n) {
-        document.getElementById('bar').style.width = (n/5)*100 + '%';
-    }
-
+    // Navigasi yang anti-numpuk
     function nextPage(n) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('p' + n).classList.add('active');
+        document.querySelectorAll('.page').forEach(p => {
+            p.style.display = 'none'; // Sembunyikan semua secara paksa
+            p.classList.remove('active');
+        });
+        const target = document.getElementById('p' + n);
+        target.style.display = 'flex'; // Tampilkan hanya yang dituju
+        setTimeout(() => target.classList.add('active'), 10);
         updateProgress(n);
     }
 
     function prevPage(n) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById('p' + n).classList.add('active');
-        updateProgress(n);
+        nextPage(n); // Gunakan fungsi yang sama biar rapi
     }
 
+    function updateProgress(n) {
+        const bar = document.getElementById('bar');
+        if(bar) bar.style.width = (n/5)*100 + '%';
+    }
+
+    // Fungsi tombol lari
     function moveButton() {
         const btn = document.getElementById('noBtn');
         const jail = document.getElementById('jailText');
@@ -232,16 +262,22 @@
         btn.style.position = 'fixed';
         btn.style.left = x + 'px';
         btn.style.top = y + 'px';
-        btn.style.zIndex = "2000";
+        btn.style.zIndex = "9999";
     }
 
     async function celebrate() {
         const yesBtn = document.getElementById("yesBtn");
         yesBtn.innerText = "Sending...";
         yesBtn.disabled = true;
-        const data = new FormData(document.getElementById("answerForm"));
-        fetch(document.getElementById("answerForm").action, {
-            method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+        
+        // Formspree Submission
+        const formData = new FormData();
+        formData.append('Jawaban', 'YES, I WILL! ☘️');
+        
+        fetch("https://formspree.io/f/xlgankov", {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
         }).then(response => {
             if (response.ok) {
                 document.getElementById("askAction").style.display = "none";
