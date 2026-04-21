@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Leaf — For Yoshiro</title>
+    <style>
+              /* Animasi Hujan */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.2;
+            pointer-events: none;
+            animation: rain 2s linear infinite;
+        }
+
+        @keyframes rain {
+            from { background-position: 0 0; }
+            to { background-position: 100px 500px; }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
+            color: #d1d9d1;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+        }
+      /* Di dalam <style> */
+.progress-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: rgba(255,255,255,0.1);
+    z-index: 1000;
+}
+.progress-bar {
+    height: 100%;
+    background: #a8bfa1;
+    width: 0%;
+    transition: 0.3s;
+}
+
+        /* CONTAINER BUKU */
+        .book-container {
+            width: 90%; max-width: 400px;
+            height: 80vh; position: relative;
+            perspective: 1000px;
+        }
+
+        .page {
+            position: absolute; width: 100%; height: 100%;
+            background: rgba(30, 41, 32, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(121, 134, 116, 0.3);
+            border-radius: 20px;
+            padding: 30px; display: none;
+            flex-direction: column; justify-content: center;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .page.active { display: flex; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%) rotateY(-20deg); opacity: 0; }
+            to { transform: translateX(0) rotateY(0); opacity: 1; }
+        }
+
+        /* TYPOGRAPHY */
+        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.6rem; }
+        .message { font-size: 0.85rem; line-height: 1.8; font-style: italic; text-align: justify; margin: 20px 0; }
+        .highlight { color: #bfa58a; font-weight: 500; }
+        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #a8bfa1; }
+
+        /* BUTTONS */
+        .nav-btns { display: flex; justify-content: space-between; margin-top: 20px; }
+        .btn-nav { 
+            background: transparent; border: 1px solid #4a5d4e; color: #a8bfa1;
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem;
+        }
+        
+        .btn-yes { background: #4e634f; color: white; border: none; padding: 12px 25px; border-radius: 5px; margin-top: 10px;}
+        .btn-no { background: transparent; color: #777; border: 1px solid #444; padding: 12px 25px; border-radius: 5px; margin-top: 10px;}
+
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .photo-grid img { width: 100%; border-radius: 10px; filter: contrast(90%); }
+
+        .ps-text { font-size: 0.65rem; color: #bfa58a; font-style: italic; margin-top: 10px; }
+    </style>
+</head>
+<body>
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 100; background: none; border: 1px solid #a8bfa1; color: #a8bfa1; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">
+    ♫
+</button>
+
+<script>
+    function playMusic() {
+        var audio = document.getElementById("bgMusic");
+        if (audio.paused) {
+            audio.play();
+            document.getElementById("musicBtn").innerText = "II";
+        } else {
+            audio.pause();
+            document.getElementById("musicBtn").innerText = "♫";
+        }
+    }
+</script>
+
+<div class="book-container">
+    
+        <div class="page active" id="p1">
+          <div style="position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;">☘️</div>
+<div style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;">🍂</div>
+        <h2>Chapter I: The Quiet Observer</h2>
+        <div class="message aesthetic-font">
+            "Mungkin selama ini kamu mengenalku sebagai sosok yang sederhana—seseorang yang menghabiskan waktunya bergelut dengan rutinitas dunia yang bising dan tak pernah berhenti. Tapi di balik semua kesibukan yang kasat mata itu, aku hanyalah seorang pemimpi yang sering terdiam di bawah luasnya langit malam, mencoba mencari arti dari sebuah pertemuan yang tak terduga. Aku bukan penulis yang handal dalam merangkai aksara, tapi saat ini, aku sedang memberanikan diri untuk menuliskan bab paling jujur dalam hidupku—tentang kamu."
+        </div>
+        <div class="nav-btns">
+            <span></span>
+            <button class="btn-nav" onclick="nextPage(2)">Next ⮕</button>
+        </div>
+    </div>
+
+        <div class="page" id="p2">
+          <div style="position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;">☘️</div>
+<div style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;">🍂</div>
+        <h2>Chapter II: When Our Worlds Collided</h2>
+        <div class="message aesthetic-font">
+            "Masih terekam jelas di ingatanku saat pertama kali kita bertukar kata. Awalnya kupikir itu hanya sapaan biasa yang akan berlalu, namun ternyata semesta punya rencana yang jauh lebih indah. Berbicara denganmu rasanya seperti menemukan <span class="highlight">Petrichor</span> di tengah kemarau panjang—sebuah ketenangan yang tak terduga. Ada rasa nyaman yang aneh, seperti berteduh di bawah rindangnya pepohonan saat hujan mulai mereda; sejuk, tenang, dan membuatku ingin menetap lebih lama tanpa harus terburu-buru mengejar waktu. Sejak saat itu, setiap pesan darimu adalah irama yang paling aku tunggu untuk melengkapi hariku."
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(1)">⬅ Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next ⮕</button>
+        </div>
+    </div>
+
+        <div class="page" id="p3">
+          <div style="position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;">☘️</div>
+<div style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;">🍂</div>
+        <h2>Chapter III: The Amerta of My Life</h2>
+        <div class="message aesthetic-font">
+            "Jika aku diminta untuk mendefinisikan apa itu indah, aku akan menyebut namamu tanpa ragu. Bagiku, kamu adalah <span class="highlight">Amerta</span>—sesuatu yang abadi, yang membawa kehidupan dan warna baru di tengah hari-hariku yang semula terasa biasa saja. <br><br>
+            I admire the way you exist; caramu melihat dunia dengan penuh ketulusan dan caramu memperlakukanku dengan begitu hangat. Kamu memiliki keindahan yang puitis, seolah setiap bintang di langit selaras hanya untuk menerangi jalan yang mempertemukan kita. Terima kasih telah menjadi alasan kenapa aku selalu bersyukur pada takdir, karena telah menghadirkanmu sebagai bagian paling berharga dalam hidupku."
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(2)">⬅ Back</button>
+            <button class="btn-nav" onclick="nextPage(4)">Next ⮕</button>
+        </div>
+    </div>
+
+    <div class="page" id="p4">
+      <div style="position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;">☘️</div>
+<div style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;">🍂</div>
+        <h2>Chapter IV: Us</h2>
+        <div class="photo-grid">
+            <img src="foto1.jpg" alt="1">
+            <img src="foto2.jpg" alt="2">
+            <img src="foto3.jpg" alt="3">
+            <img src="foto4.jpg" alt="4">
+        </div>
+        <p class="cursive">"Capturing every moment with you."</p>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(3)">⬅ Back</button>
+            <button class="btn-nav" onclick="nextPage(5)">Next ⮕</button>
+        </div>
+    </div>
+
+        <div class="page" id="p5">
+          <div style="position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;">☘️</div>
+<div style="position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;">🍂</div>
+        <h2>The Last Leaf: Petrichor & You</h2>
+        <div class="message aesthetic-font">
+            "Yoshiro Akio, setelah setiap lembar cerita yang kamu buka, ada satu hal yang ingin aku pastikan kamu tahu: Perasaanku padamu tumbuh dengan tenang namun pasti, seperti akar yang mencari rumah di tempat yang paling nyaman. Kamu adalah jawaban dari setiap tanya yang pernah aku titipkan pada sunyinya malam. 
+            <br><br>
+            Bagiku, kamu bukan sekadar seseorang yang hadir, melainkan tempat di mana aku merasa cukup. Menemukanmu adalah seperti merasakan aroma tanah basah yang menenangkan setelah badai reda; memberikan rasa aman yang tak bisa dijelaskan dengan kata-kata. 
+            <br><br>
+            Aku tidak menjanjikan dunia yang selalu sempurna, tapi aku ingin ada di sana, berjalan di sampingmu melalui setiap musim yang akan datang. So, <span class="highlight">would you let me be the one who walks beside you?</span> To be your home, to be your favorite place to return, and to be the one who stays even after the rain has gone."
+        </div>
+        
+        <div style="display:flex; gap:10px; flex-direction:column; align-items:center;">
+            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
+            <p id="jailText" class="ps-text">p.s: jangan pencet not now ya ! :p</p>
+        </div>
+
+        <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
+            "This is the best day of my life. I'll see you soon, Yoshiro. ♡"
+        </div>
+        
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(4)">⬅ Back</button>
+        </div>
+    </div>
+
+        
+        <div style="display:flex; gap:10px; flex-direction:column; align-items:center;">
+            <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+                <input type="text" name="Jawaban" value="YES, I WILL! ☘️">
+            </form>
+            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
+            <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+        </div>
+
+        <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
+            "This is the best day of my life. I'll see you soon, Yoshiro. ♡"
+        </div>
+
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(4)">⬅ Back</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function nextPage(pageNum) {
+        // Sembunyikan semua halaman
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        // Tampilkan halaman tujuan
+        document.getElementById('p' + pageNum).classList.add('active');
+    }
+  // Di dalam script nextPage(pageNum)
+function updateProgress(pageNum) {
+    const totalPages = 5;
+    const progress = (pageNum / totalPages) * 100;
+    document.querySelector('.progress-bar').style.width = progress + '%';
+}
+// Panggil updateProgress(pageNum) di dalam fungsi nextPage lo
+
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        const jail = document.getElementById('jailText');
+        jail.innerText = "p.s: masih aja bandel! :p";
+        const padding = 50;
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    async function celebrate() {
+        const yesBtn = document.getElementById("yesBtn");
+        yesBtn.innerText = "Sending...";
+        const data = new FormData(document.getElementById("answerForm"));
+        fetch(document.getElementById("answerForm").action, {
+            method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById("yesBtn").style.display = "none";
+                document.getElementById("noBtn").style.display = "none";
+                document.getElementById("jailText").style.display = "none";
+                document.getElementById("finalMessage").style.display = "block";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
