@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Leaf — For Yoshiro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
+            color: #d1d9d1;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            position: relative;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>☘️</text></svg>"), auto;
+        }
+
+        /* Background Effects */
+        .clover {
+            position: fixed; top: -10%; z-index: 2;
+            user-select: none; pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        body::after {
+            content: ""; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15; pointer-events: none;
+            animation: rain 2s linear infinite; z-index: 1;
+        }
+        @keyframes rain { from { background-position: 0 0; } to { background-position: 100px 500px; } }
+
+        .progress-container {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: rgba(255,255,255,0.1); z-index: 1000;
+        }
+        .progress-bar { height: 100%; background: #a8bfa1; width: 0%; transition: 0.5s; }
+
+        /* Container & Page Logic */
+        .book-container {
+            width: 90%; max-width: 400px;
+            height: 80vh; position: relative;
+            perspective: 1000px; z-index: 10;
+        }
+
+        .page {
+            position: absolute; width: 100%; height: 100%;
+            background: rgba(30, 41, 32, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(121, 134, 116, 0.3);
+            border-radius: 20px;
+            padding: 20px 20px 0 20px;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start; /* Start from top for scrolling */
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: all 0.6s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .page.active {
+            display: flex;
+            animation: pageIn 0.5s ease forwards;
+        }
+
+        @keyframes pageIn {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); filter: blur(5px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* Typography */
+        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.4rem; margin-top: 10px; }
+        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #a8bfa1; }
+        .message { font-size: 0.85rem; line-height: 1.5; margin: 10px 0; opacity: 0.9; }
+        .highlight { color: #bfa58a; font-weight: 500; }
+        i { color: #bfa58a; font-family: 'Dancing Script', cursive; font-size: 1.1rem; }
+
+        /* Custom Elements */
+        .highlight-quote {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px; margin: 15px 0;
+            border-radius: 10px;
+            border-top: 1px solid rgba(168, 191, 161, 0.2);
+            border-bottom: 1px solid rgba(168, 191, 161, 0.2);
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 10px;
+            margin-top: 10px; border: 1px solid rgba(168, 191, 161, 0.2);
+            width: 100%;
+        }
+        .chat-bubble { padding: 8px 12px; border-radius: 12px; margin-bottom: 8px; font-size: 0.75rem; max-width: 85%; }
+        .chat-left { background: rgba(78, 99, 79, 0.4); float: left; clear: both; text-align: left; }
+        .chat-right { background: rgba(191, 165, 138, 0.2); float: right; clear: both; text-align: right; }
+        .chat-date { font-size: 0.6rem; color: #a8bfa1; margin-bottom: 8px; display: block; opacity: 0.7; }
+
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; width: 100%; }
+        .photo-grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
+
+        /* Navigation */
+        .nav-btns {
+            display: flex; justify-content: space-between;
+            width: 100%; padding: 20px 0;
+            margin-top: auto; position: sticky; bottom: 0;
+            background: linear-gradient(transparent, rgba(30, 41, 32, 1) 30%);
+            z-index: 100; flex-shrink: 0;
+        }
+        .btn-nav {
+            background: transparent; border: 1px solid #4a5d4e; color: #a8bfa1;
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem;
+        }
+
+        .btn-yes { background: #4e634f; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; flex: 1; max-width: 120px; font-size: 0.8rem; }
+        .btn-no { background: transparent; color: #888; border: 1px solid #444; padding: 12px 20px; border-radius: 8px; cursor: pointer; flex: 1; max-width: 120px; font-size: 0.8rem; }
+        
+        .ps-text { font-size: 0.6rem; color: #bfa58a; font-style: italic; margin-top: 10px; }
+        .decoration { position: absolute; font-size: 1.2rem; opacity: 0.3; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+<div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+
+<audio id="bgMusic" loop>
+    <source src="Nadhif Basalamah – kota ini tak sama tanpamu.m4a" type="audio/mpeg">
+</audio>
+
+<button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: rgba(30,41,32,0.8); border: 1px solid #a8bfa1; color: #a8bfa1; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">♫</button>
+
+<div class="book-container">
+
+    <div class="page active" id="p0">
+        <div class="decoration" style="top:15px; left:15px;">✉️</div>
+        <h2 class="cursive">Hi, Yoshiro...</h2>
+        <div class="message">
+            Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
+            Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
+            Boleh luangin waktu kamu sebentar buat baca?
+        </div>
+        <div class="nav-btns">
+            <span></span>
+            <button class="btn-nav" onclick="nextPage(1)">OPEN HERE ⮕</button>
+        </div>
+    </div>
+    
+    <div class="page" id="p1">
+        <div class="decoration" style="top:15px; right:15px;">🍀</div>
+        <h2>Personal Log</h2>
+        <div class="message">
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu.
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage(0)">Back</button>
+            <button class="btn-nav" onclick="nextPage(2)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p2">
+        <div class="decoration" style="bottom:15px; left:15px;">🌿</div>
+        <h2>A Piece of Memory</h2>
+        <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
+        <div class="chat-container">
+            <span class="chat-date">First encounter — April, 2026</span>
+            <div class="chat-left chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+            <div class="chat-right chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+            <div class="chat-left chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="message" style="margin-top:15px;">
+            Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage(1)">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p3">
+        <div class="decoration" style="top:15px; right:15px;">🌱</div>
+        <h2>Something About You</h2>
+        <div class="message">
+            Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.
+        </div>
+        <div class="highlight-quote">
+            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
+        </div>
+        <div class="message">
+            Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage(2)">Back</button>
+            <button class="btn-nav" onclick="nextPage('_reasons')">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p_reasons">
+        <div class="decoration" style="top:15px; left:15px;">🔍</div>
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random, and I love how I can just be myself when I'm with you. <br><br>
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapi hariku. <b>It's always been you, Yoshiro.</b>
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage(3)">Back</button>
+            <button class="btn-nav" onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p4">
+        <h2>Chapter IV: Us</h2>
+        <div class="photo-grid">
+            <img src="foto1.jpg" alt="1">
+            <img src="IMG_4264.jpeg" alt="2">
+            <img src="foto3.jpg" alt="3">
+            <img src="IMG_4268.png" alt="4">
+        </div>
+        <p class="cursive">"Capturing every moment with you ♡"</p>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage('_reasons')">Back</button>
+            <button class="btn-nav" onclick="nextPage(5)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p5">
+        <div class="decoration" style="top:15px; right:15px;">☘️</div>
+        <h2>The Final Page</h2>
+        <div class="message">
+            Yoshiro Akio, setelah semua catatan yang aku kasih lihat hari ini... intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah' yang selama ini aku cari. <br><br>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span>
+        </div>
+        
+        <div id="askAction" style="display:flex; gap:10px; justify-content:center; width: 100%; margin: 15px 0;">
+            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will ☘️</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
+        </div>
+        <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+
+        <div id="finalMessage" style="display:none; margin-top: 20px;" class="cursive">
+            "This is the best day of my life! I'll see you soon, Yoshiro. ♡"
+            <br><br>
+            <a href="https://t.me/einsteinb" target="_blank" style="text-decoration: none;">
+                <button class="btn-nav" style="background: rgba(168, 191, 161, 0.2); border: 1px dashed #a8bfa1;">
+                    Write your answer here ⮕
+                </button>
+            </a>
+        </div>
+
+        <div class="nav-btns" id="lastNav">
+            <button class="btn-nav" onclick="prevPage(4)">Back</button>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+    <input type="text" name="Jawaban" value="YES, I WILL! ☘️">
+</form>
+
+<script>
+    var audio = document.getElementById("bgMusic");
+    var musicBtn = document.getElementById("musicBtn");
+
+    function playMusic() {
+        if (audio.paused) { audio.play(); musicBtn.innerText = "II"; } 
+        else { audio.pause(); musicBtn.innerText = "♫"; }
+    }
+
+    function nextPage(n) {
+        if (n === 1 && audio.paused) { 
+            audio.play().catch(e => console.log("Audio play blocked"));
+            musicBtn.innerText = "II";
+        }
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(isNaN(n) ? n : 'p' + n);
+        if (target) target.classList.add('active');
+        updateProgress(n === '_reasons' ? 3.5 : n);
+    }
+
+    function prevPage(n) { nextPage(n); }
+
+    function updateProgress(n) {
+        const bar = document.getElementById('bar');
+        if(bar) bar.style.width = (n/5)*100 + '%';
+    }
+
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        document.getElementById('jailText').innerText = "masih aja bandel ya :p";
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+        btn.style.zIndex = "9999";
+    }
+
+    async function celebrate() {
+        const yesBtn = document.getElementById("yesBtn");
+        yesBtn.innerText = "Sending...";
+        const formData = new FormData(document.getElementById("answerForm"));
+        
+        fetch("https://formspree.io/f/xlgankov", {
+            method: 'POST', body: formData, headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById("askAction").style.display = "none";
+                document.getElementById("lastNav").style.display = "none";
+                document.getElementById("jailText").style.display = "none";
+                document.getElementById("finalMessage").style.display = "block";
+            }
+        });
+    }
+
+    function createClover() {
+        const clovers = ['☘️', '🍀', '🍂', '🍁'];
+        const clover = document.createElement('div');
+        clover.className = 'clover';
+        clover.innerText = clovers[Math.floor(Math.random() * clovers.length)];
+        clover.style.left = Math.random() * 100 + 'vw';
+        clover.style.animationDuration = Math.random() * 3 + 7 + 's';
+        clover.style.opacity = Math.random() * 0.5 + 0.2;
+        clover.style.fontSize = Math.random() * 10 + 15 + 'px';
+        document.body.appendChild(clover);
+        setTimeout(() => { clover.remove(); }, 10000);
+    }
+    setInterval(createClover, 500);
+</script>
+
+</body>
+</html>
