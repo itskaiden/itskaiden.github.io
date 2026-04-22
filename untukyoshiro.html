@@ -5,25 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf — For Yoshiro</title>
     <style>
-        .highlight-quote {
-    font-family: 'Crimson Text', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: #f0e68c; /* Warna kuning bintang lembut */
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-left: 3px solid #a8bfa1;
-    border-radius: 0 15px 15px 0;
-    margin: 20px 0;
-    line-height: 1.5;
-    text-shadow: 0 0 10px rgba(240, 230, 140, 0.3);
-}
+                .highlight-quote {
+            /* Pake font serif biar beda tapi minimalis */
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-size: 0.85rem; /* Font dikecilkan sesuai permintaan */
+            color: rgba(255, 255, 255, 0.7); /* Warna abu-abu putih lembut */
+            line-height: 1.5;
+            text-align: center;
+            
+            /* GAYA DESIGN BARU: KUTIPAN MINIMALIS */
+            position: relative;
+            background: rgba(255, 255, 255, 0.05); /* Background abu-abu tipis */
+            backdrop-filter: blur(5px); /* Efek blur tipis ala-ala kaca */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            
+            /* TANDA KUTIP KECIL & TIPIS DI ATAS & BAWAH */
+            border-top: 1px solid rgba(168, 191, 161, 0.3);
+            border-bottom: 1px solid rgba(168, 191, 161, 0.3);
+        }
+
 
         .chat-container {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    padding: 15px;
-    margin-top: 20px;
+    padding: 10px;
+    margin-top: 10px;
     border: 1px solid rgba(168, 191, 161, 0.2);
     width: 100%;
 }
@@ -130,24 +139,32 @@
             perspective: 1000px; z-index: 10;
         }
 
-        .page {
-            position: absolute; width: 100%; height: 100%;
+                .page {
+            position: absolute; 
+            width: 100%; 
+            height: 100%;
             background: rgba(30, 41, 32, 0.95);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(121, 134, 116, 0.3);
             border-radius: 20px;
-            padding: 30px; 
-            display: none;
-            flex-direction: column; justify-content: center;
-            align-items: center;
-            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            padding: 25px; /* Tambahin dikit biar teks gak nempel tembok */
+            display: flex; /* Ubah ke flex langsung */
+            visibility: hidden; /* Sembunyiin pake visibility biar transisi jalan */
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;     
+            text-align: center;      
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(0.9);
             filter: blur(5px);
+            opacity: 0;
+            overflow-y: auto; 
+            max-height: 100%;
         }
 
         .page.active {
-            display: flex;
+            visibility: visible; /* Munculin pas aktif */
             transform: scale(1);
             filter: blur(0);
             opacity: 1;
@@ -157,9 +174,9 @@
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.5rem; margin-top: 0; }
         
         .message {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 15px 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 10px 0;
     text-align: center;
     overflow: hidden;
     white-space: normal;
@@ -270,7 +287,7 @@
     <div class="decoration" style="top:15px; right:15px;">🌱</div>
     <h2>Something About You</h2>
     <div class="message">
-        Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil itu berharga banget.
+        Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.
     </div>
 
     <div class="highlight-quote">
@@ -278,7 +295,7 @@
     </div>
 
     <div class="message">
-        Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku.
+        Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.
     </div>
 
     <div class="nav-btns">
@@ -308,7 +325,7 @@
             <img src="foto1.jpg" alt="1">
             <img src="IMG_4264.jpeg" alt="2">
             <img src="foto3.jpg" alt="3">
-            <img src="foto4.jpg" alt="4">
+            <img src="IMG_4268.png" alt="4">
         </div>
         <p class="cursive">"Capturing every moment with you ♡"</p>
         <div class="nav-btns">
