@@ -239,14 +239,19 @@
         });
     }
 
-    setInterval(() => {
-        const c = document.createElement('div');
-        c.className = 'clover'; c.innerText = ['☘️', '🍂', '🍃', '🌿', '🍁'];
-        c.style.left = Math.random() * 100 + 'vw';
-        c.style.animationDuration = Math.random() * 3 + 5 + 's';
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 6000);
-    }, 500);
+    function createClover() {
+        const clovers = ['☘️', '🍀', '🍂', '🍁', '🌿'];
+        const clover = document.createElement('div');
+        clover.className = 'clover';
+        clover.innerText = clovers[Math.floor(Math.random() * clovers.length)];
+        clover.style.left = Math.random() * 100 + 'vw';
+        clover.style.animationDuration = Math.random() * 3 + 7 + 's';
+        clover.style.opacity = Math.random() * 0.5 + 0.2;
+        clover.style.fontSize = Math.random() * 10 + 15 + 'px';
+        document.body.appendChild(clover);
+        setTimeout(() => { clover.remove(); }, 10000);
+    }
+    setInterval(createClover, 500);
 </script>
 </body>
 </html>
