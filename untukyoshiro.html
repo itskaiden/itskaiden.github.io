@@ -17,208 +17,69 @@
             display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden;
             position: relative;
-            /* Kursor Semanggi */
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>☘️</text></svg>"), auto;
         }
 
-        /* Animasi Semanggi Melayang */
         .clover {
-            position: fixed;
-            top: -10%;
-            z-index: 2;
-            user-select: none;
-            pointer-events: none;
+            position: fixed; top: -10%; z-index: 2;
+            user-select: none; pointer-events: none;
             animation: fall linear forwards;
         }
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
-        }
-                .highlight-quote {
-            /* Pake font serif biar beda tapi minimalis */
-            font-family: 'Crimson Text', serif;
-            font-style: italic;
-            font-size: 0.85rem; /* Font dikecilkan sesuai permintaan */
-            color: rgba(255, 255, 255, 0.7); /* Warna abu-abu putih lembut */
-            line-height: 1.5;
-            text-align: center;
-            
-            /* GAYA DESIGN BARU: KUTIPAN MINIMALIS */
-            position: relative;
-            background: rgba(255, 255, 255, 0.05); /* Background abu-abu tipis */
-            backdrop-filter: blur(5px); /* Efek blur tipis ala-ala kaca */
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            
-            /* TANDA KUTIP KECIL & TIPIS DI ATAS & BAWAH */
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        .highlight-quote {
+            font-family: 'Crimson Text', serif; font-style: italic; font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7); line-height: 1.5; text-align: center;
+            position: relative; background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px); padding: 20px; margin: 20px 0; border-radius: 10px;
             border-top: 1px solid rgba(168, 191, 161, 0.3);
             border-bottom: 1px solid rgba(168, 191, 161, 0.3);
         }
 
-
         .chat-container {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid rgba(168, 191, 161, 0.2);
-    width: 100%;
-}
-
-.chat-bubble {
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    font-size: 0.8rem;
-    max-width: 85%;
-    display: inline-block;
-}
-
-.chat-left {
-    background: rgba(78, 99, 79, 0.4);
-    align-self: flex-start;
-    text-align: left;
-    float: left;
-    clear: both;
-}
-
-.chat-right {
-    background: rgba(191, 165, 138, 0.2);
-    align-self: flex-end;
-    text-align: right;
-    float: right;
-    clear: both;
-}
-
-.chat-date {
-    font-size: 0.6rem;
-    color: #a8bfa1;
-    margin-bottom: 10px;
-    display: block;
-    text-align: center;
-    opacity: 0.7;
-}
-
-        i {
-    color: #bfa58a;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.05); border-radius: 15px;
+            padding: 10px; margin-top: 10px; border: 1px solid rgba(168, 191, 161, 0.2); width: 100%;
         }
 
-        /* Animasi Hujan */
-        body::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.15;
-            pointer-events: none;
-            animation: rain 2s linear infinite;
-            z-index: 1;
-        }
+        .chat-bubble { padding: 8px 12px; border-radius: 12px; margin-bottom: 8px; font-size: 0.8rem; max-width: 85%; display: inline-block; }
+        .chat-left { background: rgba(78, 99, 79, 0.4); float: left; clear: both; text-align: left; }
+        .chat-right { background: rgba(191, 165, 138, 0.2); float: right; clear: both; text-align: right; }
+        .chat-date { font-size: 0.6rem; color: #a8bfa1; margin-bottom: 10px; display: block; text-align: center; opacity: 0.7; }
 
-        @keyframes rain {
-            from { background-position: 0 0; }
-            to { background-position: 100px 500px; }
-        }
-
-        .progress-container {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: rgba(255,255,255,0.1); z-index: 1000;
-        }
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: rgba(255,255,255,0.1); z-index: 1000; }
         .progress-bar { height: 100%; background: #a8bfa1; width: 0%; transition: 0.5s; }
 
-        .book-container {
-            width: 90%; max-width: 400px;
-            height: 85vh; position: relative;
-            perspective: 1000px; z-index: 10;
-        }
+        .book-container { width: 90%; max-width: 400px; height: 85vh; position: relative; z-index: 10; }
 
         .page {
-    position: absolute; 
-    width: 100%; 
-    height: 100%;
-    background: rgba(30, 41, 32, 0.95);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(121, 134, 116, 0.3);
-    border-radius: 20px;
-    padding: 20px;
-    display: none; /* Biar nunggu fungsi JS nextPage */
-    flex-direction: column; 
-    
-    /* PENTING: Pake flex-start biar scroll mulai dari atas, bukan tengah */
-    justify-content: flex-start; 
-    align-items: center;     
-    text-align: center;      
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(0.9);
-    filter: blur(5px);
-    opacity: 0;
-    
-    /* FIX SCROLL MOBIL & BROWSER */
-    overflow-y: auto; 
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; 
-}
+            position: absolute; width: 100%; height: 100%;
+            background: rgba(30, 41, 32, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(121, 134, 116, 0.3); border-radius: 20px;
+            padding: 20px; display: none; flex-direction: column;
+            justify-content: flex-start; align-items: center; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); overflow-y: auto;
+        }
 
-        .page.active { display: flex; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); }
+        .page.active { display: flex; animation: fadeIn 0.5s ease forwards; opacity: 1; transform: scale(1); filter: blur(0); }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); filter: blur(5px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
 
-        .decoration { position: absolute; font-size: 1.2rem; opacity: 0.3; }
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.5rem; margin-top: 0; }
-
-        .message:last-of-type {
-    margin-bottom: 20px;
-}
-        .message {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    margin: 10px 0;
-    text-align: center;
-    overflow: hidden;
-    white-space: normal;
-}
-
-        /* animasi Ngetik pas halaman aktif */
-        .page.active .message {
-            animation: typing 2s steps(40, end);
-        }
-
-        @keyframes typing {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        .message { font-size: 0.85rem; line-height: 1.4; margin: 10px 0; }
         .highlight { color: #bfa58a; font-weight: 500; }
         .cursive { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #a8bfa1; }
 
-        /* Biar tombol navigasi tetep stay di bawah box tanpa ketutup teks */
-.nav-btns { 
-    display: flex; 
-    justify-content: space-between; 
-    width: 100%; 
-    padding: 20px 0 10px 0; 
-    margin-top: auto; /* Dorong tombol ke paling bawah kontainer */
-    flex-shrink: 0; /* Biar tombol nggak gepeng pas konten penuh */
-    position: sticky;
-    bottom: 0;
-    background: linear-gradient(transparent, rgba(30, 41, 32, 1) 20%);
-    z-index: 100;
-}
-        .btn-nav { 
-            background: transparent; border: 1px solid #4a5d4e; color: #a8bfa1;
-            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem;
+        .nav-btns { 
+            display: flex; justify-content: space-between; width: 100%; 
+            padding: 20px 0 10px 0; margin-top: auto; position: sticky; bottom: 0;
+            background: linear-gradient(transparent, rgba(30, 41, 32, 1) 20%); z-index: 100;
         }
-        
-        .btn-yes { background: #4e634f; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
-        .btn-no { background: transparent; color: #888; border: 1px solid #444; padding: 12px 25px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .btn-nav { background: transparent; border: 1px solid #4a5d4e; color: #a8bfa1; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; }
+        .btn-yes { background: #4e634f; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; }
+        .btn-no { background: transparent; color: #888; border: 1px solid #444; padding: 12px 25px; border-radius: 5px; cursor: pointer; }
 
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-        .photo-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; filter: grayscale(20%); border: 1px solid rgba(255,255,255,0.1); }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; width: 100%; }
+        .photo-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }
         .ps-text { font-size: 0.6rem; color: #bfa58a; font-style: italic; margin-top: 8px; }
     </style>
 </head>
@@ -226,18 +87,15 @@
 
 <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
 
-<audio id="bgMusic" loop preload="auto">
-    <source src="Nadhif Basalamah – kota ini tak sama tanpamu.m4a" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop><source src="Nadhif Basalamah – kota ini tak sama tanpamu.m4a" type="audio/mpeg"></audio>
 
 <button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: rgba(30,41,32,0.8); border: 1px solid #a8bfa1; color: #a8bfa1; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">♫</button>
 
 <div class="book-container">
 
     <div class="page active" id="p0">
-        <div class="decoration" style="top:15px; left:15px;">✉️</div>
         <h2 class="cursive">Hi, Yoshiro...</h2>
-        <div class="message" style="text-align: center;">
+        <div class="message">
             Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
             Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
             Boleh luangin waktu kamu sebentar buat baca?
@@ -249,136 +107,99 @@
     </div>
     
     <div class="page" id="p1">
-        <div class="decoration" style="top:15px; right:15px;">🍀</div>
         <h2>Personal Log</h2>
         <div class="message">
             Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu.
-            
         </div>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="prevPage(0)">Back</button>
+            <button class="btn-nav" onclick="nextPage(0)">Back</button>
             <button class="btn-nav" onclick="nextPage(2)">Next</button>
         </div>
     </div>
 
     <div class="page" id="p2">
-    <div class="decoration" style="bottom:15px; left:15px;">🌿</div>
-    <h2>A Piece of Memory</h2>
-    <div class="message">
-        Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah. 
-    </div>
-
-    <div class="chat-container">
-        <span class="chat-date">First encounter — April, 2026</span>
-        
-        <div class="chat-right chat-bubble">
-            "tau ga apa bedanya kamu sama lumut?"
+        <h2>A Piece of Memory</h2>
+        <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
+        <div class="chat-container">
+            <span class="chat-date">First encounter — April, 2026</span>
+            <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+            <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+            <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
+            <div style="clear:both;"></div>
         </div>
-        
-        <div class="chat-left chat-bubble">
-            "WKWK gatauu nihh, apatuhh bedanyaa??"
-        </div>
-
-        <div class="chat-right chat-bubble">
-            "kalau lumut warna ijo, kalau kamu i jodohku."
-        </div>
-        
-        <div style="clear:both;"></div> </div>
-
-    <div class="message" style="margin-top:20px;">
-        Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
-    </div>
-
-    <div class="nav-btns">
-        <button class="btn-nav" onclick="prevPage(1)">Back</button>
-        <button class="btn-nav" onclick="nextPage(3)">Next</button>
-    </div>
-</div>
-
-
-    <div class="page" id="p3">
-    <div class="decoration" style="top:15px; right:15px;">🌱</div>
-    <h2>Something About You</h2>
-    <div class="message">
-        Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.
-    </div>
-
-    <div class="highlight-quote">
-        "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
-    </div>
-
-    <div class="message">
-        Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.
-    </div>
-
-    <div class="nav-btns">
-        <button class="btn-nav" onclick="prevPage(2)">Back</button>
-        <button class="btn-nav" onclick="nextPage('_reasons')">Next</button>
-    </div>
-</div>
-
-        <div class="page" id="p_reasons">
-        <div class="decoration" style="top:15px; left:15px;">🔍</div>
-        <h2>A Little Secret...</h2>
-        <div class="message">
-            Maybe you're wondering, kenapa harus kamu? <br><br>
-            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random, and I love how I can just be myself when I'm with you. <br><br>
-            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapi hariku. <b>It's always been you, Yoshiro.</b>
+        <div class="message" style="margin-top:20px;">
+            Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
         </div>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="prevPage(3)">Back</button>
+            <button class="btn-nav" onclick="nextPage(1)">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p3">
+        <h2>Something About You</h2>
+        <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.</div>
+        <div class="highlight-quote">
+            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
+        </div>
+        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku.</div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(2)">Back</button>
             <button class="btn-nav" onclick="nextPage(4)">Next</button>
         </div>
     </div>
 
-
     <div class="page" id="p4">
-        <h2>Chapter IV: Us</h2>
-        <div class="photo-grid">
-            <img src="foto1.jpg" alt="1">
-            <img src="IMG_4264.jpeg" alt="2">
-            <img src="foto3.jpg" alt="3">
-            <img src="IMG_4268.png" alt="4">
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
+            You make the world feel a bit less chaotic. <b>It's always been you, Yoshiro.</b>
         </div>
-        <p class="cursive">"Capturing every moment with you ♡"</p>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="prevPage('_reasons')">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Back</button>
             <button class="btn-nav" onclick="nextPage(5)">Next</button>
         </div>
     </div>
 
     <div class="page" id="p5">
-        <div class="decoration" style="top:15px; right:15px;">☘️</div>
+        <h2>Chapter IV: Us</h2>
+        <div class="photo-grid">
+            <img src="foto1.jpg">
+            <img src="IMG_4264.jpeg">
+            <img src="foto3.jpg">
+            <img src="IMG_4268.png">
+        </div>
+        <p class="cursive">"Capturing every moment with you ♡"</p>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(4)">Back</button>
+            <button class="btn-nav" onclick="nextPage(6)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p6">
         <h2>The Final Page</h2>
         <div class="message">
-            Yoshiro Akio, setelah semua catatan yang aku kasih lihat hari ini... intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah' yang selama ini aku cari. <br><br>
-            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.
+            Yoshiro Akio, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span>
         </div>
-        
-        <div id="askAction" style="display:flex; flex-direction:column; align-items:center; width: 100%;">
-    <div style="display:flex; gap:15px; justify-content:center; width:100%; margin-top: 10px;">
-        <button class="btn-yes" id="yesBtn" onclick="celebrate()" style="margin:0; flex: 1; max-width: 150px;">Yes, I Will ☘️</button>
-        <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()" style="margin:0; flex: 1; max-width: 150px;">Not Now</button>
-    </div>
-    <p id="jailText" class="ps-text" style="margin-top: 15px;">p.s: jangan pencet not now ya! :p</p>
-</div>
-
-        <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
-    "This is the best day of my life! I'll see you soon, Yoshiro. ♡"
-    <br><br>
-    <a href="https://t.me/einsteinb" target="_blank" style="text-decoration: none;">
-        <button class="btn-nav" style="background: rgba(168, 191, 161, 0.2); border: 1px dashed #a8bfa1; font-family: sans-serif; font-size: 0.7rem; padding: 10px 15px; cursor: pointer;">
-            Write your answer here ⮕
-        </button>
-    </a>
-</div>
-
+        <div id="askAction" style="display:flex; gap:10px; width:100%; justify-content:center;">
+            <button class="btn-yes" onclick="celebrate()">Yes, I Will ☘️</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
+        </div>
+        <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+        <div id="finalMessage" style="display:none;" class="cursive">
+            "This is the best day of my life! ♡" <br><br>
+            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">Kirim Jawaban ⮕</button></a>
+        </div>
         <div class="nav-btns" id="lastNav">
-            <button class="btn-nav" onclick="prevPage(4)">Back</button>
+            <button class="btn-nav" onclick="nextPage(5)">Back</button>
         </div>
     </div>
 
-</div> <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+</div>
+
+<form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
     <input type="text" name="Jawaban" value="YES, I WILL! ☘️">
 </form>
 
@@ -387,87 +208,45 @@
     var musicBtn = document.getElementById("musicBtn");
 
     function playMusic() {
-        if (audio.paused) {
-            audio.play();
-            musicBtn.innerText = "II";
-        } else {
-            audio.pause();
-            musicBtn.innerText = "♫";
-        }
+        if (audio.paused) { audio.play(); musicBtn.innerText = "II"; } 
+        else { audio.pause(); musicBtn.innerText = "♫"; }
     }
 
     function nextPage(n) {
-        // Play musik pas klik pertama kali
-        if (n === 1 && audio.paused) {
-            audio.play().catch(e => console.log("Safari butuh klik user"));
-            musicBtn.innerText = "II";
-        }
-
-        document.querySelectorAll('.page').forEach(page => {
-            page.style.display = 'none';
-            page.classList.remove('active');
-        });
-
+        if (n > 0 && audio.paused) { audio.play().catch(e => {}); musicBtn.innerText = "II"; }
+        document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
         const target = document.getElementById('p' + n);
-        if (target) {
-            target.style.display = 'flex';
-            setTimeout(() => { target.classList.add('active'); }, 10);
-        }
-        updateProgress(n);
-    }
-
-    function prevPage(n) { nextPage(n); }
-
-    function updateProgress(n) {
-        const bar = document.getElementById('bar');
-        if(bar) bar.style.width = (n/5)*100 + '%';
+        if (target) { target.style.display = 'flex'; setTimeout(() => target.classList.add('active'), 10); }
+        document.getElementById('bar').style.width = (n/6)*100 + '%';
     }
 
     function moveButton() {
         const btn = document.getElementById('noBtn');
-        const jail = document.getElementById('jailText');
-        jail.innerText = "masih aja bandel ya :p";
-        const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
-        const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
+        document.getElementById('jailText').innerText = "masih aja bandel ya :p";
         btn.style.position = 'fixed';
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-        btn.style.zIndex = "9999";
+        btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+        btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
     }
 
-    async function celebrate() {
-        const yesBtn = document.getElementById("yesBtn");
-        yesBtn.innerText = "Sending...";
-        const formData = new FormData(document.getElementById("answerForm"));
-        
+    function celebrate() {
         fetch("https://formspree.io/f/xlgankov", {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                document.getElementById("askAction").style.display = "none";
-                document.getElementById("lastNav").style.display = "none";
-                document.getElementById("finalMessage").style.display = "block";
-            }
+            method: 'POST', body: new FormData(document.getElementById("answerForm")), headers: { 'Accept': 'application/json' }
+        }).then(() => {
+            document.getElementById("askAction").style.display = "none";
+            document.getElementById("jailText").style.display = "none";
+            document.getElementById("lastNav").style.display = "none";
+            document.getElementById("finalMessage").style.display = "block";
         });
     }
 
-    // Animasi Semanggi
-    function createClover() {
-        const clovers = ['☘️', '🍀', '🍂', '🍁'];
-        const clover = document.createElement('div');
-        clover.className = 'clover';
-        clover.innerText = clovers[Math.floor(Math.random() * clovers.length)];
-        clover.style.left = Math.random() * 100 + 'vw';
-        clover.style.animationDuration = Math.random() * 3 + 7 + 's';
-        clover.style.opacity = Math.random() * 0.5 + 0.2;
-        clover.style.fontSize = Math.random() * 10 + 15 + 'px';
-        document.body.appendChild(clover);
-        setTimeout(() => { clover.remove(); }, 10000);
-    }
-    setInterval(createClover, 500);
+    setInterval(() => {
+        const c = document.createElement('div');
+        c.className = 'clover'; c.innerText = '☘️';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDuration = Math.random() * 3 + 5 + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 6000);
+    }, 500);
 </script>
-
 </body>
 </html>
