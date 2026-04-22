@@ -87,6 +87,11 @@
             transform: scale(0.9);
             filter: blur(5px);
             opacity: 0;
+            display: none;
+            flex-direction: column; 
+            justify-content: center; /* Menjaga semua konten di tengah secara vertikal */
+            align-items: center;     /* Menjaga semua konten di tengah secara horizontal */
+            text-align: center;      /* Menjaga teks di tengah */
         }
 
         .page.active {
@@ -100,12 +105,13 @@
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.5rem; margin-top: 0; }
         
         .message {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 15px 0;
-            text-align: justify;
-            overflow: hidden;
-        }
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 15px 0;
+    text-align: center;
+    overflow: hidden;
+    white-space: normal;
+}
 
         /* animasi Ngetik pas halaman aktif */
         .page.active .message {
@@ -150,9 +156,9 @@
         <div class="decoration" style="top:15px; left:15px;">✉️</div>
         <h2 class="cursive">Hi, Yoshiro...</h2>
         <div class="message" style="text-align: center;">
-            "Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
+            Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
             Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
-            Boleh luangin waktu kamu sebentar buat baca?"
+            Boleh luangin waktu kamu sebentar buat baca?
         </div>
         <div class="nav-btns">
             <span></span>
@@ -164,7 +170,7 @@
         <div class="decoration" style="top:15px; right:15px;">🍀</div>
         <h2>Personal Log</h2>
         <div class="message">
-            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu."
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu.
             
         </div>
         <div class="nav-btns">
@@ -189,7 +195,7 @@
         <div class="decoration" style="top:15px; right:15px;">🌱</div>
         <h2>Something About You</h2>
         <div class="message">
-            Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena kamu adalah kamu. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.
+            Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="prevPage(2)">Back</button>
@@ -201,9 +207,9 @@
         <div class="decoration" style="top:15px; left:15px;">🔍</div>
         <h2>A Little Secret...</h2>
         <div class="message">
-            "Maybe you're wondering, kenapa harus kamu? <br><br>
+            Maybe you're wondering, kenapa harus kamu? <br><br>
             Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random, and I love how I can just be myself when I'm with you. <br><br>
-            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapi hariku. <b>It's always been you, Yoshiro.</b>"
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapi hariku. <b>It's always been you, Yoshiro.</b>
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="prevPage(3)">Back</button>
@@ -333,7 +339,7 @@
 
     // Animasi Semanggi
     function createClover() {
-        const clovers = ['☘️', '🍀', '🍂'];
+        const clovers = ['☘️', '🍀', '🍂', '🍁'];
         const clover = document.createElement('div');
         clover.className = 'clover';
         clover.innerText = clovers[Math.floor(Math.random() * clovers.length)];
