@@ -236,11 +236,13 @@
             Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.
         </div>
         
-        <div id="askAction" style="display:flex; gap:10px; flex-direction:column; align-items:center;">
-            <button class="btn-yes" id="yesBtn" onclick="celebrate()">Yes, I Will ☘️</button>
-            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
-            <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
-        </div>
+        <div id="askAction" style="display:flex; flex-direction:column; align-items:center; width: 100%;">
+    <div style="display:flex; gap:15px; justify-content:center; width:100%; margin-top: 10px;">
+        <button class="btn-yes" id="yesBtn" onclick="celebrate()" style="margin:0; flex: 1; max-width: 150px;">Yes, I Will ☘️</button>
+        <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()" style="margin:0; flex: 1; max-width: 150px;">Not Now</button>
+    </div>
+    <p id="jailText" class="ps-text" style="margin-top: 15px;">p.s: jangan pencet not now ya! :p</p>
+</div>
 
         <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
     "This is the best day of my life! I'll see you soon, Yoshiro. ♡"
