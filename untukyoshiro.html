@@ -139,29 +139,33 @@
             perspective: 1000px; z-index: 10;
         }
 
-                .page {
-            position: absolute; 
-            width: 100%; 
-            height: 100%;
-            background: rgba(30, 41, 32, 0.95);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(121, 134, 116, 0.3);
-            border-radius: 20px;
-            padding: 25px; /* Tambahin dikit biar teks gak nempel tembok */
-            display: flex; /* Ubah ke flex langsung */
-            visibility: hidden; /* Sembunyiin pake visibility biar transisi jalan */
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;     
-            text-align: center;      
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(0.9);
-            filter: blur(5px);
-            opacity: 0;
-            overflow-y: auto; 
-            max-height: 100%;
-        }
+        .page {
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(30, 41, 32, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(121, 134, 116, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    display: none; /* Biar nunggu fungsi JS nextPage */
+    flex-direction: column; 
+    
+    /* PENTING: Pake flex-start biar scroll mulai dari atas, bukan tengah */
+    justify-content: flex-start; 
+    align-items: center;     
+    text-align: center;      
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.9);
+    filter: blur(5px);
+    opacity: 0;
+    
+    /* FIX SCROLL MOBIL & BROWSER */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; 
+}
 
         .page.active {
             visibility: visible; /* Munculin pas aktif */
@@ -172,7 +176,10 @@
 
         .decoration { position: absolute; font-size: 1.2rem; opacity: 0.3; }
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.5rem; margin-top: 0; }
-        
+
+        .message:last-of-type {
+    margin-bottom: 20px;
+}
         .message {
     font-size: 0.85rem;
     line-height: 1.4;
@@ -195,7 +202,19 @@
         .highlight { color: #bfa58a; font-weight: 500; }
         .cursive { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #a8bfa1; }
 
-        .nav-btns { display: flex; justify-content: space-between; margin-top: auto; width: 100%; padding-top: 15px; }
+        /* Biar tombol navigasi tetep stay di bawah box tanpa ketutup teks */
+.nav-btns { 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    padding: 20px 0 10px 0; 
+    margin-top: auto; /* Dorong tombol ke paling bawah kontainer */
+    flex-shrink: 0; /* Biar tombol nggak gepeng pas konten penuh */
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(transparent, rgba(30, 41, 32, 1) 20%);
+    z-index: 100;
+}
         .btn-nav { 
             background: transparent; border: 1px solid #4a5d4e; color: #a8bfa1;
             padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.7rem;
