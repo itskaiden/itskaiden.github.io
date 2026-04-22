@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf — For Yoshiro</title>
     <style>
+        i {
+    color: #bfa58a;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+}
+
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
 
@@ -133,7 +139,7 @@
 <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
 
 <audio id="bgMusic" loop preload="auto">
-    <source src="Green Day – Last Night On Earth.m4a" type="audio/mpeg">
+    <source src="Nadhif Basalamah – kota ini tak sama tanpamu.m4a" type="audio/mpeg">
 </audio>
 
 <button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: rgba(30,41,32,0.8); border: 1px solid #a8bfa1; color: #a8bfa1; border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">♫</button>
@@ -187,9 +193,24 @@
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="prevPage(2)">Back</button>
+            <button class="btn-nav" onclick="nextPage(_reasons)">Next</button>
+        </div>
+    </div>
+
+        <div class="page" id="p_reasons">
+        <div class="decoration" style="top:15px; left:15px;">🔍</div>
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            "Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random, and I love how I can just be myself when I'm with you. <br><br>
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapi hariku. <b>It's always been you, Yoshiro.</b>"
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="prevPage(3)">Back</button>
             <button class="btn-nav" onclick="nextPage(4)">Next</button>
         </div>
     </div>
+
 
     <div class="page" id="p4">
         <h2>Chapter IV: Us</h2>
@@ -201,7 +222,7 @@
         </div>
         <p class="cursive">"Capturing every moment with you ♡"</p>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="prevPage(3)">Back</button>
+            <button class="btn-nav" onclick="prevPage(_reasons)">Back</button>
             <button class="btn-nav" onclick="nextPage(5)">Next</button>
         </div>
     </div>
@@ -221,8 +242,14 @@
         </div>
 
         <div id="finalMessage" style="display:none; margin-top: 15px;" class="cursive">
-            "This is the best day of my life! I'll see you soon, Yoshiro. ♡"
-        </div>
+    "This is the best day of my life! I'll see you soon, Yoshiro. ♡"
+    <br><br>
+    <a href="https://t.me/einsteinb" target="_blank" style="text-decoration: none;">
+        <button class="btn-nav" style="background: rgba(168, 191, 161, 0.2); border: 1px dashed #a8bfa1; font-family: sans-serif; font-size: 0.7rem; padding: 10px 15px; cursor: pointer;">
+            Write your answer here ⮕
+        </button>
+    </a>
+</div>
 
         <div class="nav-btns" id="lastNav">
             <button class="btn-nav" onclick="prevPage(4)">Back</button>
@@ -277,7 +304,7 @@
     function moveButton() {
         const btn = document.getElementById('noBtn');
         const jail = document.getElementById('jailText');
-        jail.innerText = "p.s: masih aja bandel! :p";
+        jail.innerText = "masih aja bandel ya :p";
         const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
         const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
         btn.style.position = 'fixed';
