@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf — For Yoshiro</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+        * { box-sizing: border-box; }
+        body {
+            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
+            color: #d1d9d1;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            position: relative;
+            /* Kursor Semanggi */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>☘️</text></svg>"), auto;
+        }
+
+        /* Animasi Semanggi Melayang */
+        .clover {
+            position: fixed;
+            top: -10%;
+            z-index: 2;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
                 .highlight-quote {
             /* Pake font serif biar beda tapi minimalis */
             font-family: 'Crimson Text', serif;
@@ -75,37 +104,6 @@
     color: #bfa58a;
     font-family: 'Dancing Script', cursive;
     font-size: 1.1rem;
-}
-
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
-
-        * { box-sizing: border-box; }
-
-        body {
-            background: linear-gradient(to bottom, #1b261d, #2c3e2f, #1a1a1a);
-            color: #d1d9d1;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden;
-            position: relative;
-            /* Kursor Semanggi */
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>☘️</text></svg>"), auto;
-        }
-
-        /* Animasi Semanggi Melayang */
-        .clover {
-            position: fixed;
-            top: -10%;
-            z-index: 2; /* Di atas background tapi di bawah teks */
-            user-select: none;
-            pointer-events: none;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
         }
 
         /* Animasi Hujan */
@@ -167,12 +165,8 @@
     -webkit-overflow-scrolling: touch; 
 }
 
-        .page.active {
-            visibility: visible; /* Munculin pas aktif */
-            transform: scale(1);
-            filter: blur(0);
-            opacity: 1;
-        }
+        .page.active { display: flex; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); }
 
         .decoration { position: absolute; font-size: 1.2rem; opacity: 0.3; }
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #a8bfa1; font-size: 1.5rem; margin-top: 0; }
@@ -277,15 +271,15 @@
     <div class="chat-container">
         <span class="chat-date">First encounter — April, 2026</span>
         
-        <div class="chat-left chat-bubble">
+        <div class="chat-right chat-bubble">
             "tau ga apa bedanya kamu sama lumut?"
         </div>
         
-        <div class="chat-right chat-bubble">
+        <div class="chat-left chat-bubble">
             "WKWK gatauu nihh, apatuhh bedanyaa??"
         </div>
 
-        <div class="chat-left chat-bubble">
+        <div class="chat-right chat-bubble">
             "kalau lumut warna ijo, kalau kamu i jodohku."
         </div>
         
