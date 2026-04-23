@@ -125,10 +125,35 @@
         .btn-nav { background: transparent; border: none; color: #db7093; padding: 5px 10px; border-radius: 0; cursor: pointer; font-size: 0.75rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
         .btn-nav:hover { background: transparent; opacity: 1; letter-spacing: 2px; }
 
-        /* Tombol Final Pink Padat */
-        .btn-yes { background: #ffb6c1; color: white; border: none; padding: 12px 28px; border-radius: 10px; cursor: pointer; font-weight: 500; font-size: 0.85rem; transition: 0.3s; }
-        .btn-yes:hover { background: #db7093; }
-        .btn-no { background: transparent; color: #bcaaa4; border: 1px solid #e0e0e0; padding: 12px 28px; border-radius: 10px; cursor: pointer; font-weight: 300; font-size: 0.85rem; transition: all 0.2s ease; white-space: nowrap; }
+        /* Tombol Yes Pink Solid */
+        .btn-yes { 
+            background: #ffb6c1; 
+            color: white; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 500; 
+            font-size: 0.85rem; 
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        /* Tombol Not Now yang Bakal Kabur */
+        .btn-no { 
+            background: #ffffff; 
+            color: #bcaaa4; 
+            border: 1px solid #ffb6c1; 
+            padding: 12px 25px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 300; 
+            font-size: 0.85rem; 
+            transition: all 0.2s ease;
+            position: relative; /* BIAR GAK LANGSUNG PINDAH KE PINGGIR */
+            z-index: 1000;
+            white-space: nowrap;
+        }
 
         /* Photo Grid & PS */
         .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; width: 100%; }
@@ -341,7 +366,7 @@
         <div class="message">
             Maybe you're wondering, kenapa harus kamu? <br><br>
             Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
-            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku.<b>It's always been you, Yoshiro.</b>
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku. <b>It's always been you, Yoshiro.</b>
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(3)">Back</button>
@@ -482,7 +507,7 @@
         document.getElementById('jailText').innerText = jailMessages[Math.floor(Math.random() * jailMessages.length)];
 
         // Itung batas box putihnya biar gak keluar
-        const padding = 30;
+        const padding = 40;
         const maxX = page.clientWidth - btn.clientWidth - padding;
         const maxY = page.clientHeight - btn.clientHeight - padding;
 
