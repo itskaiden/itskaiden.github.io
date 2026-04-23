@@ -65,26 +65,21 @@
             position: relative;
         }
 
-        /* Trik untuk menambahkan teks bunga-bunga transparan yang banyak tanpa merusak CSS flex */
+            /* REVISI MOTIF BUNGA BIAR GAK KEPOTONG */
         .page::before {
-            content: "✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ❀ ✿❁ ❀ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁"; /* Teks bunga yang banyak banget */
-            font-family: serif;
-            font-size: 1.5rem; /* Ukuran emoji bunga */
-            letter-spacing: 5px; /* Jarak antar emoji bunga */
-            line-height: 1.8; /* Jarak antar baris */
-            
-            /* TRANSPARAN BANGET */
-            color: rgba(255, 182, 193, 0.15); /* Pink sangat tipis */
-            
-            /* POSISI DI BELAKANG TEKS LOK */
+            content: ""; /* Kosongkan teksnya */
             position: absolute;
-            top: 10px; left: 10px; right: 10px; bottom: 10px;
-            z-index: 1; /* Di depan background, di belakang konten */
-            opacity: 0.8; /* Tambahan transparansi global */
-            pointer-events: none; /* Biar ga bisa diklik */
-            text-align: left;
-            overflow: hidden; /* Jaga agar bunga ga tumpah */
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+            opacity: 0.12; /* Atur tingkat transparan di sini */
+            pointer-events: none;
+
+            /* Menggunakan gambar SVG transparan biar gak kepotong */
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><text y='30' x='10' font-size='20'>✿</text><text y='70' x='50' font-size='20'>❀</text><text y='30' x='50' font-size='18'>❁</text></svg>");
+            background-repeat: repeat; /* Ini yang bikin dia penuh terus ke kanan-bawah */
+            background-size: 80px 80px; /* Ukuran pola ubinnya */
         }
+
 
         /* Pastikan konten lo tetep di depan si bunga transparan */
         .page * {
