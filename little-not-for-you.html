@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ♡</title>
+    <style>
+        body {
+            background-color: #faf9f6; /* Warna putih gading */
+            color: #8b5e5e; /* Warna cokelat lembut */
+            font-family: 'Georgia', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #f2e9e9;
+        }
+
+        h1 {
+            font-weight: normal;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            color: #ffb7b7;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background-color: #ffe5e5;
+            color: #8b5e5e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ffd1d1;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="heart">♡</div>
+        <h1>Semangat Ya, Cantik</h1>
+        
+        <p id="quote">"Aku tahu hari ini mungkin terasa berat, tapi ingat kalau kamu punya hati yang sangat luar biasa. Istirahat sebentar ya, dunia bisa menunggu."</p>
+        
+        <button class="btn" onclick="newQuote()">Klik untuk Pelukan Virtual</button>
+
+        <div class="footer">Dibuat khusus untukmu ✨</div>
+    </div>
+
+    <script>
+        const quotes = [
+            "Kamu itu seperti sinar matahari di balik jendela yang mendung. Hangat dan menenangkan.",
+            "Nggak apa-apa kalau mau sedih dulu, tapi jangan lupa kalau aku selalu ada di sini buat kamu.",
+            "Take your time, bidadari juga butuh istirahat. Semangat ya sayang!",
+            "Coba tarik napas dalam-dalam... kamu sudah melakukan yang terbaik hari ini. Aku bangga sama kamu.",
+            "I wish I could hug you right now. For now, keep this message in your heart."
+        ];
+
+        function newQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quote').innerText = quotes[randomIndex];
+        }
+    </script>
+</body>
+</html>
