@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Leaf — For Yoshiro</title>
+    <style>
+        /* FONT AESTHETIC BARU */
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family= Montserrat:wght@300;400;500&family=Dancing+Script:wght@500&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            /* BACKGROUND PINK PASTEL LEMBUT */
+            background-color: #fff0f5; 
+            color: #5d4a4a; /* Warna teks cokelat gelap lembut, gak item pekat */
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            position: relative;
+            /* Kursor Bunga Cherry Blossom */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌸</text></svg>"), auto;
+        }
+
+        /* Efek Bunga Cherry Blossom Melayang */
+        .cherry-blossom {
+            position: fixed; top: -10%; z-index: 2;
+            user-select: none; pointer-events: none;
+            animation: fall linear forwards;
+            opacity: 0.6;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Progress Bar Soft Pink */
+        .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 5px; background: rgba(0,0,0,0.05); z-index: 1000; }
+        .progress-bar { height: 100%; background: #ffb6c1; width: 0%; transition: 0.5s ease; border-radius: 0 5px 5px 0; }
+
+        .book-container {
+            width: 90%; max-width: 380px; /* Sedikit lebih ramping */
+            height: 80vh; position: relative; z-index: 10;
+        }
+
+                /* CSS BOX HALAMAN PUTIH COQUETTE DENGAN POLA BUNGA TRANSPARAN */
+        .page {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 25px; /* Pinggiran lebih bulat lembut */
+            padding: 30px 25px; /* Padding lebih lega */
+            display: none; flex-direction: column;
+            justify-content: flex-start; align-items: center; text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2); /* Shadow pink lembut */
+            overflow-y: auto; overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            
+            /* --- REVISI: BACKGROUND PUTIH + POLA BUNGA TRANSPARAN --- */
+            
+            /* 1. Base warna putih bersih */
+            background-color: #ffffff; 
+
+            /* 2. Motif bunga-bunga coquette tipis-tipis */
+            background-image: 
+                radial-gradient(rgba(255, 182, 193, 0.05) 1px, transparent 1px), /* Titik pink transparan */
+                linear-gradient(rgba(138, 124, 124, 0.03) 0.5px, transparent 0.5px); /* Garis cokelat transparan tipis */
+            background-size: 15px 15px; /* Jarak antar motif */
+
+            /* 3. Menambahkan teks transparan di paling belakang (kayak watermark) */
+            position: relative;
+        }
+
+        /* Trik untuk menambahkan teks bunga-bunga transparan yang banyak tanpa merusak CSS flex */
+        .page::before {
+            content: "✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ❀ ✿❁ ❀ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁"; /* Teks bunga yang banyak banget */
+            font-family: serif;
+            font-size: 1.5rem; /* Ukuran emoji bunga */
+            letter-spacing: 5px; /* Jarak antar emoji bunga */
+            line-height: 1.8; /* Jarak antar baris */
+            
+            /* TRANSPARAN BANGET */
+            color: rgba(255, 182, 193, 0.15); /* Pink sangat tipis */
+            
+            /* POSISI DI BELAKANG TEKS LOK */
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            z-index: 1; /* Di depan background, di belakang konten */
+            opacity: 0.8; /* Tambahan transparansi global */
+            pointer-events: none; /* Biar ga bisa diklik */
+            text-align: left;
+            overflow: hidden; /* Jaga agar bunga ga tumpah */
+        }
+
+        /* Pastikan konten lo tetep di depan si bunga transparan */
+        .page * {
+            z-index: 5; /* Angka yang lebih besar dari ::before */
+        }
+
+
+        /* Animasi Masuk Lebih Halus */
+        .page.active { display: flex; animation: pageIn 0.8s ease forwards; opacity: 1; transform: scale(1); filter: blur(0); }
+        @keyframes pageIn { from { opacity: 0; transform: translateY(15px); filter: blur(2px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+
+        /* Typography Baru */
+        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #ffb6c1; font-size: 1.6rem; margin-top: 0; font-weight: 400; }
+        .message { font-size: 0.88rem; line-height: 1.6; margin: 15px 0; color: #6e5a5a; font-weight: 300; }
+        .highlight { color: #db7093; font-weight: 500; text-decoration: underline; text-decoration-color: rgba(219, 112, 147, 0.3); }
+        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #ffb6c1; }
+
+        /* Desain Quote Minimalis (Sesuai Request Sebelumnya) */
+        .highlight-quote {
+            font-family: 'Crimson Text', serif; font-style: italic; font-size: 0.85rem;
+            color: #8a7c7c; line-height: 1.6; text-align: center;
+            position: relative; background: #fffaf0; /* Sedikit krem hangat */
+            padding: 20px; margin: 20px 0; border-radius: 15px;
+            border-top: 1px dashed rgba(255, 182, 193, 0.4);
+            border-bottom: 1px dashed rgba(255, 182, 193, 0.4);
+        }
+
+        /* Desain Chat Box Soft Boy */
+        .chat-container {
+            background: #fff5f8; border-radius: 15px;
+            padding: 12px; margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.15); width: 100%;
+        }
+        .chat-bubble { padding: 10px 14px; border-radius: 15px; margin-bottom: 8px; font-size: 0.82rem; max-width: 85%; display: inline-block; font-weight: 300; }
+        .chat-left { background: #ffffff; border: 1px solid rgba(0,0,0,0.03); float: left; clear: both; text-align: left; color: #6e5a5a; }
+        .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #5d4a4a; }
+        .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; font-weight: 300; }
+
+        /* Navigasi & Tombol Pink Soft */
+        .nav-btns { 
+            display: flex; justify-content: space-between; width: 100%; 
+            padding: 25px 0 15px 0; margin-top: auto; position: sticky; bottom: 0;
+            background: linear-gradient(transparent, #ffffff 40%); z-index: 100;
+        }
+        .btn-nav { background: transparent; border: 1px solid #ffb6c1; color: #db7093; padding: 9px 18px; border-radius: 20px; cursor: pointer; font-size: 0.72rem; font-weight: 400; transition: 0.3s; }
+        .btn-nav:hover { background: #fff5f8; }
+
+        /* Tombol Final Pink Padat */
+        .btn-yes { background: #ffb6c1; color: white; border: none; padding: 12px 28px; border-radius: 10px; cursor: pointer; font-weight: 500; font-size: 0.85rem; transition: 0.3s; }
+        .btn-yes:hover { background: #db7093; }
+        .btn-no { background: transparent; color: #bcaaa4; border: 1px solid #e0e0e0; padding: 12px 28px; border-radius: 10px; cursor: pointer; font-weight: 300; font-size: 0.85rem; }
+
+        /* Photo Grid & PS */
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; width: 100%; }
+        .photo-grid img { width: 100%; height: 110px; object-fit: cover; border-radius: 15px; border: 2px solid transparent; transition: 0.3s; }
+        .photo-grid img:hover { border-color: #ffb6c1; transform: scale(1.02); }
+        .ps-text { font-size: 0.65rem; color: #bcaaa4; font-style: italic; margin-top: 10px; font-weight: 300; }
+        .decoration { position: absolute; font-size: 1.4rem; opacity: 0.5; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+<div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+
+<audio id="bgMusic" loop preload="auto"><source src="Nadhif Basalamah – kota ini tak sama tanpamu.m4a" type="audio/mpeg"></audio>
+
+<button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: #ffffff; border: 1px solid #ffb6c1; color: #db7093; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; box-shadow: 0 5px 10px rgba(255,182,193,0.2); transition: 0.3s;">♫</button>
+
+<div class="book-container">
+
+    <div class="page active" id="p0">
+        <div class="decoration" style="top:15px; left:15px;">✉️</div>
+        <h2 class="cursive">Hi, Yoshiro...</h2>
+        <div class="message">
+            Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
+            Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
+            Boleh luangin waktu kamu sebentar buat baca?
+        </div>
+        <div class="nav-btns">
+            <span></span>
+            <button class="btn-nav" onclick="nextPage(1)">READ ON ⮕</button>
+        </div>
+    </div>
+    
+    <div class="page" id="p1">
+        <div class="decoration" style="top:15px; right:15px;">🎀</div>
+        <h2>Personal Log</h2>
+        <div class="message">
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu.
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(0)">Back</button>
+            <button class="btn-nav" onclick="nextPage(2)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p2">
+        <div class="decoration" style="bottom:15px; left:15px;">🧸</div>
+        <h2>A Piece of Memory</h2>
+        <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
+        <div class="chat-container">
+            <span class="chat-date">First encounter — April, 2026</span>
+            <div class="chat-left chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+            <div class="chat-right chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+            <div class="chat-left chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="message" style="margin-top:20px;">
+            Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(1)">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p3">
+        <div class="decoration" style="top:15px; right:15px;">🍰</div>
+        <h2>Something About You</h2>
+        <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.</div>
+        <div class="highlight-quote">
+            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
+        </div>
+        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku.</div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(2)">Back</button>
+            <button class="btn-nav" onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p4">
+        <div class="decoration" style="top:15px; left:15px;">🤍</div>
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
+            You make the world feel a bit less chaotic. <b>It's always been you, Yoshiro.</b>
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(3)">Back</button>
+            <button class="btn-nav" onclick="nextPage(5)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p5">
+        <h2>Chapter IV: Us</h2>
+        <div class="photo-grid">
+            <img src="foto1.jpg">
+            <img src="IMG_4264.jpeg">
+            <img src="foto3.jpg">
+            <img src="IMG_4268.png">
+        </div>
+        <p class="cursive">"Capturing every moment with you ♡"</p>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(4)">Back</button>
+            <button class="btn-nav" onclick="nextPage(6)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p6">
+        <div class="decoration" style="top:15px; right:15px;">🌸</div>
+        <h2>The Final Page</h2>
+        <div class="message">
+            Yoshiro Akio, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span>
+        </div>
+        <div id="askAction" style="display:flex; gap:12px; width:100%; justify-content:center; margin: 20px 0;">
+            <button class="btn-yes" onclick="celebrate()">Yes, I Will 🤍</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
+        </div>
+        <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
+        <div id="finalMessage" style="display:none; margin-top: 25px;" class="cursive">
+            "This is the best day of my life! ♡" <br><br>
+            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">Kirim Jawaban ⮕</button></a>
+        </div>
+        <div class="nav-btns" id="lastNav">
+            <button class="btn-nav" onclick="nextPage(5)">Back</button>
+        </div>
+    </div>
+
+</div>
+
+<form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+    <input type="text" name="Jawaban" value="YES, I WILL! 🤍">
+</form>
+
+<script>
+    var audio = document.getElementById("bgMusic");
+    var musicBtn = document.getElementById("musicBtn");
+
+    function playMusic() {
+        if (audio.paused) { 
+            audio.play().catch(e => console.log("Blocked")); 
+            musicBtn.innerText = "II"; 
+            musicBtn.style.background = "#fff5f8";
+        } 
+        else { 
+            audio.pause(); 
+            musicBtn.innerText = "♫"; 
+            musicBtn.style.background = "#ffffff";
+        }
+    }
+
+    function nextPage(n) {
+        if (n > 0 && audio.paused) { audio.play().catch(e => {}); musicBtn.innerText = "II"; musicBtn.style.background = "#fff5f8"; }
+        document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
+        const target = document.getElementById('p' + n);
+        if (target) { target.style.display = 'flex'; setTimeout(() => target.classList.add('active'), 10); }
+        document.getElementById('bar').style.width = (n/6)*100 + '%';
+        // Reset scroll position
+        if(target) target.scrollTop = 0;
+    }
+
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        document.getElementById('jailText').innerText = "masih aja bandel ya :p";
+        btn.style.position = 'fixed';
+        btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+        btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+        btn.style.zIndex = "999";
+    }
+
+    function celebrate() {
+        fetch("https://formspree.io/f/xlgankov", {
+            method: 'POST', body: new FormData(document.getElementById("answerForm")), headers: { 'Accept': 'application/json' }
+        }).then(() => {
+            document.getElementById("askAction").style.display = "none";
+            document.getElementById("jailText").style.display = "none";
+            document.getElementById("lastNav").style.display = "none";
+            document.getElementById("finalMessage").style.display = "block";
+            // Optional: Tambah animasi kelopak bunga meledak disini kalau mau
+        });
+    }
+
+    // Efek Bunga Cherry Blossom Melayang (Randomize warna & ukuran)
+    setInterval(() => {
+        const petals = ['🌸', '💮', '🤍', '🫧'];
+        const c = document.createElement('div');
+        c.className = 'cherry-blossom'; 
+        c.innerText = petals[Math.floor(Math.random() * petals.length)];
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDuration = Math.random() * 4 + 6 + 's';
+        c.style.fontSize = Math.random() * 10 + 15 + 'px';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 8000);
+    }, 400); // Sedikit lebih cepat dari semanggi biar ramai
+
+    // Hover effect untuk music button
+    musicBtn.onmouseover = () => musicBtn.style.boxShadow = "0 8px 15px rgba(255,182,193,0.3)";
+    musicBtn.onmouseout = () => musicBtn.style.boxShadow = "0 5px 10px rgba(255,182,193,0.2)";
+</script>
+</body>
+</html>
