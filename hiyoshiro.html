@@ -52,8 +52,6 @@
             overflow-y: auto; overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             
-            /* --- REVISI: BACKGROUND PUTIH + POLA BUNGA TRANSPARAN --- */
-            
             /* 1. Base warna putih bersih */
             background-color: #ffffff; 
 
@@ -69,7 +67,7 @@
 
         /* Trik untuk menambahkan teks bunga-bunga transparan yang banyak tanpa merusak CSS flex */
         .page::before {
-            content: "✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ❀ ✿❁ ❀ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁"; /* Teks bunga yang banyak banget */
+            content: "✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ❀ ✿❁ ❀ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁ ✿ ❀❁"; /* Teks bunga yang banyak banget */
             font-family: serif;
             font-size: 1.5rem; /* Ukuran emoji bunga */
             letter-spacing: 5px; /* Jarak antar emoji bunga */
@@ -143,7 +141,14 @@
         .photo-grid img { width: 100%; height: 110px; object-fit: cover; border-radius: 15px; border: 2px solid transparent; transition: 0.3s; }
         .photo-grid img:hover { border-color: #ffb6c1; transform: scale(1.02); }
         .ps-text { font-size: 0.65rem; color: #bcaaa4; font-style: italic; margin-top: 10px; font-weight: 300; }
-        .decoration { position: absolute; font-size: 1.4rem; opacity: 0.5; pointer-events: none; }
+        .decoration { 
+            position: absolute; 
+            font-size: 1.8rem; /* Ukuran beruangnya */
+            opacity: 0.8; 
+            z-index: 10; /* Biar dia di depan motif bunga */
+            pointer-events: none;
+            /* Biar ga ikut kegeser flexbox teks */
+        }
     </style>
 </head>
 <body>
@@ -174,7 +179,7 @@
         <div class="decoration" style="top:15px; right:15px;">🎀</div>
         <h2>Personal Log</h2>
         <div class="message">
-            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—dan sama kamu.
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri-—<b>dan sama kamu.</b>
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(0)">Back</button>
@@ -183,14 +188,14 @@
     </div>
 
     <div class="page" id="p2">
-        <div class="decoration" style="bottom:15px; left:15px;">🧸</div>
+        <div class="decoration" style="bottom:20px; left:20px;">🧸</div>
         <h2>A Piece of Memory</h2>
         <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
         <div class="chat-container">
             <span class="chat-date">First encounter — April, 2026</span>
-            <div class="chat-left chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
-            <div class="chat-right chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
-            <div class="chat-left chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
+            <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+            <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+            <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
             <div style="clear:both;"></div>
         </div>
         <div class="message" style="margin-top:20px;">
@@ -209,7 +214,7 @@
         <div class="highlight-quote">
             "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
         </div>
-        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku.</div>
+        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.</div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(2)">Back</button>
             <button class="btn-nav" onclick="nextPage(4)">Next</button>
@@ -222,7 +227,7 @@
         <div class="message">
             Maybe you're wondering, kenapa harus kamu? <br><br>
             Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
-            You make the world feel a bit less chaotic. <b>It's always been you, Yoshiro.</b>
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku.<b>It's always been you, Yoshiro.</b>
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(3)">Back</button>
@@ -231,7 +236,7 @@
     </div>
 
     <div class="page" id="p5">
-        <h2>Chapter IV: Us</h2>
+        <h2>US 𓏲ּ𝄢</h2>
         <div class="photo-grid">
             <img src="foto1.jpg">
             <img src="IMG_4264.jpeg">
@@ -250,7 +255,7 @@
         <h2>The Final Page</h2>
         <div class="message">
             Yoshiro Akio, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
-            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya? Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.</span>
         </div>
         <div id="askAction" style="display:flex; gap:12px; width:100%; justify-content:center; margin: 20px 0;">
             <button class="btn-yes" onclick="celebrate()">Yes, I Will 🤍</button>
@@ -301,7 +306,7 @@
 
     function moveButton() {
         const btn = document.getElementById('noBtn');
-        document.getElementById('jailText').innerText = "masih aja bandel ya :p";
+        document.getElementById('jailText').innerText = "masih aja bandel ya!";
         btn.style.position = 'fixed';
         btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
         btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
