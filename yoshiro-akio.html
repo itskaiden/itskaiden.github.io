@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Leaf — For Yoshiro</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@500&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #fff0f5; /* Pink Base */
+            color: #5d4a4a;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+            position: relative;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌸</text></svg>"), auto;
+        }
+
+        /* Cherry Blossom Animation */
+        .cherry-blossom { position: fixed; top: -10%; z-index: 2; user-select: none; pointer-events: none; animation: fall linear forwards; opacity: 0.6; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        .book-container { width: 90%; max-width: 380px; height: 85vh; position: relative; z-index: 10; }
+
+        .page {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 25px; padding: 25px;
+            display: none; flex-direction: column;
+            align-items: center; text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
+            overflow-y: auto; background-color: #ffffff;
+            background-image: radial-gradient(rgba(255, 182, 193, 0.05) 1px, transparent 1px);
+            background-size: 15px 15px;
+        }
+
+        .page.active { display: flex; animation: pageIn 0.8s ease forwards; }
+        @keyframes pageIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Style Khusus Halaman Mading (Matcha Mode) */
+        #p-mading { 
+            background-color: #f0fdf4; /* Soft Green Matcha */
+            border: 2px solid #e2f1e2;
+        }
+        .mading-title { font-family: 'Crimson Text', serif; font-style: italic; color: #79a179; margin-bottom: 15px; }
+        
+        /* Input Mading */
+        .input-box { width: 100%; background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #d4f0d4; }
+        .input-box input, .input-box textarea { 
+            width: 100%; margin-bottom: 10px; border: 1px solid #e2f1e2; padding: 8px; border-radius: 8px; font-family: inherit; font-size: 0.8rem;
+        }
+        .btn-post { background: #a8d5a8; color: white; border: none; padding: 8px; border-radius: 8px; width: 100%; cursor: pointer; font-size: 0.8rem; }
+
+        /* Wall Grid */
+        .wall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        .sticky-note { 
+            background: white; padding: 10px; border-radius: 10px; font-size: 0.7rem; text-align: left;
+            box-shadow: 3px 3px 10px rgba(121,161,121,0.1); border-left: 3px solid #a8d5a8;
+            transform: rotate(-1deg);
+        }
+
+        /* Typography & Buttons */
+        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #ffb6c1; font-weight: 400; }
+        .message { font-size: 0.85rem; line-height: 1.6; color: #6e5a5a; margin: 10px 0; }
+        .highlight { color: #db7093; font-weight: 500; }
+        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #ffb6c1; }
+        
+        .nav-btns { display: flex; justify-content: space-between; width: 100%; margin-top: auto; padding-top: 15px; }
+        .btn-nav { background: transparent; border: none; color: #db7093; cursor: pointer; font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+        .btn-yes { background: #ffb6c1; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
+        .btn-no { background: white; color: #bcaaa4; border: 1px solid #ffb6c1; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
+        
+        .chat-container { background: #fff5f8; border-radius: 15px; padding: 10px; margin: 10px 0; width: 100%; }
+        .chat-bubble { padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; margin-bottom: 5px; display: inline-block; }
+        .chat-left { background: white; float: left; clear: both; color: #6e5a5a; }
+        .chat-right { background: #ffe4e1; float: right; clear: both; color: #5d4a4a; }
+
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+        .photo-grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop><source src="Ten2Five - Hanya Untukmu.mp3" type="audio/mpeg"></audio>
+
+<div class="book-container">
+
+    <div class="page active" id="p-mading">
+        <h2 class="mading-title">Matcha Wall 🌿</h2>
+        <p class="message" style="font-size: 0.75rem;">Sebelum lanjut, tulis sesuatu atau lihat pesan orang lain dulu ya!</p>
+        
+        <div class="input-box">
+            <input type="text" id="userName" placeholder="Nama kamu...">
+            <textarea id="userComment" placeholder="Pesan singkat..."></textarea>
+            <button class="btn-post" onclick="sendComment()">Tempel di Mading 🌿</button>
+        </div>
+
+        <div id="wall" class="wall-grid">
+            </div>
+
+        <div class="nav-btns">
+            <span></span>
+            <button class="btn-nav" onclick="nextPage(0)" style="color: #79a179;">OPEN MY LETTER ⮕</button>
+        </div>
+    </div>
+
+    <div class="page" id="p0">
+        <h2 class="cursive">Hi, Yoshiro...</h2>
+        <div class="message">
+            Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
+            Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
+            Boleh luangin waktu kamu sebentar buat baca?
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="backToMading()">Mading</button>
+            <button class="btn-nav" onclick="nextPage(1)">READ ON ⮕</button>
+        </div>
+    </div>
+
+    <div class="page" id="p1">
+        <h2>Personal Log</h2>
+        <div class="message">
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—<b>dan sama kamu.</b>
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(0)">Back</button>
+            <button class="btn-nav" onclick="nextPage(2)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p2">
+        <h2>A Piece of Memory</h2>
+        <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
+        <div class="chat-container">
+            <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+            <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+            <div class="chat-right chat-bubble">"kalau lumut ijo, kalau kamu i jodohku."</div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="message">Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu sukses bikin hariku cerah. Ngobrol sama kamu rasanya tenang banget.</div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(1)">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p3">
+        <h2>Something About You</h2>
+        <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.</div>
+        <div class="highlight-quote">
+            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
+        </div>
+        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.</div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(2)">Back</button>
+            <button class="btn-nav" onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p4">
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
+            You make the world feel a bit less chaotic. Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku. <b>It's always been you, Yoshiro.</b>
+        </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(3)">Back</button>
+            <button class="btn-nav" onclick="nextPage(5)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p5">
+        <h2>US 𓏲ּ𝄢</h2>
+        <div class="photo-grid">
+            <img src="foto1.jpg">
+            <img src="IMG_4264.jpeg">
+            <img src="foto3.jpg">
+            <img src="IMG_4268.png">
+        </div>
+        <p class="cursive">"Capturing every moment with you ♡"</p>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(4)">Back</button>
+            <button class="btn-nav" onclick="nextPage(6)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p6">
+        <h2>The Final Page</h2>
+        <div class="message">
+            Yoshiro Akio, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.</span>
+        </div>
+        <div id="askAction" style="display:flex; gap:10px; justify-content:center; margin: 15px 0;">
+            <button class="btn-yes" onclick="celebrate()">Yes, I Will 🤍</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
+        </div>
+        <div id="finalMessage" style="display:none;" class="cursive">
+            "This is the best day of my life! ♡" <br><br>
+            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">I'm Here :)</button></a>
+        </div>
+    </div>
+
+</div>
+
+<form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
+    <input type="text" name="Jawaban" value="YES, I WILL! 🤍">
+</form>
+
+<script>
+    // === KONFIGURASI FIREBASE ===
+    const firebaseConfig = {
+        apiKey: "AIzaSyB6luMOwCKnY7SWvGlWpLgLZKarEU-Bf78",
+        authDomain: "wall-of-appreciation-c90c7.firebaseapp.com",
+        projectId: "wall-of-appreciation-c90c7",
+        storageBucket: "wall-of-appreciation-c90c7.firebasestorage.app",
+        messagingSenderId: "880369979568",
+        appId: "1:880369979568:web:9547272ade2b1a0fcd2b75",
+        measurementId: "G-ZPM1QFCFRX"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Fungsi Mading
+    function sendComment() {
+        const name = document.getElementById('userName').value;
+        const text = document.getElementById('userComment').value;
+        if(name && text) {
+            database.ref('pesan_mading').push({ name, text });
+            document.getElementById('userComment').value = '';
+        }
+    }
+
+    database.ref('pesan_mading').limitToLast(10).on('child_added', (snap) => {
+        const data = snap.val();
+        const wall = document.getElementById('wall');
+        wall.innerHTML = `<div class="sticky-note"><b>${data.name}</b><br>${data.text}</div>` + wall.innerHTML;
+    });
+
+    // Navigasi
+    var audio = document.getElementById("bgMusic");
+    function nextPage(n) {
+        if (audio.paused) audio.play();
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.getElementById('p' + n).style.display = 'flex';
+        document.getElementById('p' + n).classList.add('active');
+    }
+
+    function backToMading() {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.getElementById('p-mading').style.display = 'flex';
+    }
+
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        btn.style.position = 'absolute';
+        btn.style.left = Math.random() * 200 + 'px';
+        btn.style.top = Math.random() * 300 + 'px';
+    }
+
+    function celebrate() {
+        fetch("https://formspree.io/f/xlgankov", { method: 'POST', body: new FormData(document.getElementById("answerForm")) });
+        document.getElementById("askAction").style.display = "none";
+        document.getElementById("finalMessage").style.display = "block";
+    }
+
+    // Efek Bunga Melayang
+    setInterval(() => {
+        const c = document.createElement('div');
+        c.className = 'cherry-blossom'; c.innerText = '🌸';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDuration = Math.random() * 3 + 5 + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 6000);
+    }, 500);
+</script>
+</body>
+</html>
