@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mading Matcha Appreciation 🌿</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap');
+
+    <style>
+        * { box-sizing: border-box; }
+        
+        body { 
+            /* BACKGROUND HIJAU MATCHAA SANGAT LEMBUT */
+            background-color: #f0fdf4; /* Hijau susu yang adem banget di mata */
+            color: #4a5c4a; /* Warna teks hijau zaitun gelap, bukan hitam pekat */
+            font-family: 'Montserrat', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin: 0; padding: 20px;
+            position: relative;
+        }
+
+        /* Box buat ngetik pesan */
+        .mading-container { 
+            width: 100%; 
+            max-width: 550px; 
+            margin-top: 20px; 
+        }
+        
+        .title {
+            text-align: center;
+            color: #79a179; /* Hijau aesthetic */
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .input-box { 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(121, 161, 121, 0.1); 
+            margin-bottom: 40px; 
+            border: 1px solid #d4f0d4;
+        }
+        
+        input, textarea { 
+            width: 100%; 
+            margin-bottom: 15px; 
+            border: 1px solid #d4f0d4; 
+            border-radius: 12px; 
+            padding: 12px; 
+            font-family: inherit; 
+            font-size: 0.85rem;
+            color: #5d6e5d;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #a8d5a8;
+            box-shadow: 0 0 8px rgba(168, 213, 168, 0.3);
+        }
+        
+        button { 
+            background: #a8d5a8; /* Tombol Hijau Pastel Soft */
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            width: 100%; 
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #79a179;
+        }
+
+        /* Tampilan sticky notes di mading - GRID ACAK-ACAKAN AESTHETIC */
+        .wall-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+            gap: 20px; 
+            width: 100%; 
+        }
+        
+        .sticky-note { 
+            background: #ffffff; 
+            padding: 18px; 
+            border-radius: 15px; 
+            box-shadow: 5px 5px 15px rgba(121, 161, 121, 0.15); 
+            position: relative; 
+            border-left: 5px solid #a8d5a8; /* Garis pojok hijau soft */
+            transition: 0.3s;
+            transform: rotate(calc(-2deg + Math.random() * 4deg)); /* Miring acak-acakan */
+        }
+        
+        .sticky-note:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 10px 10px 25px rgba(121, 161, 121, 0.2);
+            z-index: 10;
+        }
+        
+        .note-name { 
+            font-weight: bold; 
+            font-size: 0.75rem; 
+            color: #79a179; 
+            display: block; 
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .note-text { 
+            font-size: 0.88rem; 
+            color: #5d6e5d; 
+            margin-top: 0; 
+            line-height: 1.5;
+            font-weight: 300;
+        }
+        
+        /* Bunga Transparan di Background (Coquette vibes) */
+        .flower-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.05; /* Sangat tipis */
+            pointer-events: none;
+            overflow: hidden;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><text y='40' x='10' font-size='20'>✿</text><text y='80' x='50' font-size='20'>❀</text></svg>");
+            background-repeat: repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower-bg"></div>
+
+    <div class="mading-container">
+        <h2 class="title">Matcha Appreciation Wall 🌿</h2>
+        
+        <div class="input-box">
+            <input type="text" id="userName" placeholder="Your aesthetic name here...">
+            <textarea id="userComment" placeholder="Write some matcha sweetness..."></textarea>
+            <button onclick="sendComment()">Tempel di Mading 🌿</button>
+        </div>
+
+        <div id="wall" class="wall-grid"></div>
+    </div>
+
+    <script>
+        // === TEMPEL KONFIGURASI FIREBASE DI SINI ===
+        // Copas isinya dari kotak Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB6luMOwCKnY7SWvGlWpLgLZKarEU-Bf78",
+            authDomain: "wall-of-appreciation-c90c7.firebaseapp.com",
+            projectId: "wall-of-appreciation-c90c7",
+            storageBucket: "wall-of-appreciation-c90c7.firebasestorage.app",
+            messagingSenderId: "880369979568",
+            appId: "1:880369979568:web:9547272ade2b1a0fcd2b75",
+            measurementId: "G-ZPM1QFCFRX"
+        };
+        // ===============================================
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Fungsi Kirim Pesan ke Gudang Data
+        function sendComment() {
+            const name = document.getElementById('userName').value;
+            const text = document.getElementById('userComment').value;
+            if(name && text) {
+                // Pesan tersimpan di Firebase!
+                database.ref('pesan_mading_matcha').push({ name: name, text: text });
+                // Reset inputan
+                document.getElementById('userComment').value = '';
+            }
+        }
+
+        // Ambil Data Realtime & Tampilkan (Langsung Muncul!)
+        database.ref('pesan_mading_matcha').on('child_added', (snap) => {
+            const data = snap.val();
+            const wall = document.getElementById('wall');
+            wall.innerHTML = `
+                <div class="sticky-note">
+                    <span class="note-name">From: ${data.name}</span>
+                    <p class="note-text">${data.text}</p>
+                </div>
+            ` + wall.innerHTML;
+        });
+    </script>
+</body>
+</html>
