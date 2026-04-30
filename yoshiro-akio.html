@@ -1,4 +1,3 @@
-𝓜𝓪𝓽𝓬𝓱𝓪 𝓙𝓸𝓾𝓻𝓷𝓪𝓵 🍵📜
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +22,26 @@
             height: 100vh; overflow: hidden;
             position: relative;
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌿</text></svg>"), auto;
+            background-image: radial-gradient(#d1e2d1 0.5px, transparent 0.5px);
+            background-size: 20px 20px
         }
+
+        .main-title {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #4a5d4a;
+            z-index: 100;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Biar container buku ada jarak dari atas */
+        .book-container { 
+            margin-top: 60px;
+        }
+
 
         /* Dekorasi Daun Melayang */
         .leaf-fall { position: fixed; top: -10%; z-index: 2; user-select: none; pointer-events: none; animation: fall linear forwards; opacity: 0.5; }
@@ -38,6 +56,7 @@
 
         /* Halaman Buku */
         .page {
+            border-left: 15px solid #e2ece2; position: relative;
             position: absolute; width: 100%; height: 100%;
             border-radius: 15px 30px 30px 15px; /* Mirip lengkungan buku */
             padding: 35px 25px;
@@ -50,6 +69,16 @@
                 linear-gradient(90deg, #f9fdf9 0%, #ffffff 5%, #ffffff 95%, #f4f9f4 100%);
             border: 1px solid #e2ece2;
             overflow-y: auto;
+        }
+
+        .page::before {
+            content: ""; position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 100px; height: 30px;
+            background: rgba(168, 213, 168, 0.5);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            z-index: 20;
         }
 
         /* Efek Flip Halaman */
@@ -81,6 +110,7 @@
         /* STIKER & DEKORASI */
         .sticker { position: absolute; z-index: 6; pointer-events: none; opacity: 0.8; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.05)); }
         .tape { width: 60px; height: 20px; background: rgba(168, 213, 168, 0.4); transform: rotate(-5deg); top: 10px; }
+        .sticker-deco { position: fixed; font-size: 2.5rem; opacity: 0.4; z-index: 1; pointer-events: none; filter: sepia(0.3); }
 
         /* Typography */
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #79a179; font-size: 1.7rem; margin-top: 10px; }
@@ -128,6 +158,14 @@
     </style>
 </head>
 <body>
+    <div class="main-title">
+    Matcha Journal 🍵📜
+</div>
+
+    <div class="sticker-deco" style="top: 10%; left: 5%; transform: rotate(-15deg);">🍁</div>
+    <div class="sticker-deco" style="bottom: 15%; right: 10%; transform: rotate(20deg);">🍃</div>
+    <div class="sticker-deco" style="top: 70%; left: 8%; transform: rotate(10deg);">☁️</div>
+
 
 <audio id="bgMusic" loop><source src="Ten2Five - Hanya Untukmu.mp3" type="audio/mpeg"></audio>
 
