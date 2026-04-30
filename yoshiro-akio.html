@@ -1,4 +1,4 @@
-matcha journal
+𝓜𝓪𝓽𝓬𝓱𝓪 𝓙𝓸𝓾𝓻𝓷𝓪𝓵 🍵📜
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +88,16 @@ matcha journal
         .cursive { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #8eb48e; }
         .highlight { color: #5c8d5c; font-weight: 600; border-bottom: 2px dotted #a8d5a8; }
 
+        /* Desain Chat Box */
+        .chat-container {
+            background: #fff5f8; border-radius: 15px;
+            padding: 12px; margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.15); width: 100%;
+        }
+        .chat-bubble { padding: 10px 14px; border-radius: 15px; margin-bottom: 8px; font-size: 0.82rem; max-width: 85%; display: inline-block; font-weight: 300; }
+        .chat-left { background: #ffffff; border: 1px solid rgba(0,0,0,0.03); float: left; clear: both; text-align: left; color: #6e5a5a; }
+        .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #5d4a4a; }
+        .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; font-weight: 300; }
+
         /* MADING AREA */
         .input-box { background: #f9fdf9; padding: 15px; border-radius: 15px; width: 100%; border: 1.5px dashed #a8d5a8; margin-bottom: 20px; }
         input, textarea { 
@@ -120,6 +130,8 @@ matcha journal
 <body>
 
 <audio id="bgMusic" loop><source src="Ten2Five - Hanya Untukmu.mp3" type="audio/mpeg"></audio>
+
+    <button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: #ffffff; border: 1px solid #ffb6c1; color: #db7093; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; box-shadow: 0 5px 10px rgba(255,182,193,0.2); transition: 0.3s;">♫</button>
 
 <div class="book-container">
 
@@ -178,6 +190,7 @@ matcha journal
         <h2>A Piece of Memory</h2>
         <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
         <div class="chat-container">
+            <span class="chat-date">First encounter — April, 2026</span>
             <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
             <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
             <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
@@ -245,11 +258,16 @@ matcha journal
         </div>
         <div id="askAction" style="display:flex; flex-direction:column; gap:10px; width:100%; margin-top: 20px;">
             <button class="btn-main" onclick="celebrate()">Yes, I Will 🌿</button>
-            <button id="noBtn" style="background:none; border:none; color:#bcaaa4; cursor:pointer; font-size: 0.7rem;" onmouseover="moveButton()">Not now...</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Not Now</button>
+        </div>🍃
+        <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
         </div>
         <div id="finalMessage" style="display:none; margin-top: 25px;" class="cursive">
             "This is the best day ever! 🍵" <br><br>
             <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">Send Answer ⮕</button></a>
+            </div>
+        <div class="nav-btns" id="lastNav">
+            <button class="btn-nav" onclick="nextPage(5)">Back</button>
         </div>
     </div>
 
@@ -260,6 +278,21 @@ matcha journal
 </form>
 
 <script>
+    var audio = document.getElementById("bgMusic");
+    var musicBtn = document.getElementById("musicBtn");
+
+    function playMusic() {
+        if (audio.paused) { 
+            audio.play().catch(e => console.log("Blocked")); 
+            musicBtn.innerText = "II"; 
+            musicBtn.style.background = "#fff5f8";
+        } 
+        else { 
+            audio.pause(); 
+            musicBtn.innerText = "♫"; 
+            musicBtn.style.background = "#ffffff";
+        }
+    }
     // === FIREBASE CONFIG (PAKE PUNYA LO) ===
     const firebaseConfig = {
         apiKey: "AIzaSyB6luMOwCKnY7SWvGlWpLgLZKarEU-Bf78",
@@ -289,15 +322,14 @@ matcha journal
         const wall = document.getElementById('wall');
         wall.innerHTML = '';
         
-        const data = snapshot.val();
+    const data = snapshot.val();
         if (data) {
             Object.keys(data).reverse().forEach(key => {
-                const pesan = data[key];
-                wall.innerHTML += `
-                    <div class="sticky-note">
-                        <b style="color:#79a179; font-size:0.65rem;">${pesan.name}</b><br>
-                        <span style="color:#5d6e5d;">${pesan.text}</span>
-                    </div>`;
+                const pesan = data[key]; wall.innerHTML += `
+                <div class="sticky-note">
+                <b style="color:#79a179; font-size:0.65rem;">${pesan.name}</b><br>
+                <span style="color:#5d6e5d;">${pesan.text}</span>
+                </div>`;
             });
         }
     });
@@ -320,9 +352,32 @@ matcha journal
 
     function moveButton() {
         const btn = document.getElementById('noBtn');
+        const page = btn.closest('.page'); // Cari box putih tempat tombol berada
+        
+        // Kasih pesan jail
+        const jailMessages = [
+            "Eits, ga bisa! 😜",
+            "Coba lagi ya wkwk",
+            "Masa ga mau? :( ",
+            "Pencet 'Yes' aja udah..",
+            "Duh, lincah banget ya!"
+        ];
+        document.getElementById('jailText').innerText = jailMessages[Math.floor(Math.random() * jailMessages.length)];
+
+        // Itung batas box putihnya biar gak keluar
+        const padding = 40;
+        const maxX = page.clientWidth - btn.clientWidth - padding;
+        const maxY = page.clientHeight - btn.clientHeight - padding;
+
+        // Tentukan posisi acak di dalem box
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        // Terapkan posisi (pake absolute biar ga ngerusak teks)
         btn.style.position = 'absolute';
-        btn.style.left = Math.random() * 200 + 'px';
-        btn.style.top = Math.random() * 300 + 'px';
+        btn.style.left = newX + 'px';
+        btn.style.top = newY + 'px';
+        btn.style.zIndex = "999";
     }
 
     function celebrate() {
