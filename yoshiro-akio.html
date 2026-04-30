@@ -1,9 +1,10 @@
+matcha journal
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Last Leaf — For Yoshiro</title>
+    <title>Matcha Journal — For Yoshiro</title>
     
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
@@ -14,76 +15,90 @@
         * { box-sizing: border-box; }
 
         body {
-            background-color: #fff0f5; /* Pink Base */
-            color: #5d4a4a;
+            background-color: #f1f8f1; /* Soft Green Background */
+            color: #4a5d4a;
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden;
             position: relative;
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌸</text></svg>"), auto;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌿</text></svg>"), auto;
         }
 
-        /* Cherry Blossom Animation */
-        .cherry-blossom { position: fixed; top: -10%; z-index: 2; user-select: none; pointer-events: none; animation: fall linear forwards; opacity: 0.6; }
+        /* Dekorasi Daun Melayang */
+        .leaf-fall { position: fixed; top: -10%; z-index: 2; user-select: none; pointer-events: none; animation: fall linear forwards; opacity: 0.5; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        .book-container { width: 90%; max-width: 380px; height: 85vh; position: relative; z-index: 10; }
+        /* Container Buku */
+        .book-container { 
+            width: 90%; max-width: 400px; height: 85vh; 
+            position: relative; z-index: 10;
+            perspective: 1500px;
+        }
 
+        /* Halaman Buku */
         .page {
             position: absolute; width: 100%; height: 100%;
-            border-radius: 25px; padding: 25px;
+            border-radius: 15px 30px 30px 15px; /* Mirip lengkungan buku */
+            padding: 35px 25px;
             display: none; flex-direction: column;
             align-items: center; text-align: center;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
-            overflow-y: auto; background-color: #ffffff;
-            background-image: radial-gradient(rgba(255, 182, 193, 0.05) 1px, transparent 1px);
-            background-size: 15px 15px;
+            box-shadow: 10px 10px 40px rgba(74, 93, 74, 0.15);
+            background: #ffffff;
+            /* Texture Kertas Kuno Soft */
+            background-image: 
+                linear-gradient(90deg, #f9fdf9 0%, #ffffff 5%, #ffffff 95%, #f4f9f4 100%);
+            border: 1px solid #e2ece2;
+            overflow-y: auto;
         }
 
-        .page.active { display: flex; animation: pageIn 0.8s ease forwards; }
-        @keyframes pageIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Style Khusus Halaman Mading (Matcha Mode) */
-        #p-mading { 
-            background-color: #f0fdf4; /* Soft Green Matcha */
-            border: 2px solid #e2f1e2;
+        /* Efek Flip Halaman */
+        .page.active { 
+            display: flex; 
+            animation: flipIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
         }
-        .mading-title { font-family: 'Crimson Text', serif; font-style: italic; color: #79a179; margin-bottom: 15px; }
-        
-        /* Input Mading */
-        .input-box { width: 100%; background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #d4f0d4; }
-        .input-box input, .input-box textarea { 
-            width: 100%; margin-bottom: 10px; border: 1px solid #e2f1e2; padding: 8px; border-radius: 8px; font-family: inherit; font-size: 0.8rem;
+        @keyframes flipIn {
+            from { opacity: 0; transform: rotateY(-20deg) translateX(50px); filter: blur(2px); }
+            to { opacity: 1; transform: rotateY(0deg) translateX(0); filter: blur(0); }
         }
-        .btn-post { background: #a8d5a8; color: white; border: none; padding: 8px; border-radius: 8px; width: 100%; cursor: pointer; font-size: 0.8rem; }
 
-        /* Wall Grid */
-        .wall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        /* STIKER & DEKORASI */
+        .sticker { position: absolute; z-index: 6; pointer-events: none; opacity: 0.8; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.05)); }
+        .tape { width: 60px; height: 20px; background: rgba(168, 213, 168, 0.4); transform: rotate(-5deg); top: 10px; }
+
+        /* Typography */
+        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #79a179; font-size: 1.7rem; margin-top: 10px; }
+        .message { font-size: 0.88rem; line-height: 1.7; color: #5d6e5d; font-weight: 300; }
+        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #8eb48e; }
+        .highlight { color: #5c8d5c; font-weight: 600; border-bottom: 2px dotted #a8d5a8; }
+
+        /* MADING AREA */
+        .input-box { background: #f9fdf9; padding: 15px; border-radius: 15px; width: 100%; border: 1.5px dashed #a8d5a8; margin-bottom: 20px; }
+        input, textarea { 
+            width: 100%; background: white; border: 1px solid #e2ece2; border-radius: 8px; padding: 10px; 
+            margin-bottom: 10px; font-family: inherit; font-size: 0.8rem; outline: none;
+        }
+        .btn-post { background: #a8d5a8; color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; cursor: pointer; transition: 0.3s; }
+        .btn-post:hover { background: #8eb48e; }
+
+        .wall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; padding-bottom: 20px; }
         .sticky-note { 
-            background: white; padding: 10px; border-radius: 10px; font-size: 0.7rem; text-align: left;
-            box-shadow: 3px 3px 10px rgba(121,161,121,0.1); border-left: 3px solid #a8d5a8;
-            transform: rotate(-1deg);
+            background: #ffffff; padding: 12px; border-radius: 5px; box-shadow: 5px 5px 15px rgba(0,0,0,0.03);
+            border-top: 5px solid #c8e6c8; font-size: 0.7rem; text-align: left; transform: rotate(1deg);
         }
 
-        /* Typography & Buttons */
-        h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #ffb6c1; font-weight: 400; }
-        .message { font-size: 0.85rem; line-height: 1.6; color: #6e5a5a; margin: 10px 0; }
-        .highlight { color: #db7093; font-weight: 500; }
-        .cursive { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #ffb6c1; }
-        
-        .nav-btns { display: flex; justify-content: space-between; width: 100%; margin-top: auto; padding-top: 15px; }
-        .btn-nav { background: transparent; border: none; color: #db7093; cursor: pointer; font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-        .btn-yes { background: #ffb6c1; color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
-        .btn-no { background: white; color: #bcaaa4; border: 1px solid #ffb6c1; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
-        
-        .chat-container { background: #fff5f8; border-radius: 15px; padding: 10px; margin: 10px 0; width: 100%; }
-        .chat-bubble { padding: 8px 12px; border-radius: 12px; font-size: 0.75rem; margin-bottom: 5px; display: inline-block; }
-        .chat-left { background: white; float: left; clear: both; color: #6e5a5a; }
-        .chat-right { background: #ffe4e1; float: right; clear: both; color: #5d4a4a; }
+        /* Navigation Buttons */
+        .nav-btns { display: flex; justify-content: space-between; width: 100%; margin-top: auto; padding-top: 20px; }
+        .btn-nav { background: transparent; border: none; color: #79a179; cursor: pointer; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .btn-main { background: #a8d5a8; color: white; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(168, 213, 168, 0.3); }
 
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
-        .photo-grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; }
+        .chat-container { background: #f4f9f4; border-radius: 15px; padding: 15px; width: 100%; border-left: 4px solid #a8d5a8; }
+        .chat-bubble { padding: 10px; border-radius: 10px; font-size: 0.8rem; margin-bottom: 5px; }
+        .chat-left { background: white; float: left; clear: both; box-shadow: 2px 2px 5px rgba(0,0,0,0.02); }
+        .chat-right { background: #e2f1e2; float: right; clear: both; }
+
+        .photo-frame { width: 100%; padding: 10px; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transform: rotate(-2deg); margin: 15px 0; }
+        .photo-frame img { width: 100%; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -93,13 +108,15 @@
 <div class="book-container">
 
     <div class="page active" id="p-mading">
-        <h2 class="mading-title">Matcha Wall 🌿</h2>
-        <p class="message" style="font-size: 0.75rem;">Sebelum lanjut, tulis sesuatu atau lihat pesan orang lain dulu ya!</p>
+        <div class="tape sticker" style="left: 50%; transform: translateX(-50%) rotate(2deg);"></div>
+        <div class="sticker" style="top: 20px; right: 20px; font-size: 1.5rem;">🌿</div>
+        <h2 class="cursive">Our Matcha Wall</h2>
+        <div class="message" style="font-size: 0.75rem; font-style: italic;">"Write a little something for us..."</div>
         
         <div class="input-box">
-            <input type="text" id="userName" placeholder="Nama kamu...">
-            <textarea id="userComment" placeholder="Pesan singkat..."></textarea>
-            <button class="btn-post" onclick="sendComment()">Tempel di Mading 🌿</button>
+            <input type="text" id="userName" placeholder="Your name...">
+            <textarea id="userComment" placeholder="Write a message..."></textarea>
+            <button class="btn-post" onclick="sendComment()">Pin to Journal 🖇️</button>
         </div>
 
         <div id="wall" class="wall-grid">
@@ -107,27 +124,32 @@
 
         <div class="nav-btns">
             <span></span>
-            <button class="btn-nav" onclick="nextPage(0)" style="color: #79a179;">OPEN MY LETTER ⮕</button>
+            <button class="btn-nav" onclick="nextPage(0)">Next Page ⮕</button>
         </div>
     </div>
 
     <div class="page" id="p0">
+        <div class="sticker" style="bottom: 20px; left: 20px; font-size: 2rem; opacity: 0.3;">🍃</div>
         <h2 class="cursive">Hi, Yoshiro...</h2>
+        <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1515446191285-99bc27565028?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="aesthetic leaves">
+        </div>
         <div class="message">
-            Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
+            Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
             Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
             Boleh luangin waktu kamu sebentar buat baca?
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="backToMading()">Mading</button>
-            <button class="btn-nav" onclick="nextPage(1)">READ ON ⮕</button>
+            <button class="btn-nav" onclick="nextPage(1)">Continue</button>
         </div>
     </div>
 
     <div class="page" id="p1">
+        <div class="sticker" style="top: 10px; left: 10px;">🍋‍🟩</div>
         <h2>Personal Log</h2>
         <div class="message">
-            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri—<b>dan sama kamu.</b>
+            Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri-—<b>dan sama kamu.</b>
         </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(0)">Back</button>
@@ -136,22 +158,26 @@
     </div>
 
     <div class="page" id="p2">
+        <div class="sticker" style="top: 40%; right: -5px; font-size: 1.5rem;">🍵</div>
         <h2>A Piece of Memory</h2>
         <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
         <div class="chat-container">
             <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
             <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
-            <div class="chat-right chat-bubble">"kalau lumut ijo, kalau kamu i jodohku."</div>
+            <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
             <div style="clear:both;"></div>
         </div>
-        <div class="message">Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu sukses bikin hariku cerah. Ngobrol sama kamu rasanya tenang banget.</div>
+        <div class="message" style="margin-top: 15px;">
+            Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
+        </div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(1)">Back</button>
-            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+            <button class="btn-nav" onclick="nextPage(6)">Next</button>
         </div>
     </div>
 
     <div class="page" id="p3">
+        <div class="decoration" style="top:15px; right:15px;">🌱</div>
         <h2>Something About You</h2>
         <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.</div>
         <div class="highlight-quote">
@@ -165,6 +191,7 @@
     </div>
 
     <div class="page" id="p4">
+        <div class="decoration" style="top:15px; right:15px;">🎄</div>
         <h2>A Little Secret...</h2>
         <div class="message">
             Maybe you're wondering, kenapa harus kamu? <br><br>
@@ -178,7 +205,8 @@
     </div>
 
     <div class="page" id="p5">
-        <h2>US 𓏲ּ𝄢</h2>
+        <div class="decoration" style="top:15px; right:15px;">🌿</div>
+        <h2>Kamu dan Aku 𓏲ּ𝄢</h2>
         <div class="photo-grid">
             <img src="foto1.jpg">
             <img src="IMG_4264.jpeg">
@@ -193,29 +221,30 @@
     </div>
 
     <div class="page" id="p6">
-        <h2>The Final Page</h2>
+        <div class="sticker" style="top: 15px; right: 15px; font-size: 1.2rem;">🍃</div>
+        <h2 class="cursive">The Final Page</h2>
         <div class="message">
             Yoshiro Akio, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
-            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.</span>
+            Jadi, <span class="highlight">bolehkah aku jadi orang yang nemenin hari-harimu ke depannya?</span> Aku pengen jadi tempat kamu pulang, bahkan setelah hujan dan badai itu reda.
         </div>
-        <div id="askAction" style="display:flex; gap:10px; justify-content:center; margin: 15px 0;">
-            <button class="btn-yes" onclick="celebrate()">Yes, I Will 🤍</button>
-            <button class="btn-no" id="noBtn" onmouseover="moveButton()">Not Now</button>
+        <div id="askAction" style="display:flex; flex-direction:column; gap:10px; width:100%; margin-top: 20px;">
+            <button class="btn-main" onclick="celebrate()">Yes, I Will 🌿</button>
+            <button id="noBtn" style="background:none; border:none; color:#bcaaa4; cursor:pointer; font-size: 0.7rem;" onmouseover="moveButton()">Not now...</button>
         </div>
-        <div id="finalMessage" style="display:none;" class="cursive">
-            "This is the best day of my life! ♡" <br><br>
-            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">I'm Here :)</button></a>
+        <div id="finalMessage" style="display:none; margin-top: 25px;" class="cursive">
+            "This is the best day ever! 🍵" <br><br>
+            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-nav">Send Answer ⮕</button></a>
         </div>
     </div>
 
 </div>
 
 <form id="answerForm" action="https://formspree.io/f/xlgankov" method="POST" style="display:none;">
-    <input type="text" name="Jawaban" value="YES, I WILL! 🤍">
+    <input type="text" name="Jawaban" value="YES, I WILL! 🌿 (Matcha Journal)">
 </form>
 
 <script>
-    // === KONFIGURASI FIREBASE ===
+    // === FIREBASE CONFIG (PAKE PUNYA LO) ===
     const firebaseConfig = {
         apiKey: "AIzaSyB6luMOwCKnY7SWvGlWpLgLZKarEU-Bf78",
         authDomain: "wall-of-appreciation-c90c7.firebaseapp.com",
@@ -228,7 +257,7 @@
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // Fungsi Mading
+    // Mading Function (Fix Data ngilang)
     function sendComment() {
         const name = document.getElementById('userName').value;
         const text = document.getElementById('userComment').value;
@@ -238,19 +267,26 @@
         }
     }
 
-    database.ref('pesan_mading').limitToLast(10).on('child_added', (snap) => {
-        const data = snap.val();
+    database.ref('pesan_mading').on('value', (snapshot) => {
         const wall = document.getElementById('wall');
-        wall.innerHTML = `<div class="sticky-note"><b>${data.name}</b><br>${data.text}</div>` + wall.innerHTML;
+        wall.innerHTML = '';
+        const data = snapshot.val();
+        if(data) {
+            Object.keys(data).reverse().forEach(key => {
+                const p = data[key];
+                wall.innerHTML += `<div class="sticky-note"><b>${p.name}</b><br>${p.text}</div>`;
+            });
+        }
     });
 
-    // Navigasi
+    // Navigation
     var audio = document.getElementById("bgMusic");
     function nextPage(n) {
-        if (audio.paused) audio.play();
+        if (audio.paused) audio.play().catch(e => {});
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-        document.getElementById('p' + n).style.display = 'flex';
-        document.getElementById('p' + n).classList.add('active');
+        const target = document.getElementById('p' + n);
+        target.style.display = 'flex';
+        setTimeout(() => target.classList.add('active'), 10);
     }
 
     function backToMading() {
@@ -271,15 +307,17 @@
         document.getElementById("finalMessage").style.display = "block";
     }
 
-    // Efek Bunga Melayang
+    // Efek Daun Melayang
     setInterval(() => {
+        const icons = ['🌿', '🍃', '🌱', '🍵'];
         const c = document.createElement('div');
-        c.className = 'cherry-blossom'; c.innerText = '🌸';
+        c.className = 'leaf-fall'; 
+        c.innerText = icons[Math.floor(Math.random() * icons.length)];
         c.style.left = Math.random() * 100 + 'vw';
         c.style.animationDuration = Math.random() * 3 + 5 + 's';
         document.body.appendChild(c);
-        setTimeout(() => c.remove(), 6000);
-    }, 500);
+        setTimeout(() => c.remove(), 7000);
+    }, 600);
 </script>
 </body>
 </html>
