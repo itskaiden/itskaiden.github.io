@@ -12,19 +12,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500&family=Dancing+Script:wght@500&display=swap');
 
         * { box-sizing: border-box; }
-
         body {
-            background-color: #f1f8f1; /* Soft Green Background */
-            color: #4a5d4a;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden;
-            position: relative;
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌿</text></svg>"), auto;
-            background-image: radial-gradient(#d1e2d1 0.5px, transparent 0.5px);
-            background-size: 20px 20px
-        }
+            background-color: #fce4ec; /* Pink soft base */
+            background-image: 
+                linear-gradient(90deg, #f8bbd0 20px, transparent 20px), /* Motif kotak pinggir */
+                radial-gradient(#d1e2d1 0.5px, transparent 0.5px);
+            background-size: 100px 100%, 20px 20px; }
+        
+        .page {
+            background: #fffdf9 url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Tekstur kertas */
+            border-left: 2px solid #ddd;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); }
 
         .main-title {
             position: absolute;
@@ -38,7 +36,6 @@
 
         /* Biar container buku ada jarak dari atas */
         .book-container { margin-top: 60px; }
-
 
         /* Dekorasi Daun Melayang */
         .leaf-fall { position: fixed; top: -10%; z-index: 2; user-select: none; pointer-events: none; animation: fall linear forwards; opacity: 0.5; }
@@ -64,8 +61,7 @@
             background-image: 
                 linear-gradient(90deg, #f9fdf9 0%, #ffffff 5%, #ffffff 95%, #f4f9f4 100%);
             border: 1px solid #e2ece2;
-            overflow-y: auto;
-        }
+            overflow-y: auto; }
 
         .page::before {
             content: ""; position: absolute;
@@ -74,13 +70,11 @@
             width: 100px; height: 30px;
             background: rgba(168, 213, 168, 0.5);
             box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
-            z-index: 20;
-        }
+            z-index: 20; }
 
         /* Efek Flip Halaman */
         .page.active { 
-            display: flex; animation: flipIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
-        }
+            display: flex; animation: flipIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes flipIn {
             from { opacity: 0; transform: rotateY(-20deg) translateX(50px); filter: blur(2px); }
             to { opacity: 1; transform: rotateY(0deg) translateX(0); filter: blur(0); }
@@ -110,6 +104,14 @@
             border-radius: 0 10px 10px 0; font-size: 0.9rem;
             line-height: 1.6; text-align: left;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.02); }
+
+        .fake-tweet {
+            background: white; border: 1px solid #eee; padding: 15px; border-radius: 15px; width: 80%; transform: rotate(-2deg); margin: 20px 0; box-shadow: 5px 5px 10px rgba(0,0,0,0.05); }
+        .fake-insta { background: white; padding: 10px; border: 1px solid #eee; width: 70%; transform: rotate(3deg); box-shadow: 5px 5px 15px rgba(0,0,0,0.1); }
+        .insta-photo img { width: 100%; display: block; }
+
+        .paper-clip { width: 40px; height: 15px; background: #b0bec5; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); border-radius: 5px; opacity: 0.8; z-index: 10; }
+        .sticker-cat { position: absolute; bottom: 10px; right: 10px; font-size: 2rem; transform: rotate(15deg); filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1)); }
 
         /* STIKER & DEKORASI */
         .sticker { position: absolute; z-index: 6; pointer-events: none; opacity: 0.8; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.05)); }
@@ -199,16 +201,21 @@
     Matcha Journal 🍵📜
 </div>
 
+    <!-- Klip Kertas di atas foto -->
+    <div class="paper-clip"></div>
+
+    <!-- Stiker Kucing/Cherry -->
+    <div class="sticker-cherry">🍒</div>
+    <div class="sticker-cat">🐱</div>
+
     <div class="sticker-deco" style="top: 10%; left: 5%; transform: rotate(-15deg);">🍁</div>
     <div class="sticker-deco" style="bottom: 15%; right: 10%; transform: rotate(20deg);">🍃</div>
     <div class="sticker-deco" style="top: 70%; left: 8%; transform: rotate(10deg);">☁️</div>
 
-
-<audio id="bgMusic" loop><source src="Ten2Five - Hanya Untukmu.mp3" type="audio/mpeg"></audio>
-
+    <audio id="bgMusic" loop><source src="Ten2Five - Hanya Untukmu.mp3" type="audio/mpeg"></audio>
     <button onclick="playMusic()" id="musicBtn" style="position: fixed; top: 20px; right: 20px; z-index: 1100; background: #ffffff; border: 1px solid #ffb6c1; color: #db7093; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; box-shadow: 0 5px 10px rgba(255,182,193,0.2); transition: 0.3s;">♫</button>
 
-<div class="book-container">
+    <div class="book-container">
 
     <div class="page active" id="p-mading">
         <div class="tape sticker" style="left: 50%; transform: translateX(-50%) rotate(2deg);"></div>
@@ -235,7 +242,7 @@
         <div class="sticker" style="bottom: 20px; left: 20px; font-size: 2rem; opacity: 0.3;">🍃</div>
         <h2 class="cursive">Hi, Yoshiro...</h2>
         <div class="photo-frame">
-            <img src="https://images.unsplash.com/photo-1515446191285-99bc27565028?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="aesthetic leaves">
+            <img src="lumut.jpg">
         </div>
         <div class="message">
             Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Kaiden Einstein</span>. <br><br>
@@ -262,7 +269,19 @@
 
     <div class="page" id="p2">
         <div class="sticker" style="top: 40%; right: -5px; font-size: 1.5rem;">🍵</div>
-        <h2>A Piece of Memory</h2>
+        <!-- Fake Twitter Post -->
+        <div class="fake-tweet">
+            <div class="tweet-header">
+                <img src="https://i.pinimg.com/originals/ae/2e/56/ae2e5651b74a00d5d31b8c60c25a307a.png" class="pfp">
+                <b>@einsteinb</b>
+            </div>
+            <div class="tweet-content">
+                If I could love you for one more day, I would love you for one more day. ❤️
+            </div>
+            <div class="tweet-footer">11:11 PM · May 1, 2026</div>
+        </div>
+
+       <h2>A Piece of Memory</h2>
         <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
         <div class="chat-container">
             <span class="chat-date">First encounter — April, 2026</span>
@@ -288,6 +307,15 @@
             "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
         </div>
         <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.</div>
+        <!-- Fake Instagram Photo -->
+        <div class="fake-insta">
+            <div class="insta-photo">
+                <img src="IMG_4264.jpeg" alt="Yoshiro">
+            </div>
+            <div class="insta-likes">❤️404,026 likes</div>
+            <div class="insta-caption"><b>kaiden</b> My home. 🏡🌿</div>
+        </div>
+
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(2)">Back</button>
             <button class="btn-nav" onclick="nextPage(4)">Next</button>
@@ -317,6 +345,12 @@
             <img src="foto3.jpg">
             <img src="IMG_4268.png">
         </div>
+        <div class="insta-photo">
+            <video width="90%" autoplay loop muted>
+                <source src="yoshiro.mp4" type="video/mp4">
+            </video>
+        </div>
+
         <p class="cursive">"Capturing every moment with you ♡"</p>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(4)">Back</button>
