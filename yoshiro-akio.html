@@ -19,10 +19,16 @@
                 radial-gradient(#d1e2d1 0.5px, transparent 0.5px);
             background-size: 100px 100%, 20px 20px; }
         
-        .page {
-            background: #fffdf9 url('https://www.transparenttextures.com/patterns/paper-fibers.png'); /* Tekstur kertas */
-            border-left: 2px solid #ddd;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.1); }
+        /* Update warna background halaman */
+        .page { display: none;
+               padding: 20px;
+               text-align: center;
+               background-color: #f0f7f0; /* Warna hijau yang super soft */
+               border-radius: 15px;
+               box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+               min-height: 450px;
+               position: relative;
+               border: 1px solid rgba(0,0,0,0.03); /* Detail tipis biar gak flat banget */ }
 
         .main-title {
             position: absolute;
@@ -176,8 +182,8 @@
             padding: 12px; margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.15); width: 100%;
         }
         .chat-bubble { padding: 10px 14px; border-radius: 15px; margin-bottom: 8px; font-size: 0.82rem; max-width: 85%; display: inline-block; font-weight: 300; }
-        .chat-left { background: #ffffff; border: 1px solid rgba(0,0,0,0.03); float: left; clear: both; text-align: left; color: #6e5a5a; }
-        .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #5d4a4a; }
+        .chat-left { background: #ffffff; border: 1px solid rgba(0,0,0,0.03); float: left; clear: both; text-align: left; color: #d1e7d1; }
+        .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #ffffff; }
         .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; font-weight: 300; }
 
         /* MADING AREA */
