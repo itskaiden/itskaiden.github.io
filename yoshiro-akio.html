@@ -105,22 +105,53 @@
             line-height: 1.6; text-align: left;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.02); }
 
-        /* Container buat tumpukan elemen */
-        .scrapbook-wrap { position: relative; width: 100%; height: 400px; /* Sesuaikan tinggi halamannya */ }
+        /* Container Utama Scrapbook */
+.scrapbook-wrap { 
+    position: relative; 
+    width: 100%; 
+    height: 320px; /* Kita kunci tingginya biar elemen di bawahnya gak naik */
+    margin-bottom: 20px;
+}
 
-        /* Fake Instagram Post */
-        .insta-post {
-            background: #fff; padding: 10px 10px 40px 10px; /* Bagian bawah lebih lebar buat caption */
-            width: 200px; box-shadow: 5px 5px 15px rgba(0,0,0,0.1); transform: rotate(-3deg);
-            position: absolute; top: 20px; left: 20px; z-index: 2; border: 1px solid #eee; }
+/* Foto ala Instagram/Polaroid */
+.insta-post {
+    background: #fff; 
+    padding: 10px 10px 35px 10px; 
+    width: 180px; 
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1); 
+    transform: rotate(-6deg); /* Miring kiri biar dapet gaya scrapbook */
+    position: absolute; 
+    top: 10px; 
+    left: 5%; 
+    z-index: 2; 
+    border: 1px solid #eee; 
+}
 
-        .insta-post img, .insta-post video { width: 100%; display: block; filter: sepia(0.2); /* Efek vintage dikit */ }
+.insta-post img { 
+    width: 100%; 
+    height: 160px; 
+    object-fit: cover; 
+    display: block; 
+}
 
-        /* Fake Twitter/Tweet */ .tweet-card {
-            background: rgba(255, 255, 255, 0.95); border-radius: 12px;
-            padding: 12px; width: 220px; box-shadow: 2px 4px 10px rgba(0,0,0,0.05);
-            transform: rotate(4deg); position: absolute; bottom: 40px; right: 15px; z-index: 3;
-            font-family: 'Segoe UI', Roboto, sans-serif; }
+/* Card ala Twitter */
+.tweet-card {
+    background: rgba(255, 255, 255, 0.98); 
+    border-radius: 12px;
+    padding: 12px; 
+    width: 200px; 
+    box-shadow: 2px 8px 20px rgba(0,0,0,0.1);
+    transform: rotate(4deg); /* Miring kanan biar kontras sama fotonya */
+    position: absolute; 
+    bottom: 10px; 
+    right: 5%; 
+    z-index: 3; 
+    border: 1px solid #f0f0f0;
+    text-align: left;
+}
+
+/* CSS buat bersihin elemen di bawahnya */
+.fake-tweet { clear: both; margin-top: 20px; display: none; /* Sembunyiin dulu karena udah ada tweet-card */ }
 
         /* Aksesoris Klip Kertas */
         .paper-clip { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 40px; z-index: 10; }
@@ -283,50 +314,40 @@
     </div>
 
     <div class="page" id="p2">
-        <div class="sticker" style="top: 40%; right: -5px; font-size: 1.5rem;">🍵</div>
-        <div class="scrapbook-wrap">
-            <div class="insta-post">
-                <div class="paper-clip">📎</div> <img src="https://via.placeholder.com/200" alt="Foto Yoshiro">
-                <p style="font-size: 10px; margin-top: 8px; font-family: sans-serif;">
-                    <b>kaiden</b> My favorite person... ❤️ </p>
-            </div
-                
-            <div class="tweet-card">
-                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 5px;">
-            <div style="width: 20px; height: 20px; background: #ddd; border-radius: 50%;"></div>
-            <b style="font-size: 10px;">@kaiden</b>
+    <div class="sticker" style="top: 10px; right: 10px; font-size: 1.5rem;">🍵</div>
+    
+    <h2>A Piece of Memory</h2>
+
+    <div class="scrapbook-wrap">
+        <!-- Foto Yoshiro -->
+        <div class="insta-post">
+            <div class="paper-clip" style="top:-10px; color:#aaa;">📎</div>
+            <img src="IMG_4264.jpeg" alt="Foto Yoshiro"> <!-- Ganti placeholder ke file asli lo -->
+            <p style="font-size: 10px; margin-top: 8px; font-family: sans-serif; text-align: left;">
+                <b>kaiden</b> My favorite person... ❤️ 
+            </p>
         </div>
-        <p style="font-size: 12px; line-height: 1.2;">
-            If I could love you for one more day, I would love you for one more day.
-        </p>
-        <span style="font-size: 8px; color: #888;">11:11 PM · May 1, 2026</span>
+            
+        <!-- Tweet Card -->
+        <div class="tweet-card">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <div style="width: 25px; height: 25px; background: #a8d5a8; border-radius: 50%;"></div>
+                <b style="font-size: 10px; font-family: sans-serif;">@kaiden</b>
+            </div>
+            <p style="font-size: 11px; line-height: 1.4; font-family: sans-serif; color: #333; margin: 0;">
+                If I could love you for one more day, I would love you for one more day.
+            </p>
+            <div style="font-size: 8px; color: #888; margin-top: 8px;">11:11 PM · May 1, 2026</div>
+        </div>
     </div>
 
-    <div class="sticker" style="top: 10%; right: 20%;">🍒</div>
-    <div class="sticker" style="bottom: 10%; left: 10%;">🐱</div>
-</div>
-
-        <!-- Fake Twitter Post -->
-        <div class="fake-tweet">
-            <div class="tweet-header">
-                <img src="https://i.pinimg.com/originals/ae/2e/56/ae2e5651b74a00d5d31b8c60c25a307a.png" class="pfp">
-                <b>@einsteinb</b>
-            </div>
-            <div class="tweet-content">
-                If I could love you for one more day, I would love you for one more day. ❤️
-            </div>
-            <div class="tweet-footer">11:11 PM · May 1, 2026</div>
-        </div>
-
-       <h2>A Piece of Memory</h2>
-        <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
-        <div class="chat-container">
-            <span class="chat-date">First encounter — April, 2026</span>
-            <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
-            <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
-            <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
-            <div style="clear:both;"></div>
-        </div>
+    <div class="chat-container">
+        <span class="chat-date">First encounter — April, 2026</span>
+        <div class="chat-right chat-bubble">"tau ga apa bedanya kamu sama lumut?"</div>
+        <div class="chat-left chat-bubble">"WKWK gatauu nihh, apatuhh bedanyaa??"</div>
+        <div class="chat-right chat-bubble">"kalau lumut warna ijo, kalau kamu i jodohku."</div>
+        <div style="clear:both;"></div>
+    </div
         <div class="message" style="margin-top: 15px;">
             Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi sedikit lebih cerah.
         </div>
