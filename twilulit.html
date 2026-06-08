@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TWILULIT | ITSKAIDEN</title>
+    
+    <!-- SDK FIREBASE (WAJIB ADA BIAR DATABASE JALAN) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
     <style>
         body {
             background: #121212; color: #d1d1d1;     
@@ -76,14 +81,13 @@
         </div>
     </nav>
 
-        <div class="hero">
+    <div class="hero">
         <span class="circle-tag">Chapter — 01</span>
         <h1>The Archive.</h1>
         <p style="color:#444; font-size: 0.75rem;">A collection of faces and memories.</p>
     </div>
 
     <div class="container">
-        
         <!-- KOLOM BARU: UNREPLACEABLE MESSAGE -->
         <div style="background: rgba(24, 24, 24, 0.6); border: 1px dashed #333; border-radius: 8px; padding: 20px; margin: 20px 0 40px 0; text-align: left; position: relative; overflow: hidden;">
             <div style="position: absolute; top: -10px; right: 10px; font-size: 3rem; color: rgba(255,255,255,0.03); font-weight: 900; user-select: none;">01</div>
@@ -93,8 +97,6 @@
             </p>
         </div>
 
-    <div class="container">
-        
         <h2>THE ROSTER</h2>
         <div class="archive-grid">
             <div class="thumb-card"><img src="circle1.jpg" onclick="openModal(this.src)"><div class="member-info"><div class="member-name">SUNNY 🌻</div></div></div>
@@ -132,9 +134,8 @@
             </div>
         </div>
 
-                <!-- SECTION MADING TWILULIT (MENCOLOK & 2 KOLOM) -->
+        <!-- SECTION MADING TWILULIT (MENCOLOK & 2 KOLOM) -->
         <div style="margin: 60px 0;">
-            <!-- Ajakan Mengisi (Dibuat Mencolok) -->
             <div style="background: linear-gradient(135deg, #1f1f1f 0%, #181818 100%); border: 2px solid #fff; border-radius: 16px; padding: 30px 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(255,255,255,0.02);">
                 <span style="font-size: 1.5rem; display: block; margin-bottom: 10px;">💬</span>
                 <h3 style="font-size: 1rem; color: #fff; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 10px 0; font-weight: 900;">LEAVE A MESSAGE</h3>
@@ -142,7 +143,6 @@
                     Halo Twilulit.. gua pengen kalian tulis apapun yang kalian rasain selama pertemanan ini berjalan. Keluh kesah, pesan seru, atau deep talk sekalian, tumpahin semuanya di sini ya guys :)
                 </p>
                 
-                <!-- Form Input Dalam Kotak Mencolok -->
                 <div style="max-width: 500px; margin: 0 auto; text-align: left;">
                     <input type="text" id="twilName" placeholder="Nama lo siapa?..." style="width: 100%; background: #121212; border: 1px solid #333; border-radius: 8px; padding: 12px; color: #fff; font-size: 0.75rem; margin-bottom: 12px; outline: none; box-sizing: border-box;">
                     <textarea id="twilText" placeholder="Tulis pesan lo di sini..." rows="3" style="width: 100%; background: #121212; border: 1px solid #333; border-radius: 8px; padding: 12px; color: #fff; font-size: 0.75rem; margin-bottom: 12px; outline: none; resize: none; font-family: inherit; box-sizing: border-box;"></textarea>
@@ -150,9 +150,8 @@
                 </div>
             </div>
 
-            <!-- Kolom Komentar (1 Baris Isi 2 Komen) -->
             <div id="twilWall" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; text-align: left;">
-                <!-- Komentar dari Firebase bakal otomatis masuk ke sini dan nge-grid jadi 2 kolom -->
+                <!-- Komentar bakal otomatis masuk ke sini -->
             </div>
         </div>
 
@@ -169,11 +168,11 @@
         <div class="words-container">
             <div class="message-box">
                 <span class="message-to">from: Kaiden.</span>
-                <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat diingat nanti.</p>
+                <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat ingat nanti.</p>
             </div>
         </div>
 
-                        <h2>TWILULIT SOUNDTRACK</h2>
+        <h2>TWILULIT SOUNDTRACK</h2>
         <div style="background: #181818; border: 1px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 50px; text-align: left;">
             <div style="display: flex; align-items: center; margin-bottom: 15px;">
                 <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #FF9A9E 0%, #A18CD1 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; box-shadow: 0 4px 10px rgba(161, 140, 209, 0.3);">
@@ -209,7 +208,6 @@
             </div>
         </div>
 
-
         <h2>BY THE NUMBERS</h2>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 50px;">
             <div style="background: #181818; padding: 20px 10px; border-radius: 8px; border: 1px solid #222;">
@@ -242,60 +240,48 @@
             </details>
         </div>
 
-
-            <h2>CONNECT WITH US</h2>
+        <h2>CONNECT WITH US</h2>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 60px; text-align: left;">
-            
             <a href="https://www.instagram.com/0hmysunny?igsh=Z2x6d25zd3FzcjU0" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">SUNNY</span>
                 <span style="font-size: 0.5rem; color: #555;">@0hmysunny ⋆.𐙚 ̊</span>
             </a>
-
             <a href="https://www.instagram.com/silklattee?igsh=MTFyaGM0Ymd2MGg5cQ==" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">MYRE</span>
                 <span style="font-size: 0.5rem; color: #555;">@silklattee ᥫ᭡.ִֶָ𓂃</span>
             </a>
-
             <a href="https://www.instagram.com/_yoonjci?igsh=MXdpMnd1endtd2lwMA==" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">JIANNA</span>
                 <span style="font-size: 0.5rem; color: #555;">@_yoonjci ⋆˚꩜｡</span>
             </a>
-
             <a href="https://www.instagram.com/caeyuniie?igsh=MWxleW83OGVibzlvdQ==" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">MECHI</span>
                 <span style="font-size: 0.5rem; color: #555;">@caeyuniie ⋆˙⟡</span>
             </a>
-
             <a href="https://www.instagram.com/icyarus?igsh=b2gycGg0dnpvdHJv" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">ALDO</span>
                 <span style="font-size: 0.5rem; color: #555;">@icyarus 𝜗ৎ</span>
             </a>
-
             <a href="https://www.instagram.com/ttokkideul?igsh=aDdqZHVvOGpvOWxz" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">OWEN</span>
                 <span style="font-size: 0.5rem; color: #555;">@ttokkideul ᥫ᭡</span>
             </a>
-
             <a href="https://www.instagram.com/s_51010?igsh=Y3UxNm1za3gyM28y" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">MORTY</span>
                 <span style="font-size: 0.5rem; color: #555;">@s_51010 ⋆˚࿔</span>
             </a>
-
             <a href="https://www.instagram.com/sarangmokel?igsh=MWFhNTAwNGlzeXN4eA==" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">KAI</span>
                 <span style="font-size: 0.5rem; color: #555;">@sarangmokel ✮⋆˙</span>
             </a>
-
             <a href="https://www.instagram.com/127610o?igsh=azk3bDc5eXYydHh2" target="_blank" style="text-decoration: none; background: #181818; border: 1px solid #222; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.65rem; color: #fff; font-weight: bold; letter-spacing: 1px;">ABIN</span>
                 <span style="font-size: 0.5rem; color: #555;">@127610o .✦ ݁˖</span>
             </a>
+        </div>
 
-            </div>
-
-    <a href="index.html" style="color: #444; text-decoration: none; font-size: 0.6rem; letter-spacing: 2px; display: block; margin: 50px 0;">← BACK TO KAI'S WORLD</a>
+        <a href="index.html" style="color: #444; text-decoration: none; font-size: 0.6rem; letter-spacing: 2px; display: block; margin: 50px 0;">← BACK TO KAI'S WORLD</a>
     </div>
-
 
     <footer>© 2025 — THE TWILULIT ARCHIVE.</footer>
 
@@ -303,32 +289,29 @@
         <img id="modalImg">
     </div>
 
+    <!-- SCRIPT LOGIC UTAMA -->
     <script>
-            <!-- SCRIPT UTAMA: MODAL + FIREBASE DATABASE -->
-    <script>
-        // Fungsi Modal Foto (Bawaan Lama)
+        // Fungsi Modal Foto
         function openModal(src) {
             document.getElementById("photoModal").style.display = "flex";
             document.getElementById("modalImg").src = src;
         }
         function closeModal() {
-            document.getElementById("photoModal").style.display = "none";https://formspree.io/login
+            document.getElementById("photoModal").style.display = "none";
         }
 
-        // === TARUH DI SINI CUY, GANTI PAKE CONFIG BARU LO ==
-const firebaseConfig = {
-  apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
-  authDomain: "twilulit-d63bc.firebaseapp.com",
-  databaseURL: "https://twilulit-d63bc-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "twilulit-d63bc",
-  storageBucket: "twilulit-d63bc.firebasestorage.app",
-  messagingSenderId: "118040243714",
-  appId: "1:118040243714:web:af553d5a4cf4f29e08811b",
-  measurementId: "G-HM092BECNE"
-};
+        // Konfigurasi Proyek Firebase Baru Lo
+        const firebaseConfig = {
+            apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
+            authDomain: "twilulit-d63bc.firebaseapp.com",
+            databaseURL: "https://twilulit-d63bc-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "twilulit-d63bc",
+            storageBucket: "twilulit-d63bc.firebasestorage.app",
+            messagingSenderId: "118040243714",
+            appId: "1:118040243714:web:af553d5a4cf4f29e08811b",
+            measurementId: "G-HM092BECNE"
+        };
         
-        // Batas penempatan config baru lo -------------------------
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
@@ -346,7 +329,7 @@ const firebaseConfig = {
             }
         }
 
-        // Fungsi Ngebaca & Nampilin Komen (Realtime Grid 2 Kolom)
+        // Fungsi Realtime Nampilin Komen (Grid 2 Kolom)
         const twilRef = database.ref('pesan_twilulit');
         twilRef.on('value', (snapshot) => {
             const wall = document.getElementById('twilWall');
