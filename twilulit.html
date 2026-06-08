@@ -93,7 +93,6 @@
             </p>
         </div>
 
-
     <div class="container">
         
         <h2>THE ROSTER</h2>
@@ -130,6 +129,30 @@
                 <p class="message-text">
                     Dari obrolan random sampai mimpi-mimpi besar, dari tawa yang paling berisik sampai support yang paling sunyi. Semua foto di atas adalah bukti kalau kita saling melengkapi di tengah dunia yang makin chaos.
                 </p>
+            </div>
+        </div>
+
+                <!-- SECTION MADING TWILULIT (MENCOLOK & 2 KOLOM) -->
+        <div style="margin: 60px 0;">
+            <!-- Ajakan Mengisi (Dibuat Mencolok) -->
+            <div style="background: linear-gradient(135deg, #1f1f1f 0%, #181818 100%); border: 2px solid #fff; border-radius: 16px; padding: 30px 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(255,255,255,0.02);">
+                <span style="font-size: 1.5rem; display: block; margin-bottom: 10px;">💬</span>
+                <h3 style="font-size: 1rem; color: #fff; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 10px 0; font-weight: 900;">LEAVE A MESSAGE</h3>
+                <p style="font-size: 0.8rem; color: #aaa; max-width: 500px; margin: 0 auto 20px auto; line-height: 1.6; font-weight: 300;">
+                    Halo Twilulit.. gua pengen kalian tulis apapun yang kalian rasain selama pertemanan ini berjalan. Keluh kesah, pesan seru, atau deep talk sekalian, tumpahin semuanya di sini ya guys :)
+                </p>
+                
+                <!-- Form Input Dalam Kotak Mencolok -->
+                <div style="max-width: 500px; margin: 0 auto; text-align: left;">
+                    <input type="text" id="twilName" placeholder="Nama lo siapa?..." style="width: 100%; background: #121212; border: 1px solid #333; border-radius: 8px; padding: 12px; color: #fff; font-size: 0.75rem; margin-bottom: 12px; outline: none; box-sizing: border-box;">
+                    <textarea id="twilText" placeholder="Tulis pesan lo di sini..." rows="3" style="width: 100%; background: #121212; border: 1px solid #333; border-radius: 8px; padding: 12px; color: #fff; font-size: 0.75rem; margin-bottom: 12px; outline: none; resize: none; font-family: inherit; box-sizing: border-box;"></textarea>
+                    <button onclick="sendTwilMessage()" style="width: 100%; background: #fff; color: #000; border: none; padding: 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; transition: 0.2s;">Kirim ke Mading ➔</button>
+                </div>
+            </div>
+
+            <!-- Kolom Komentar (1 Baris Isi 2 Komen) -->
+            <div id="twilWall" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; text-align: left;">
+                <!-- Komentar dari Firebase bakal otomatis masuk ke sini dan nge-grid jadi 2 kolom -->
             </div>
         </div>
 
@@ -281,13 +304,69 @@
     </div>
 
     <script>
+            <!-- SCRIPT UTAMA: MODAL + FIREBASE DATABASE -->
+    <script>
+        // Fungsi Modal Foto (Bawaan Lama)
         function openModal(src) {
             document.getElementById("photoModal").style.display = "flex";
             document.getElementById("modalImg").src = src;
         }
         function closeModal() {
-            document.getElementById("photoModal").style.display = "none";
+            document.getElementById("photoModal").style.display = "none";https://formspree.io/login
         }
+
+        // === TARUH DI SINI CUY, GANTI PAKE CONFIG BARU LO ==
+const firebaseConfig = {
+  apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
+  authDomain: "twilulit-d63bc.firebaseapp.com",
+  databaseURL: "https://twilulit-d63bc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "twilulit-d63bc",
+  storageBucket: "twilulit-d63bc.firebasestorage.app",
+  messagingSenderId: "118040243714",
+  appId: "1:118040243714:web:af553d5a4cf4f29e08811b",
+  measurementId: "G-HM092BECNE"
+};
+        
+        // Batas penempatan config baru lo -------------------------
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Fungsi Kirim Komen ke Firebase
+        function sendTwilMessage() {
+            const name = document.getElementById('twilName').value.trim();
+            const text = document.getElementById('twilText').value.trim();
+            
+            if(name && text) {
+                database.ref('pesan_twilulit').push({ name, text });
+                document.getElementById('twilText').value = ''; 
+            } else {
+                alert('Isi nama sama pesannya dulu dong! wkwk');
+            }
+        }
+
+        // Fungsi Ngebaca & Nampilin Komen (Realtime Grid 2 Kolom)
+        const twilRef = database.ref('pesan_twilulit');
+        twilRef.on('value', (snapshot) => {
+            const wall = document.getElementById('twilWall');
+            wall.innerHTML = ''; 
+            
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).reverse().forEach(key => {
+                    const pesan = data[key];
+                    wall.innerHTML += `
+                        <div style="background: #181818; border: 1px solid #222; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 90px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                            <p style="font-size: 0.8rem; color: #ccc; margin: 0 0 15px 0; font-weight: 300; line-height: 1.6; word-break: break-word;">"${pesan.text}"</p>
+                            <span style="font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; border-top: 1px solid #222; padding-top: 8px;">From: ${pesan.name}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                wall.innerHTML = `<p style="grid-column: span 2; font-size: 0.75rem; color: #444; text-align: center; margin: 20px 0;">Belum ada pesan nih. Jadi yang pertama nyoret mading! 💬</p>`;
+            }
+        });
     </script>
 </body>
 </html>
