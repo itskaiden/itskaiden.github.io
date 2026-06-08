@@ -76,10 +76,9 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;  
             overflow: hidden;
-            transition: all 0.3s ease;
         }
 
-        /* Pas kotak diklik, batasan barisnya diapus biar keliatan semua */
+        /* Pas kotak diklik (ada class expanded), batesan barisnya dilepas */
         .message-box-card.expanded .line-clamp {
             display: block;
             -webkit-line-clamp: unset;
@@ -315,7 +314,7 @@
             document.getElementById("photoModal").style.display = "none";
         }
 
-        // Konfigurasi Proyek Firebase Baru Lo
+        // Konfigurasi Proyek Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
             authDomain: "twilulit-d63bc.firebaseapp.com",
@@ -344,13 +343,13 @@
             }
         }
 
-        // Fungsi Realtime Nampilin Komen (Dengan Fitur Klik untuk Selengkapnya)
+        // Fungsi Realtime Nampilin Komen (Clean & Fitur Klik Buka-Tutup Berfungsi)
         const twilRef = database.ref('pesan_twilulit');
         twilRef.on('value', (snapshot) => {
             const wall = document.getElementById('twilWall');
             wall.innerHTML = ''; 
             
-        const data = snapshot.val();
+            const data = snapshot.val();
             if (data) {
                 Object.keys(data).reverse().forEach(key => {
                     const pesan = data[key];
@@ -362,22 +361,6 @@
                             <span style="font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; border-top: 1px solid #222; padding-top: 8px; display: block;">
                                 From: ${pesan.name}
                             </span>
-                        </div>
-                    `;
-                });
-            } else {
-                wall.innerHTML = `<p style="grid-column: span 2; font-size: 0.75rem; color: #444; text-align: center; margin: 20px 0;">Belum ada pesan nih. Jadi yang pertama nyoret mading! 💬</p>`;
-            }
-        });
-            
-            const data = snapshot.val();
-            if (data) {
-                Object.keys(data).reverse().forEach(key => {
-                    const pesan = data[key];
-                    wall.innerHTML += `
-                        <div style="background: #181818; border: 1px solid #222; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 90px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                            <p style="font-size: 0.8rem; color: #ccc; margin: 0 0 15px 0; font-weight: 300; line-height: 1.6; word-break: break-word;">"${pesan.text}"</p>
-                            <span style="font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; border-top: 1px solid #222; padding-top: 8px;">From: ${pesan.name}</span>
                         </div>
                     `;
                 });
