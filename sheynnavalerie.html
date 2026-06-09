@@ -101,13 +101,21 @@
             background-size: 15px 15px;
         }
 
-        /* TIMELINE / LOVE MAP STYLE */
-        .timeline { position: relative; width: 100%; margin: 15px 0; padding-left: 20px; text-align: left; }
-        .timeline::before { content: ''; position: absolute; left: 5px; top: 0; width: 2px; height: 100%; background: #ffb6c1; border-style: dashed; }
-        .timeline-item { position: relative; margin-bottom: 20px; }
-        .timeline-item::before { content: '🌸'; position: absolute; left: -24px; top: 2px; font-size: 0.8rem; }
-        .timeline-date { font-size: 0.7rem; font-weight: 600; color: #db7093; }
-        .timeline-desc { font-size: 0.8rem; color: #6e5a5a; margin-top: 2px; }
+        .timeline { width: 100%; text-align: left; margin: 15px 0; padding: 0 10px; }
+        .timeline-item { 
+            background: #fffafb; 
+            border: 1px dashed rgba(255,182,193,0.4); 
+            padding: 12px 15px; 
+            border-radius: 12px; 
+            margin-bottom: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px;
+            position: relative;
+        }
+        .timeline-date { font-size: 0.82rem; font-weight: 600; color: #db7093; display: flex; align-items: center; gap: 6px; }
+        .timeline-desc { font-size: 0.78rem; color: #6e5a5a; line-height: 1.4; font-weight: 300; }
+
 
         /* Mascot Container (Pixel Art) */
         .mascot { width: 50px; height: auto; margin-bottom: 5px; user-select: none; }
@@ -216,17 +224,17 @@
         <span class="mascot">✨</span>
         <h2>Our Small Journey</h2>
         <div class="message">Napak tilas cerita acak kita yang awalnya ga keduga sama sekali:</div>
-        <div class="timeline">
+                <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-date">April, 2026 — First Encounter</div>
+                <div class="timeline-date"> April, 2026 — First Encounter</div>
                 <div class="timeline-desc">Awal obrolan random yang ternyata malah bikin keterusan sampai sekarang.</div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-date">Every Late Night Conversations</div>
+                <div class="timeline-date"> Every Late Night Conversations</div>
                 <div class="timeline-desc">Saat-saat nemenin begadang yang selalu bikin hariku besoknya jadi jauh lebih cerah.</div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-date">Today — The Secret Page</div>
+                <div class="timeline-date"> Today — The Secret Page</div>
                 <div class="timeline-desc">Hari di mana catatan-catatan kecil ini akhirnya sampai di tangan kamu.</div>
             </div>
         </div>
@@ -422,26 +430,43 @@
         btn.style.zIndex = "999";
     }
 
-    // EFEK MERAYAKAN (KONFETI BURST HATI & BUNGA)
+        // EFEK MERAYAKAN (SUPER BLARRRR MULTI-BURST CANNON)
     function celebrate() {
-        // Buat ledakan partikel
-        const shapes = ['💖', '🌸', '🤍', '✨', '💐'];
-        for (let i = 0; i < 50; i++) {
+        const shapes = ['💖', '🌸', '🤍', '✨', '💐', '💮', '🫧', '💘'];
+        
+        // 1. Tembakan Cannon Kiri & Kanan (Simultan)
+        for (let i = 0; i < 40; i++) {
+            createConfettiParticle('0vw', '90vh', Math.random() * 0.5 + 0.2, -Math.random() * 400 - 100); // Tembak dari kiri ke kanan atas
+            createConfettiParticle('100vw', '90vh', -Math.random() * 0.5 - 0.2, -Math.random() * 400 - 100); // Tembak dari kanan ke kiri atas
+        }
+
+        // 2. Tembakan Beruntun (Delay dikit biar makin rame)
+        let burstCount = 0;
+        let interval = setInterval(() => {
+            for (let i = 0; i < 15; i++) {
+                // Tembakan acak dari bawah tengah
+                createConfettiParticle('50vw', '80vh', (Math.random() - 0.5) * 2, -Math.random() * 300 - 150);
+            }
+            burstCount++;
+            if(burstCount > 5) clearInterval(interval); // Berhenti setelah 5 kali ledakan beruntun
+        }, 200);
+
+        // Fungsi pembantu buat bikin partikelnya
+        function createConfettiParticle(startX, startY, forceX, forceY) {
             const conf = document.createElement('div');
             conf.className = 'confetti';
             conf.innerText = shapes[Math.floor(Math.random() * shapes.length)];
-            conf.style.left = '50vw'; conf.style.top = '70vh';
+            conf.style.left = startX; 
+            conf.style.top = startY;
             
-            // Set tujuan acak ledakan
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = Math.random() * 200 + 100;
-            const x = Math.cos(angle) * velocity + 'px';
-            const y = Math.sin(angle) * velocity - (Math.random() * 150) + 'px'; // Bias ke atas
+            // Variasi tujuan ledakan berdasarkan gaya dorong (force)
+            const x = (Math.random() * 250 * forceX) + 'px';
+            const y = (forceY - (Math.random() * 100)) + 'px';
             
             conf.style.setProperty('--x', x);
             conf.style.setProperty('--y', y);
-            conf.style.setProperty('--r', Math.random() * 360 + 'deg');
-            conf.style.fontSize = Math.random() * 15 + 15 + 'px';
+            conf.style.setProperty('--r', Math.random() * 720 + 'deg'); // Putaran lebih kencang
+            conf.style.fontSize = Math.random() * 20 + 15 + 'px'; // Ukuran lebih variatif
             
             document.body.appendChild(conf);
             setTimeout(() => conf.remove(), 1500);
@@ -449,7 +474,9 @@
 
         // Kirim Formspree & Tampilkan Pesan Sukses
         fetch("https://formspree.io/f/xlgankov", {
-            method: 'POST', body: new FormData(document.getElementById("answerForm")), headers: { 'Accept': 'application/json' }
+            method: 'POST', 
+            body: new FormData(document.getElementById("answerForm")), 
+            headers: { 'Accept': 'application/json' }
         }).then(() => {
             document.getElementById("askAction").style.display = "none";
             document.getElementById("jailText").style.display = "none";
@@ -457,6 +484,7 @@
             document.getElementById("finalMessage").style.display = "block";
         });
     }
+
 
     // Efek Bunga Cherry Blossom Melayang background biasa
     setInterval(() => {
