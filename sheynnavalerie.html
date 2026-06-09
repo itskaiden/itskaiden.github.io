@@ -6,14 +6,13 @@
     <title>The Last Leaf — For Sheynna</title>
     <style>
         /* FONT AESTHETIC BARU */
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght=0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap');
 
         * { box-sizing: border-box; }
 
         body {
-            /* BACKGROUND PINK PASTEL LEMBUT + GRADASI */
             background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%); 
-            color: #5d4a4a; /* Warna teks cokelat gelap lembut */
+            color: #5d4a4a;
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
@@ -22,14 +21,48 @@
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌸</text></svg>"), auto;
         }
 
+        /* GERBANG PASSWORD (LOCK SCREEN) */
+        #lockScreen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 240, 245, 0.98);
+            z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            transition: 0.5s ease;
+        }
+        .lock-box {
+            background: white; padding: 30px; border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+            max-width: 320px; width: 90%;
+        }
+        .lock-box input {
+            width: 100%; padding: 12px; margin: 15px 0;
+            border: 1px solid #ffb6c1; border-radius: 10px;
+            text-align: center; font-family: 'Montserrat', sans-serif; outline: none;
+        }
+        .lock-box button {
+            background: #ffb6c1; color: white; border: none;
+            padding: 10px 25px; border-radius: 10px; cursor: pointer;
+            font-weight: 500; transition: 0.3s;
+        }
+        .lock-box button:hover { background: #db7093; }
+
         /* Efek Bunga Cherry Blossom Melayang */
         .cherry-blossom {
             position: fixed; top: -10%; z-index: 2;
             user-select: none; pointer-events: none;
-            animation: fall linear forwards;
-            opacity: 0.6;
+            animation: fall linear forwards; opacity: 0.6;
         }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Konfeti Ledakan Hati/Bunga */
+        .confetti {
+            position: fixed; z-index: 999; pointer-events: none;
+            animation: burst 1.5s ease-out forwards;
+        }
+        @keyframes burst {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; }
+        }
 
         /* Progress Bar Soft Pink */
         .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 6px; background: rgba(0,0,0,0.05); z-index: 1000; }
@@ -41,7 +74,7 @@
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px);
             border: 1px solid #ffb6c1; padding: 6px 12px; border-radius: 20px;
             display: flex; align-items: center; gap: 8px;
-            box-shadow: 0 5px 15px rgba(255,182,193,0.25); transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255,182,193,0.25);
         }
         .music-btn {
             background: #ffb6c1; border: none; color: white;
@@ -51,20 +84,16 @@
         .music-info { font-size: 0.65rem; font-weight: 400; color: #db7093; max-width: 90px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
         .book-container {
-            width: 90%; max-width: 380px;
-            height: 82vh; position: relative; z-index: 10;
+            width: 90%; max-width: 380px; height: 82vh; position: relative; z-index: 10;
         }
 
-        /* CSS BOX HALAMAN PUTIH COQUETTE DENGAN POLA BUNGA TRANSPARAN */
+        /* CSS BOX HALAMAN PUTIH */
         .page {
-            position: absolute; width: 100%; height: 100%;
-            border-radius: 25px;
-            padding: 35px 25px 25px 25px;
-            display: none; flex-direction: column;
+            position: absolute; width: 100%; height: 100%; border-radius: 25px;
+            padding: 35px 25px 25px 25px; display: none; flex-direction: column;
             justify-content: flex-start; align-items: center; text-align: center;
             box-shadow: 0 15px 35px rgba(255, 182, 193, 0.25);
-            overflow-y: auto; overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
+            overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
             background-color: #ffffff; 
             background-image: 
                 radial-gradient(rgba(255, 182, 193, 0.06) 1px, transparent 1px),
@@ -72,91 +101,81 @@
             background-size: 15px 15px;
         }
 
-        /* MOTIF BUNGA ACAK (SCATTERED) */
+        /* TIMELINE / LOVE MAP STYLE */
+        .timeline { position: relative; width: 100%; margin: 15px 0; padding-left: 20px; text-align: left; }
+        .timeline::before { content: ''; position: absolute; left: 5px; top: 0; width: 2px; height: 100%; background: #ffb6c1; border-style: dashed; }
+        .timeline-item { position: relative; margin-bottom: 20px; }
+        .timeline-item::before { content: '🌸'; position: absolute; left: -24px; top: 2px; font-size: 0.8rem; }
+        .timeline-date { font-size: 0.7rem; font-weight: 600; color: #db7093; }
+        .timeline-desc { font-size: 0.8rem; color: #6e5a5a; margin-top: 2px; }
+
+        /* Mascot Container (Pixel Art) */
+        .mascot { width: 50px; height: auto; margin-bottom: 5px; user-select: none; }
+
+        /* MOTIF BUNGA ACAK */
         .flower-pattern {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none; overflow: hidden;
-            opacity: 0.18; font-size: 1.2rem; color: #ffb6c1; display: block;
+            opacity: 0.18; font-size: 1.2rem; color: #ffb6c1;
         }
         .flower-pattern span { position: absolute; }
         .page * { z-index: 5; }
 
-        /* Animasi Masuk Lebih Halus */
-        .page.active { display: flex; animation: pageIn 0.8s ease forwards; opacity: 1; transform: scale(1); filter: blur(0); }
+        .page.active { display: flex; animation: pageIn 0.8s ease forwards; }
         @keyframes pageIn { from { opacity: 0; transform: translateY(20px); filter: blur(3px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
-        /* Typography */
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #ffb6c1; font-size: 1.6rem; margin-top: 5px; font-weight: 400; }
         .message { font-size: 0.88rem; line-height: 1.6; margin: 15px 0; color: #6e5a5a; font-weight: 300; }
         .highlight { color: #db7093; font-weight: 500; text-decoration: underline; text-decoration-color: rgba(219, 112, 147, 0.3); }
         .cursive { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: #ffb6c1; font-weight: 700; }
 
-        /* List Styling untuk Interaktif Rame */
         .cute-list { width: 100%; text-align: left; margin: 15px 0; padding: 0 10px; }
         .cute-item { background: #fffafb; border: 1px dashed rgba(255,182,193,0.4); padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; font-size: 0.82rem; display: flex; align-items: center; gap: 10px; }
 
-        /* Desain Quote Minimalis */
         .highlight-quote {
-            font-family: 'Crimson Text', serif; font-style: italic; font-size: 0.85rem;
-            color: #8a7c7c; line-height: 1.6; text-align: center;
-            position: relative; background: #fffaf0;
-            padding: 20px; margin: 15px 0; border-radius: 15px;
-            border-top: 1px dashed rgba(255, 182, 193, 0.4);
-            border-bottom: 1px dashed rgba(255, 182, 193, 0.4);
+            font-family: 'Crimson Text', serif; font-style: italic; font-size: 0.85rem; color: #8a7c7c; line-height: 1.6;
+            background: #fffaf0; padding: 20px; margin: 15px 0; border-radius: 15px;
+            border-top: 1px dashed rgba(255, 182, 193, 0.4); border-bottom: 1px dashed rgba(255, 182, 193, 0.4);
         }
 
-        /* Desain Chat Box Soft Boy */
-        .chat-container {
-            background: #fff5f8; border-radius: 15px;
-            padding: 12px; margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.15); width: 100%;
-        }
-        .chat-bubble { padding: 10px 14px; border-radius: 15px; margin-bottom: 8px; font-size: 0.82rem; max-width: 85%; display: inline-block; font-weight: 300; }
-        .chat-left { background: #ffffff; border: 1px solid rgba(0,0,0,0.03); float: left; clear: both; text-align: left; color: #6e5a5a; }
+        .chat-container { background: #fff5f8; border-radius: 15px; padding: 12px; margin-top: 10px; border: 1px solid rgba(255, 182, 193, 0.15); width: 100%; }
+        .chat-bubble { padding: 10px 14px; border-radius: 15px; margin-bottom: 8px; font-size: 0.82rem; max-width: 85%; display: inline-block; }
+        .chat-left { background: #ffffff; float: left; clear: both; text-align: left; color: #6e5a5a; border: 1px solid rgba(0,0,0,0.02); }
         .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #5d4a4a; }
-        .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; font-weight: 300; }
+        .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; }
 
-        /* Navigasi & Tombol Pink Soft */
-        .nav-btns { 
-            display: flex; justify-content: space-between; width: 100%; 
-            padding-top: 15px; margin-top: auto; position: sticky; bottom: 0;
-            background: transparent; z-index: 100;
-        }
+        .nav-btns { display: flex; justify-content: space-between; width: 100%; padding-top: 15px; margin-top: auto; position: sticky; bottom: 0; }
         .btn-nav { background: transparent; border: none; color: #db7093; padding: 5px 10px; cursor: pointer; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
         .btn-nav:hover { opacity: 1; letter-spacing: 2px; }
 
-        /* Tombol Yes Pink Solid */
-        .btn-yes { 
-            background: #ffb6c1; color: white; border: none; 
-            padding: 12px 25px; border-radius: 10px; cursor: pointer; 
-            font-weight: 500; font-size: 0.85rem; transition: 0.3s; z-index: 10;
-            box-shadow: 0 4px 10px rgba(255,182,193,0.4);
-        }
+        .btn-yes { background: #ffb6c1; color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 500; font-size: 0.85rem; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,182,193,0.4); }
         .btn-yes:hover { background: #db7093; transform: translateY(-2px); }
+        .btn-no { background: #ffffff; color: #bcaaa4; border: 1px solid #ffb6c1; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 300; font-size: 0.85rem; transition: all 0.2s ease; position: relative; white-space: nowrap; }
 
-        /* Tombol Not Now yang Bakal Kabur */
-        .btn-no { 
-            background: #ffffff; color: #bcaaa4; border: 1px solid #ffb6c1; 
-            padding: 12px 25px; border-radius: 10px; cursor: pointer; 
-            font-weight: 300; font-size: 0.85rem; transition: all 0.2s ease;
-            position: relative; z-index: 1000; white-space: nowrap;
-        }
-
-        /* Photo Grid & PS */
         .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; width: 100%; }
         .photo-grid img { width: 100%; height: 105px; object-fit: cover; border-radius: 15px; border: 2px solid transparent; transition: 0.3s; }
         .photo-grid img:hover { border-color: #ffb6c1; transform: scale(1.03); }
-        .ps-text { font-size: 0.65rem; color: #bcaaa4; font-style: italic; margin-top: 10px; font-weight: 300; }
-        .decoration { position: absolute; font-size: 1.5rem; opacity: 0.8; z-index: 10; pointer-events: none; }
+        .ps-text { font-size: 0.65rem; color: #bcaaa4; font-style: italic; margin-top: 10px; }
+        .decoration { position: absolute; font-size: 1.5rem; opacity: 0.8; z-index: 10; }
     </style>
 </head>
 <body>
+
+<div id="lockScreen">
+    <div class="lock-box">
+        <span style="font-size: 2.5rem;">🔒</span>
+        <h2 style="margin-top: 10px;">This Letter is Locked</h2>
+        <p style="font-size: 0.8rem; color: #8a7c7c;">Enter your favorite nickname to open this secret letter.</p>
+        <input type="text" id="passInput" placeholder="Hint: tanaman kecil ijo...">
+        <button onclick="checkPassword()">Unlock</button>
+        <p id="lockError" style="color: #db7093; font-size: 0.75rem; margin-top: 10px; display: none;">Oops! Bukan itu kuncinya, coba lagi ya... 🤫</p>
+    </div>
+</div>
 
 <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
 
 <audio id="bgMusic" loop preload="auto"><source src="Glenn Fredly – You Are My Everything.mp3" type="audio/mpeg"></audio>
 
-<!-- Widget Musik Baru Lebih Rame -->
 <div class="music-widget">
     <div class="music-info" id="musicTitle">Music Off</div>
     <button onclick="playMusic()" class="music-btn" id="musicBtn">♫</button>
@@ -164,17 +183,10 @@
 
 <div class="book-container">
 
-    <!-- HALAMAN 0: INTRO -->
     <div class="page active" id="p0">
         <div class="decoration" style="top:15px; right:15px;">✉️</div>
-        <div class="flower-pattern">
-            <span style="top:2%; left:5%">✿</span><span style="top:5%; left:90%">❀</span>
-            <span style="top:92%; left:10%">❁</span><span style="top:88%; left:85%">✿</span>
-            <span style="top:20%; left:15%">❀</span><span style="top:25%; left:75%">✿</span>
-            <span style="top:45%; left:5%">❁</span><span style="top:55%; left:92%">❀</span>
-            <span style="top:35%; left:85%">❀</span><span style="top:80%; left:50%">❁</span>
-        </div>
-        <h2 class="cursive" style="margin-top: 20px;">Hi, Lumut...</h2>
+        <span class="mascot">🧸</span>
+        <h2 class="cursive">Hi, Lumut...</h2>
         <div class="message">
             Sebenarnya aku bingung harus mulai dari mana. Kenalin, aku <span class="highlight">Benjamin Franklin</span>. <br><br>
             Aku bukan tipe orang yang jago ngomong langsung, jadi aku tulisin semuanya di sini. Anggap aja ini catatan kecil yang akhirnya berani aku tunjukkin ke kamu. <br><br>
@@ -186,13 +198,9 @@
         </div>
     </div>
     
-    <!-- HALAMAN 1: LOG -->
     <div class="page" id="p1">
         <div class="decoration" style="top:15px; right:15px;">🎀</div>
-        <div class="flower-pattern">
-            <span style="top:5%; left:10%">✿</span><span style="top:12%; left:85%">❀</span>
-            <span style="top:40%; left:70%">✿</span><span style="top:75%; left:15%">❁</span>
-        </div>
+        <span class="mascot">💭</span>
         <h2>Personal Log</h2>
         <div class="message">
             Mungkin kamu liat aku sebagai orang yang sibuk dengan rutinitas harian yang itu-itu aja. Tapi jujur, di tengah semua kebisingan itu, aku sering curi-curi waktu buat melamun di bawah langit malam. Aku sering bertanya-tanya tentang banyak hal, termasuk tentang gimana sebuah pertemuan bisa terasa begitu berarti. Hari ini, aku cuma ingin jujur sama diri sendiri-—<b>dan sama kamu.</b>
@@ -203,13 +211,33 @@
         </div>
     </div>
 
-    <!-- HALAMAN 2: ENCOUNTER CHAT -->
     <div class="page" id="p2">
-        <div class="decoration" style="top:15px; right:15px;">🧸</div>
-        <div class="flower-pattern">
-            <span style="top:15%; left:45%">✿</span><span style="top:50%; left:40%">❀</span>
-            <span style="top:65%; left:5%">❁</span><span style="top:95%; left:70%">❀</span>
+        <div class="decoration" style="top:15px; right:15px;">🗺️</div>
+        <span class="mascot">✨</span>
+        <h2>Our Small Journey</h2>
+        <div class="message">Napak tilas cerita acak kita yang awalnya ga keduga sama sekali:</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">April, 2026 — First Encounter</div>
+                <div class="timeline-desc">Awal obrolan random yang ternyata malah bikin keterusan sampai sekarang.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Every Late Night Conversations</div>
+                <div class="timeline-desc">Saat-saat nemenin begadang yang selalu bikin hariku besoknya jadi jauh lebih cerah.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Today — The Secret Page</div>
+                <div class="timeline-desc">Hari di mana catatan-catatan kecil ini akhirnya sampai di tangan kamu.</div>
+            </div>
         </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(1)">Back</button>
+            <button class="btn-nav" onclick="nextPage(3)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p3">
+        <div class="decoration" style="top:15px; right:15px;">💌</div>
         <h2>A Piece of Memory</h2>
         <div class="message">Aku masih inget pertama kali kita ngobrol. Awalnya kupikir bakal jadi obrolan lewat gitu aja, tapi ternyata salah.</div>
         <div class="chat-container">
@@ -223,92 +251,74 @@
             Ngobrol sama kamu itu rasanya tenang, kayak nyium aroma tanah sehabis hujan—<span class="highlight">Petrichor</span>. Setiap pesan dari kamu selalu sukses bikin hariku jadi jauh lebih cerah.
         </div>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="nextPage(1)">Back</button>
-            <button class="btn-nav" onclick="nextPage(3)">Next</button>
-        </div>
-    </div>
-
-    <!-- HALAMAN NEW 3: FUN FACTS (BIAR LEBIH RAME/PANJANG) -->
-    <div class="page" id="p3">
-        <div class="decoration" style="top:15px; right:15px;">✨</div>
-        <div class="flower-pattern">
-            <span style="top:25%; left:10%">❀</span><span style="top:60%; left:85%">✿</span>
-        </div>
-        <h2>Things I Notice About You</h2>
-        <div class="message">Ada beberapa hal kecil dari kamu yang mungkin kamu gak sadar, tapi sukses bikin aku kagum:</div>
-        <div class="cute-list">
-            <div class="cute-item"><span>🌸</span> Caramu nanggapin cerita randomku yang seru.</div>
-            <div class="cute-item"><span>💭</span> Gimana dunia rasanya jadi gak begitu chaotic pas kita ngobrol.</div>
-            <div class="cute-item"><span>💫</span> Kalimat-kalimat sederhana kamu yang selalu bikin aku senyum sendiri.</div>
-        </div>
-        <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(2)">Back</button>
             <button class="btn-nav" onclick="nextPage(4)">Next</button>
         </div>
     </div>
 
-    <!-- HALAMAN 4: QUOTE SKY -->
     <div class="page" id="p4">
-        <div class="decoration" style="top:15px; right:15px;">🍰</div>
-        <div class="flower-pattern">
-            <span style="top:30%; left:25%">❁</span><span style="top:75%; left:80%">❀</span>
+        <div class="decoration" style="top:15px; right:15px;">🕊️</div>
+        <span class="mascot">🐼</span>
+        <h2>Things I Notice About You</h2>
+        <div class="message">Ada beberapa hal kecil dari kamu yang mungkin kamu ga sadar, tapi sukses bikin aku kagum:</div>
+        <div class="cute-list">
+            <div class="cute-item"><span>🪐</span> Caramu nangepin cerita randomku yang seru.</div>
+            <div class="cute-item"><span>💭</span> Gimana dunia rasanya jadi ga begitu chaotic pas kita ngobrol.</div>
+            <div class="cute-item"><span>💫</span> Kalimat-kalimat sederhana kamu yang selalu bikin aku senyum sendiri.</div>
         </div>
-        <h2>Something About You</h2>
-        <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>. Caramu melihat hal-hal kecil dan caramu memperlakukan aku itu berharga banget.</div>
-        <div class="highlight-quote">
-            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
-        </div>
-        <div class="message">Setiap kali aku liat langit malam, aku selalu ingat kata-kata itu. Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku.</div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(3)">Back</button>
             <button class="btn-nav" onclick="nextPage(5)">Next</button>
         </div>
     </div>
 
-    <!-- HALAMAN NEW 5: BUCKET LIST GOALS (TAMBAHAN INTERAKTIF) -->
     <div class="page" id="p5">
-        <div class="decoration" style="top:15px; right:15px;">☁️</div>
-        <div class="flower-pattern">
-            <span style="top:10%; left:80%">✿</span><span style="top:85%; left:20%">❁</span>
+        <div class="decoration" style="top:15px; right:15px;">🍰</div>
+        <h2>Something About You</h2>
+        <div class="message">Kalau ada yang tanya kenapa aku begitu mengagumi kamu, jawabannya sederhana: karena <b>kamu adalah kamu</b>.</div>
+        <div class="highlight-quote">
+            "Sumpah ya malam ini kayaknya bintang-bintang lagi bersinar terang deh, kalaupun ketutup awan menurut aku tetap bakal bersinar. Kayak kamu yang selalu bersinar di mata akuu."
         </div>
-        <h2>Our Future Days?</h2>
-        <div class="message">Kalau semesta mengizinkan, aku punya banyak list hal random yang pengen aku lakuin bareng kamu nanti:</div>
-        <div class="cute-list">
-            <div class="cute-item"><span>☕</span> Berburu tempat kopi lucu & ngobrol sampai lupa waktu.</div>
-            <div class="cute-item"><span>🌌</span> Nyari rasi bintang bareng di bawah langit malam yang bersih.</div>
-            <div class="cute-item"><span>📸</span> Mengabadikan banyak foto polaroid random buat disimpen.</div>
-        </div>
-        <p class="cursive" style="font-size: 1.2rem; margin: 10px 0;">...and many more with you. ♡</p>
+        <div class="message">Bagiku, kamu itu <span class="highlight">Amerta</span>—sesuatu yang engga akan pudar maknanya di ingatanku. Aku bener-bener bersyukur semesta kasih kesempatan buat aku kenal sama kamu.</div>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(4)">Back</button>
             <button class="btn-nav" onclick="nextPage(6)">Next</button>
         </div>
     </div>
 
-    <!-- HALAMAN 6: SECRET -->
     <div class="page" id="p6">
-        <div class="decoration" style="top:15px; right:15px;">🤍</div>
-        <div class="flower-pattern">
-            <span style="top:45%; left:60%">✿</span><span style="top:15%; left:15%">❀</span>
+        <div class="decoration" style="top:15px; right:15px;">☁️</div>
+        <span class="mascot">🍧</span>
+        <h2>Our Future Days?</h2>
+        <div class="message">Kalau semesta mengizinkan, aku punya banyak list hal random yang pengen aku lakuin bareng kamu nanti:</div>
+        <div class="cute-list">
+            <div class="cute-item"><span>👫🏻</span> Ngobrol sampai lupa waktu.</div>
+            <div class="cute-item"><span>🌌</span> Nyari rasi bintang bareng di bawah langit malam yang bersih.</div>
+            <div class="cute-item"><span>📸</span> Mengabadikan banyak foto random buat disimpen.</div>
         </div>
-        <h2>A Little Secret...</h2>
-        <div class="message">
-            Maybe you're wondering, kenapa harus kamu? <br><br>
-            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
-            Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku. <b>It's always been you, Lumut.</b>
-        </div>
+        <p class="cursive" style="font-size: 1.2rem; margin: 10px 0;">...and many more with you. ♡</p>
         <div class="nav-btns">
             <button class="btn-nav" onclick="nextPage(5)">Back</button>
             <button class="btn-nav" onclick="nextPage(7)">Next</button>
         </div>
     </div>
 
-    <!-- HALAMAN 7: PHOTO GRID -->
     <div class="page" id="p7">
-        <div class="decoration" style="top:15px; right:15px;">Swan</div>
-        <div class="flower-pattern">
-            <span style="top:5%; left:50%">❀</span><span style="top:90%; left:40%">❁</span>
+        <div class="decoration" style="top:15px; right:15px;">🤍</div>
+        <h2>A Little Secret...</h2>
+        <div class="message">
+            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
+            Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku. <b>It's always been you, Mut.</b>
         </div>
+        <div class="nav-btns">
+            <button class="btn-nav" onclick="nextPage(6)">Back</button>
+            <button class="btn-nav" onclick="nextPage(8)">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="p8">
+        <div class="decoration" style="top:15px; right:15px;">🦢</div>
         <h2>Me & You <3</h2>
         <div class="photo-grid">
             <img src="foto1.jpg">
@@ -318,17 +328,13 @@
         </div>
         <p class="cursive">"Capturing every moment with you ♡"</p>
         <div class="nav-btns">
-            <button class="btn-nav" onclick="nextPage(6)">Back</button>
-            <button class="btn-nav" onclick="nextPage(8)">Next</button>
+            <button class="btn-nav" onclick="nextPage(7)">Back</button>
+            <button class="btn-nav" onclick="nextPage(9)">Next</button>
         </div>
     </div>
 
-    <!-- HALAMAN 8: FINAL ACC -->
-    <div class="page" id="p8">
+    <div class="page" id="p9">
         <div class="decoration" style="top:15px; right:15px;">🌸</div>
-        <div class="flower-pattern">
-            <span style="top:15%; left:75%">✿</span><span style="top:80%; left:15%">❀</span>
-        </div>
         <h2>The Final Page</h2>
         <div class="message">
             Sheynna Valerie, intinya aku cuma mau bilang kalau aku merasa nyaman ada di dekatmu. Rasanya kayak nemu 'rumah'. <br><br>
@@ -341,10 +347,10 @@
         <p id="jailText" class="ps-text">p.s: jangan pencet not now ya! :p</p>
         <div id="finalMessage" style="display:none; margin-top: 25px;" class="cursive">
             "This is the best day of my life! ♡" <br><br>
-            <a href="https://t.me/einsteinb" target="_blank"><button class="btn-yes">Kirim jawaban kamu di sini ya</button></a>
+            <a href="https://t.me/frankliwn" target="_blank"><button class="btn-yes">Kirim jawaban kamu di sini ya</button></a>
         </div>
         <div class="nav-btns" id="lastNav">
-            <button class="btn-nav" onclick="nextPage(7)">Back</button>
+            <button class="btn-nav" onclick="nextPage(8)">Back</button>
         </div>
     </div>
 
@@ -359,13 +365,27 @@
     var musicBtn = document.getElementById("musicBtn");
     var musicTitle = document.getElementById("musicTitle");
 
+    // FUNGSI CHECK GERBANG PASSWORD
+    function checkPassword() {
+        const password = document.getElementById("passInput").value.trim().toLowerCase();
+        // Password diset kata "lumut"
+        if(password === "lumut") {
+            document.getElementById("lockScreen").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("lockScreen").style.display = "none";
+                playMusic(); // Langsung otomatis main pas sukses kebuka
+            }, 500);
+        } else {
+            document.getElementById("lockError").style.display = "block";
+        }
+    }
+
     function playMusic() {
         if (audio.paused) { 
             audio.play().catch(e => console.log("Blocked")); 
             musicBtn.innerText = "II"; 
             musicTitle.innerText = "Now Playing...";
-        } 
-        else { 
+        } else { 
             audio.pause(); 
             musicBtn.innerText = "♫"; 
             musicTitle.innerText = "Music Paused";
@@ -373,15 +393,10 @@
     }
 
     function nextPage(n) {
-        if (n > 0 && audio.paused) { 
-            audio.play().catch(e => {}); 
-            musicBtn.innerText = "II"; 
-            musicTitle.innerText = "Now Playing...";
-        }
         document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; p.classList.remove('active'); });
         const target = document.getElementById('p' + n);
         if (target) { target.style.display = 'flex'; setTimeout(() => target.classList.add('active'), 10); }
-        document.getElementById('bar').style.width = (n/8)*100 + '%';
+        document.getElementById('bar').style.width = (n/9)*100 + '%';
         if(target) target.scrollTop = 0;
     }
 
@@ -390,11 +405,7 @@
         const page = btn.closest('.page');
         
         const jailMessages = [
-            "Eits, ga bisa! 😜",
-            "Coba lagi ya wkwk",
-            "Masa ga mau? :( ",
-            "Pencet 'Yes' aja udah..",
-            "Duh, lincah banget ya!"
+            "Eits, ga bisa! 😜", "Coba lagi ya wkwk", "Masa ga mau? :( ", "Pencet 'Yes' aja udah..", "Duh, lincah banget ya!"
         ];
         document.getElementById('jailText').innerText = jailMessages[Math.floor(Math.random() * jailMessages.length)];
 
@@ -411,7 +422,32 @@
         btn.style.zIndex = "999";
     }
 
+    // EFEK MERAYAKAN (KONFETI BURST HATI & BUNGA)
     function celebrate() {
+        // Buat ledakan partikel
+        const shapes = ['💖', '🌸', '🤍', '✨', '💐'];
+        for (let i = 0; i < 50; i++) {
+            const conf = document.createElement('div');
+            conf.className = 'confetti';
+            conf.innerText = shapes[Math.floor(Math.random() * shapes.length)];
+            conf.style.left = '50vw'; conf.style.top = '70vh';
+            
+            // Set tujuan acak ledakan
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 200 + 100;
+            const x = Math.cos(angle) * velocity + 'px';
+            const y = Math.sin(angle) * velocity - (Math.random() * 150) + 'px'; // Bias ke atas
+            
+            conf.style.setProperty('--x', x);
+            conf.style.setProperty('--y', y);
+            conf.style.setProperty('--r', Math.random() * 360 + 'deg');
+            conf.style.fontSize = Math.random() * 15 + 15 + 'px';
+            
+            document.body.appendChild(conf);
+            setTimeout(() => conf.remove(), 1500);
+        }
+
+        // Kirim Formspree & Tampilkan Pesan Sukses
         fetch("https://formspree.io/f/xlgankov", {
             method: 'POST', body: new FormData(document.getElementById("answerForm")), headers: { 'Accept': 'application/json' }
         }).then(() => {
@@ -422,7 +458,7 @@
         });
     }
 
-    // Efek Bunga Cherry Blossom Melayang
+    // Efek Bunga Cherry Blossom Melayang background biasa
     setInterval(() => {
         const petals = ['🌸', '💮', '🤍', '🫧'];
         const c = document.createElement('div');
