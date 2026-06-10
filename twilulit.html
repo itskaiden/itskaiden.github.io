@@ -103,11 +103,11 @@
 
         /* TOMBOL REAKSI EMOJI */
         .reaction-bar {
-            display: flex; gap: 8px; margin-top: 12px; padding-top: 8px; border-top: 1px dashed #222;
+            display: flex; gap: 4px; margin-top: 12px; padding-top: 8px; border-top: 1px dashed #222; flex-wrap: wrap;
         }
         .react-btn {
             background: #1f1f1f; border: 1px solid #333; color: #aaa;
-            padding: 3px 8px; border-radius: 20px; font-size: 0.65rem;
+            padding: 3px 6px; border-radius: 20px; font-size: 0.6rem;
             cursor: pointer; display: flex; align-items: center; gap: 4px;
             transition: all 0.2s ease;
         }
@@ -295,10 +295,9 @@
             </div>
         </div>
 
-        <!-- SECTION INSIDE JOKES & FACTS (SEKARANG DYNAMIC DARI FIREBASE) -->
+        <!-- SECTION INSIDE JOKES & FACTS -->
         <h2>INSIDE JOKES & FACTS</h2>
         <div style="text-align: left; margin-bottom: 60px;">
-            <!-- Tempat jokes nampil secara otomatis -->
             <div id="jokesWall" style="font-size: 0.8rem; color: #888; margin-bottom: 20px;">
                 <!-- Data Realtime Masuk Ke Sini -->
             </div>
@@ -401,11 +400,11 @@
             document.getElementById("photoModal").style.display = "none";
         }
 
-        // Konfigurasi Proyek Firebase
+        // Konfigurasi Proyek Firebase (SUDAH DIPERBAIKI JALURNYA)
         const firebaseConfig = {
             apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
             authDomain: "twilulit-d63bc.firebaseapp.com",
-            databaseURL: "https://twilulit-d63bc-default-rtdb.asia-southeast1.firebaseio.com",
+            databaseURL: "https://twilulit-d63bc-default-rtdb.firebaseio.com",
             projectId: "twilulit-d63bc",
             storageBucket: "twilulit-d63bc.firebasestorage.app",
             messagingSenderId: "118040243714",
@@ -425,7 +424,7 @@
                 database.ref('pesan_twilulit').push({ 
                     name: name, 
                     text: text,
-                    reactions: { whiteHeart: 0, laugh: 0, fire: 0 }
+                    reactions: { whiteHeart: 0, laugh: 0, fire: 0, cry: 0 }
                 });
                 document.getElementById('twilText').value = ''; 
             } else {
@@ -452,6 +451,7 @@
                     const whiteHeart = (pesan.reactions && pesan.reactions.whiteHeart) ? pesan.reactions.whiteHeart : 0;
                     const laugh = (pesan.reactions && pesan.reactions.laugh) ? pesan.reactions.laugh : 0;
                     const fire = (pesan.reactions && pesan.reactions.fire) ? pesan.reactions.fire : 0;
+                    const cry = (pesan.reactions && pesan.reactions.cry) ? pesan.reactions.cry : 0; // FIXED VARIABEL CRASH
 
                     wall.innerHTML += `
                         <div class="message-box-card" onclick="this.classList.toggle('expanded')" style="background: #181818; border: 1px solid #222; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s;">
@@ -488,7 +488,6 @@
                     title: title,
                     content: content
                 });
-                // Kosongin input setelah ngirim
                 document.getElementById('jokeTitle').value = '';
                 document.getElementById('jokeContent').value = '';
             } else {
@@ -496,7 +495,6 @@
             }
         }
 
-        // Tarik data inside jokes secara realtime
         const jokesRef = database.ref('inside_jokes');
         jokesRef.on('value', (snapshot) => {
             const jokesWall = document.getElementById('jokesWall');
@@ -508,7 +506,6 @@
             if (data) {
                 Object.keys(data).forEach(key => {
                     const item = data[key];
-                    // Format penomoran otomatis biar jadi dua digit (01, 02, 03...)
                     const formattedNum = String(index).padStart(2, '0');
                     
                     jokesWall.innerHTML += `
@@ -524,7 +521,6 @@
                     index++;
                 });
             } else {
-                // Tampilan default kalau di database folder `inside_jokes` lu masih kosong melompong
                 jokesWall.innerHTML = `
                     <p style="font-size: 0.75rem; color: #444; text-align: center; margin: 10px 0;">
                         Belum ada rahasia yang bocor nih... 
