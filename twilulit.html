@@ -24,6 +24,25 @@
         }
         .nav-links a { color: #888; text-decoration: none; font-size: 0.7rem; margin-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* WIDGET AUDIO MINIMALIS */
+        .music-widget {
+            display: flex; align-items: center; gap: 10px;
+            background: #1f1f1f; border: 1px solid #333;
+            padding: 6px 14px; border-radius: 30px; margin-left: 20px;
+        }
+        .music-btn {
+            background: #fff; border: none; color: #000;
+            border-radius: 50%; width: 24px; height: 24px; cursor: pointer;
+            display: flex; justify-content: center; align-items: center; 
+            font-size: 0.65rem; font-weight: bold; transition: transform 0.2s;
+        }
+        .music-btn:hover { transform: scale(1.1); }
+        .music-info { 
+            font-size: 0.55rem; font-weight: 500; color: #aaa; 
+            max-width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
         .hero { padding: 60px 20px 30px; }
         .circle-tag { font-size: 0.6rem; color: #888; letter-spacing: 5px; text-transform: uppercase; display: block; }
         h1 { font-size: 2.8rem; margin: 10px 0; color: #fff; letter-spacing: -1px; font-weight: 900; }
@@ -70,7 +89,6 @@
 
         footer { padding: 40px 0; color: #333; font-size: 0.6rem; letter-spacing: 1px; border-top: 1px solid #222; }
 
-        /* Batasan awal: Maksimal cuma 3 baris, sisanya jadi titik-titik (...) */
         .line-clamp {
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -78,10 +96,33 @@
             overflow: hidden;
         }
 
-        /* Pas kotak diklik (ada class expanded), batesan barisnya dilepas */
         .message-box-card.expanded .line-clamp {
             display: block;
             -webkit-line-clamp: unset;
+        }
+
+        /* TOMBOL REAKSI EMOJI */
+        .reaction-bar {
+            display: flex; gap: 8px; margin-top: 12px; padding-top: 8px; border-top: 1px dashed #222;
+        }
+        .react-btn {
+            background: #1f1f1f; border: 1px solid #333; color: #aaa;
+            padding: 3px 8px; border-radius: 20px; font-size: 0.65rem;
+            cursor: pointer; display: flex; align-items: center; gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .react-btn:hover { background: #2a2a2a; color: #fff; border-color: #555; }
+
+        /* PLAYLIST ITEM STYLING */
+        .playlist-item {
+            display: flex; justify-content: space-between; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background 0.2s;
+        }
+        .playlist-item:hover { background: #222; color: #fff; }
+
+        /* INPUT FIELD JOKES FORM */
+        .jokes-input {
+            width: 100%; background: #181818; border: 1px solid #222; border-radius: 8px; 
+            padding: 10px; color: #fff; font-size: 0.7rem; margin-bottom: 10px; outline: none; box-sizing: border-box;
         }
     </style>
 </head>
@@ -89,11 +130,23 @@
 
     <nav>
         <div style="font-weight:900; letter-spacing:1px; color:#fff;">TWILULIT</div>
-        <div class="nav-links">
-            <a href="index.html">Main</a>
-            <a href="universe.html">Universe</a>
+        <div style="display: flex; align-items: center;">
+            <div class="nav-links">
+                <a href="index.html">Main</a>
+                <a href="universe.html">Universe</a>
+            </div>
+            <!-- WIDGET INTEGRASI DI NAV BAR -->
+            <div class="music-widget">
+                <div class="music-info" id="trackTitle">Muted</div>
+                <button onclick="togglePlay()" class="music-btn" id="playBtn">▶</button>
+            </div>
         </div>
     </nav>
+
+    <!-- TAG AUDIO SEKARANG TANPA AUTOPLAY -->
+    <audio id="twilAnthem" loop preload="auto">
+        <source id="audioSource" src="Die With A Smile.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="hero">
         <span class="circle-tag">Chapter — 01</span>
@@ -148,7 +201,7 @@
             </div>
         </div>
 
-        <!-- SECTION MADING TWILULIT (MENCOLOK & 2 KOLOM) -->
+        <!-- SECTION MADING TWILULIT -->
         <div style="margin: 60px 0;">
             <div style="background: linear-gradient(135deg, #1f1f1f 0%, #181818 100%); border: 2px solid #fff; border-radius: 16px; padding: 30px 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(255,255,255,0.02);">
                 <span style="font-size: 1.5rem; display: block; margin-bottom: 10px;">💬</span>
@@ -182,7 +235,7 @@
         <div class="words-container">
             <div class="message-box">
                 <span class="message-to">from: Jovie-Kaiden.</span>
-                <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat diingat nanti.</p>
+                <p class="message-text">Apapun yang ada di depan, asalkan langkahnya bareng kalian, gua percaya setiap proses bakal jadi cerita yang bagus buat ingat nanti.</p>
             </div>
         </div>
 
@@ -199,37 +252,29 @@
             </div>
             
             <div style="font-size: 0.7rem; color: #888; border-top: 1px solid #222; padding-top: 15px; margin-top: 10px; line-height: 2;">
-                <div style="display: flex; justify-content: space-between;">
+                <div class="playlist-item" onclick="playTrack('Die With A Smile.mp3', 'Die With A Smile')">
                     <span>• Die With A Smile</span>
                     <span style="font-size: 0.5rem; color: #444;">Gaga & Mars</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
+                <div class="playlist-item" onclick="playTrack('Kita.mp3', 'Kita')">
                     <span>• Kita</span>
                     <span style="font-size: 0.5rem; color: #444;">Sheila On 7</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
+                <div class="playlist-item" onclick="playTrack('Glue Song.mp3', 'Glue Song')">
                     <span>• Glue Song</span>
                     <span style="font-size: 0.5rem; color: #444;">Beabadoobee</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>• Indonesia Raya</span>
-                    <span style="font-size: 0.5rem; color: #444;">Morty</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
+                <div class="playlist-item" onclick="playTrack('Sebuah Kisah Klasik.mp3', 'Sebuah Kisah Klasik')">
                     <span>• Sebuah Kisah Klasik</span>
                     <span style="font-size: 0.5rem; color: #444;">Sheila On 7</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
+                <div class="playlist-item" onclick="playTrack('BFF.mp3', 'BFF')">
                     <span>• BFF</span>
                     <span style="font-size: 0.5rem; color: #444;">TWS</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>• Lucky Girl Syndrom</span>
+                <div class="playlist-item" onclick="playTrack('Lucky Girl Syndrome.mp3', 'Lucky Girl Syndrome')">
+                    <span>• Lucky Girl Syndrome</span>
                     <span style="font-size: 0.5rem; color: #444;">ILLIT</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>• Sahabat Selamanya</span>
-                    <span style="font-size: 0.5rem; color: #444;">TWILULIT</span>
                 </div>
             </div>
         </div>
@@ -250,20 +295,22 @@
             </div>
         </div>
 
+        <!-- SECTION INSIDE JOKES & FACTS (SEKARANG DYNAMIC DARI FIREBASE) -->
         <h2>INSIDE JOKES & FACTS</h2>
-        <div style="text-align: left; font-size: 0.8rem; color: #888; margin-bottom: 60px;">
-            <details style="background: #181818; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #222;">
-                <summary style="color: #fff; font-size: 0.65rem; cursor: pointer; font-weight: 800; text-transform: uppercase;">01. Siapa yang paling sering ngilang?</summary>
-                <p style="margin-top: 10px; font-size: 0.75rem; color: #666;">Biasanya si ABIAN atau ALDO atau MECHI kalau lagi sibuk ngurus utang negara, tiba-tiba ilang dari peradaban wkwk.</p>
-            </details>
-            <details style="background: #181818; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #222;">
-                <summary style="color: #fff; font-size: 0.65rem; cursor: pointer; font-weight: 800; text-transform: uppercase;">02. Jam sibuk Twilulit?</summary>
-                <p style="margin-top: 10px; font-size: 0.75rem; color: #666;">Di atas jam 11 malem, pas semua orang udah mulai keluar jiwa-jiwa deep talk-nya.</p>
-            </details>
-            <details style="background: #181818; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #222;">
-                <summary style="color: #fff; font-size: 0.65rem; cursor: pointer; font-weight: 800; text-transform: uppercase;">03. ...</summary>
-                <p style="margin-top: 10px; font-size: 0.75rem; color: #666;">Gua harap, kalian semua ga akan pernah ngelupain gua, gimana pun caranya.</p>
-            </details>
+        <div style="text-align: left; margin-bottom: 60px;">
+            <!-- Tempat jokes nampil secara otomatis -->
+            <div id="jokesWall" style="font-size: 0.8rem; color: #888; margin-bottom: 20px;">
+                <!-- Data Realtime Masuk Ke Sini -->
+            </div>
+
+            <!-- FORM BUAT NAMBAH JOKES BARU -->
+            <div style="background: #181818; border: 1px dashed #333; border-radius: 8px; padding: 15px; margin-top: 15px;">
+                <span style="font-size: 0.55rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 10px;">➔ Punya Jokes/Fakta Baru? Tambahin Sini:</span>
+                <input type="text" id="jokeTitle" class="jokes-input" placeholder="Judul / Pertanyaan (Contoh: Fakta random si Aldo...)">
+                <textarea id="jokeContent" class="jokes-input" rows="2" placeholder="Isi jawabannya di sini yak wkwk" style="resize: none; font-family: inherit;"></textarea>
+                <button onclick="sendTwilJoke()" style="background: #fff; color: #000; border: none; padding: 8px 15px; border-radius: 5px; font-size: 0.65rem; font-weight: bold; cursor: pointer; text-transform: uppercase; float: right;">Tambah ＋</button>
+                <div style="clear: both;"></div>
+            </div>
         </div>
 
         <h2>CONNECT WITH US</h2>
@@ -317,7 +364,35 @@
 
     <!-- SCRIPT LOGIC UTAMA -->
     <script>
-        // Fungsi Modal Foto
+        const audio = document.getElementById("twilAnthem");
+        const audioSource = document.getElementById("audioSource");
+        const playBtn = document.getElementById("playBtn");
+        const trackTitle = document.getElementById("trackTitle");
+
+        function togglePlay() {
+            if (audio.paused) {
+                if(trackTitle.innerText === "Muted" || trackTitle.innerText === "Paused") {
+                    trackTitle.innerText = "Die With A Smile";
+                }
+                audio.play().catch(err => console.log("Playback blocked"));
+                playBtn.innerText = "II";
+            } else {
+                audio.pause();
+                playBtn.innerText = "▶";
+                trackTitle.innerText = "Paused";
+            }
+        }
+
+        function playTrack(fileName, titleName) {
+            audio.pause();
+            audioSource.src = fileName;
+            audio.load();
+            trackTitle.innerText = titleName;
+            audio.play().then(() => {
+                playBtn.innerText = "II";
+            }).catch(err => console.log("Playback failed"));
+        }
+
         function openModal(src) {
             document.getElementById("photoModal").style.display = "flex";
             document.getElementById("modalImg").src = src;
@@ -338,46 +413,122 @@
             measurementId: "G-HM092BECNE"
         };
         
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Fungsi Kirim Komen ke Firebase
+        // 1. LOGIC UNTUK MADING (PESAN_TWILULIT)
         function sendTwilMessage() {
             const name = document.getElementById('twilName').value.trim();
             const text = document.getElementById('twilText').value.trim();
             
             if(name && text) {
-                database.ref('pesan_twilulit').push({ name, text });
+                database.ref('pesan_twilulit').push({ 
+                    name: name, 
+                    text: text,
+                    reactions: { whiteHeart: 0, laugh: 0, fire: 0 }
+                });
                 document.getElementById('twilText').value = ''; 
             } else {
                 alert('Isi nama sama pesannya dulu dong! wkwk');
             }
         }
 
-        // Fungsi Realtime Nampilin Komen (Clean & Fitur Klik Buka-Tutup Berfungsi)
+        function addReaction(msgId, reactionType, event) {
+            event.stopPropagation();
+            const reactRef = database.ref(`pesan_twilulit/${msgId}/reactions/${reactionType}`);
+            reactRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+        }
+
         const twilRef = database.ref('pesan_twilulit');
         twilRef.on('value', (snapshot) => {
             const wall = document.getElementById('twilWall');
             wall.innerHTML = ''; 
-            
             const data = snapshot.val();
             if (data) {
                 Object.keys(data).reverse().forEach(key => {
                     const pesan = data[key];
+                    const whiteHeart = (pesan.reactions && pesan.reactions.whiteHeart) ? pesan.reactions.whiteHeart : 0;
+                    const laugh = (pesan.reactions && pesan.reactions.laugh) ? pesan.reactions.laugh : 0;
+                    const fire = (pesan.reactions && pesan.reactions.fire) ? pesan.reactions.fire : 0;
+
                     wall.innerHTML += `
-                        <div class="message-box-card" onclick="this.classList.toggle('expanded')" style="background: #181818; border: 1px solid #222; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 90px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s;">
-                            <p class="line-clamp" style="font-size: 0.8rem; color: #ccc; margin: 0 0 15px 0; font-weight: 300; line-height: 1.6; word-break: break-word;">
-                                "${pesan.text}"
-                            </p>
-                            <span style="font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; border-top: 1px solid #222; padding-top: 8px; display: block;">
-                                From: ${pesan.name}
-                            </span>
+                        <div class="message-box-card" onclick="this.classList.toggle('expanded')" style="background: #181818; border: 1px solid #222; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; transition: background 0.2s;">
+                            <div>
+                                <p class="line-clamp" style="font-size: 0.8rem; color: #ccc; margin: 0 0 15px 0; font-weight: 300; line-height: 1.6; word-break: break-word;">
+                                    "${pesan.text}"
+                                </p>
+                                <span style="font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; display: block; margin-bottom: 5px;">
+                                    From: ${pesan.name}
+                                </span>
+                            </div>
+                            <div class="reaction-bar">
+                                <button class="react-btn" onclick="addReaction('${key}', 'whiteHeart', event)">🤍 <span>${whiteHeart}</span></button>
+                                <button class="react-btn" onclick="addReaction('${key}', 'laugh', event)">🤣 <span>${laugh}</span></button>
+                                <button class="react-btn" onclick="addReaction('${key}', 'fire', event)">🔥 <span>${fire}</span></button>
+                            </div>
                         </div>
                     `;
                 });
             } else {
                 wall.innerHTML = `<p style="grid-column: span 2; font-size: 0.75rem; color: #444; text-align: center; margin: 20px 0;">Belum ada pesan nih. Jadi yang pertama nyoret mading! 💬</p>`;
+            }
+        });
+
+
+        // 2. LOGIC BARU UNTUK INSIDE JOKES & FACTS VIA FIREBASE
+        function sendTwilJoke() {
+            const title = document.getElementById('jokeTitle').value.trim();
+            const content = document.getElementById('jokeContent').value.trim();
+            
+            if(title && content) {
+                database.ref('inside_jokes').push({
+                    title: title,
+                    content: content
+                });
+                // Kosongin input setelah ngirim
+                document.getElementById('jokeTitle').value = '';
+                document.getElementById('jokeContent').value = '';
+            } else {
+                alert('Tulis judul jokes sama penjelasannya dulu ya bray! wkwk');
+            }
+        }
+
+        // Tarik data inside jokes secara realtime
+        const jokesRef = database.ref('inside_jokes');
+        jokesRef.on('value', (snapshot) => {
+            const jokesWall = document.getElementById('jokesWall');
+            jokesWall.innerHTML = '';
+            
+            const data = snapshot.val();
+            let index = 1;
+            
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    const item = data[key];
+                    // Format penomoran otomatis biar jadi dua digit (01, 02, 03...)
+                    const formattedNum = String(index).padStart(2, '0');
+                    
+                    jokesWall.innerHTML += `
+                        <details style="background: #181818; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #222;">
+                            <summary style="color: #fff; font-size: 0.65rem; cursor: pointer; font-weight: 800; text-transform: uppercase;">
+                                ${formattedNum}. ${item.title}
+                            </summary>
+                            <p style="margin-top: 10px; font-size: 0.75rem; color: #666; line-height: 1.6;">
+                                ${item.content}
+                            </p>
+                        </details>
+                    `;
+                    index++;
+                });
+            } else {
+                // Tampilan default kalau di database folder `inside_jokes` lu masih kosong melompong
+                jokesWall.innerHTML = `
+                    <p style="font-size: 0.75rem; color: #444; text-align: center; margin: 10px 0;">
+                        Belum ada jokes rahasia yang bocor nih... 👀
+                    </p>
+                `;
             }
         });
     </script>
