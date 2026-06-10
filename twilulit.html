@@ -145,7 +145,7 @@
 
     <!-- TAG AUDIO SEKARANG TANPA AUTOPLAY -->
     <audio id="twilAnthem" loop preload="auto">
-        <source id="audioSource" src="Die With A Smile.mp3" type="audio/mpeg">
+        <source id="audioSource" src="Sheila On 7 – Melompat lebih tinggi.m4a" type="audio/mpeg">
     </audio>
 
     <div class="hero">
@@ -253,16 +253,16 @@
             
             <div style="font-size: 0.7rem; color: #888; border-top: 1px solid #222; padding-top: 15px; margin-top: 10px; line-height: 2;">
                 <div class="playlist-item" onclick="playTrack('Die With A Smile.mp3', 'Die With A Smile')">
-                    <span>• Die With A Smile</span>
-                    <span style="font-size: 0.5rem; color: #444;">Gaga & Mars</span>
+                    <span>• Arti Sahabat</span>
+                    <span style="font-size: 0.5rem; color: #444;">Nidji</span>
                 </div>
                 <div class="playlist-item" onclick="playTrack('Kita.mp3', 'Kita')">
-                    <span>• Kita</span>
+                    <span>• Sahabat Sejati</span>
                     <span style="font-size: 0.5rem; color: #444;">Sheila On 7</span>
                 </div>
                 <div class="playlist-item" onclick="playTrack('Glue Song.mp3', 'Glue Song')">
-                    <span>• Glue Song</span>
-                    <span style="font-size: 0.5rem; color: #444;">Beabadoobee</span>
+                    <span>• Ingatlah Hari Ini</span>
+                    <span style="font-size: 0.5rem; color: #444;">Project Pop</span>
                 </div>
                 <div class="playlist-item" onclick="playTrack('Sebuah Kisah Klasik.mp3', 'Sebuah Kisah Klasik')">
                     <span>• Sebuah Kisah Klasik</span>
@@ -372,7 +372,7 @@
         function togglePlay() {
             if (audio.paused) {
                 if(trackTitle.innerText === "Muted" || trackTitle.innerText === "Paused") {
-                    trackTitle.innerText = "Die With A Smile";
+                    trackTitle.innerText = "Melompat Lebih Tinggi";
                 }
                 audio.play().catch(err => console.log("Playback blocked"));
                 playBtn.innerText = "II";
@@ -402,16 +402,15 @@
         }
 
         // Konfigurasi Proyek Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyASD0XPFVx63-SYjFIB-JIUmAw2fMBaxjM",
-            authDomain: "twilulit-d63bc.firebaseapp.com",
-            databaseURL: "https://twilulit-d63bc-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "twilulit-d63bc",
-            storageBucket: "twilulit-d63bc.firebasestorage.app",
-            messagingSenderId: "118040243714",
-            appId: "1:118040243714:web:af553d5a4cf4f29e08811b",
-            measurementId: "G-HM092BECNE"
-        };
+const firebaseConfig = {
+  apiKey: "AIzaSyC7wEiKnpcrIfNZyNJuCMZiSGLEG4ASFbU",
+  authDomain: "jokes-facts.firebaseapp.com",
+  databaseURL: "https://jokes-facts-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "jokes-facts",
+  storageBucket: "jokes-facts.firebasestorage.app",
+  messagingSenderId: "1041395667322",
+  appId: "1:1041395667322:web:2f9a65b5a3c65379a406c3"
+};
         
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
