@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Leaf — For Sheynna</title>
     <style>
-        /* FONT AESTHETIC BARU */
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght=0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght=0,400;0,700;1,400&family=Montserrat:wght=300;400;500;600&family=Dancing+Script:wght=500;700&display=swap');
 
         * { box-sizing: border-box; }
 
@@ -16,7 +15,9 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden;
+            /* FIX 1: Ubah min-height dan biarkan overflow agar bisa di-scroll normal di HP */
+            min-height: 100vh; 
+            overflow-y: auto;
             position: relative;
             cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' style='font-size:24px;'><text y='50%'>🌸</text></svg>"), auto;
         }
@@ -46,7 +47,6 @@
         }
         .lock-box button:hover { background: #db7093; }
 
-        /* Efek Bunga Cherry Blossom Melayang */
         .cherry-blossom {
             position: fixed; top: -10%; z-index: 2;
             user-select: none; pointer-events: none;
@@ -54,7 +54,6 @@
         }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Konfeti Ledakan Hati/Bunga */
         .confetti {
             position: fixed; z-index: 999; pointer-events: none;
             animation: burst 1.5s ease-out forwards;
@@ -64,7 +63,6 @@
             100% { transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; }
         }
 
-        /* Progress Bar Soft Pink */
         .progress-container { position: fixed; top: 0; left: 0; width: 100%; height: 6px; background: rgba(0,0,0,0.05); z-index: 1000; }
         .progress-bar { height: 100%; background: linear-gradient(90deg, #ffb6c1, #db7093); width: 0%; transition: 0.5s ease; border-radius: 0 5px 5px 0; }
 
@@ -83,23 +81,31 @@
         }
         .music-info { font-size: 0.65rem; font-weight: 400; color: #db7093; max-width: 90px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
+        /* FIX 2: Tambahkan padding atas-bawah pada container luar agar tidak menempel header browser */
         .book-container {
-            width: 90%; max-width: 380px; height: 82vh; position: relative; z-index: 10;
+            width: 90%; max-width: 380px; min-height: 82vh; position: relative; z-index: 10;
+            padding: 40px 0;
         }
 
-        /* CSS BOX HALAMAN PUTIH */
+        /* FIX 3: Mengubah posisi page menjadi relative (saat aktif) agar tingginya fleksibel mengikuti konten */
         .page {
-            position: absolute; width: 100%; height: 100%; border-radius: 25px;
+            position: absolute; width: 100%; min-height: 75vh; border-radius: 25px;
             padding: 35px 25px 25px 25px; display: none; flex-direction: column;
             justify-content: flex-start; align-items: center; text-align: center;
             box-shadow: 0 15px 35px rgba(255, 182, 193, 0.25);
-            overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch;
             background-color: #ffffff; 
             background-image: 
                 radial-gradient(rgba(255, 182, 193, 0.06) 1px, transparent 1px),
                 linear-gradient(rgba(138, 124, 124, 0.03) 0.5px, transparent 0.5px);
             background-size: 15px 15px;
         }
+
+        .page.active { 
+            position: relative; /* Membuat container memanjang ke bawah jika kontennya padat */
+            display: flex; 
+            animation: pageIn 0.8s ease forwards; 
+        }
+        @keyframes pageIn { from { opacity: 0; transform: translateY(20px); filter: blur(3px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
         .timeline { width: 100%; text-align: left; margin: 15px 0; padding: 0 10px; }
         .timeline-item { 
@@ -116,11 +122,8 @@
         .timeline-date { font-size: 0.82rem; font-weight: 600; color: #db7093; display: flex; align-items: center; gap: 6px; }
         .timeline-desc { font-size: 0.78rem; color: #6e5a5a; line-height: 1.4; font-weight: 300; }
 
-
-        /* Mascot Container (Pixel Art) */
         .mascot { width: 50px; height: auto; margin-bottom: 5px; user-select: none; }
 
-        /* MOTIF BUNGA ACAK */
         .flower-pattern {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1; pointer-events: none; overflow: hidden;
@@ -128,9 +131,6 @@
         }
         .flower-pattern span { position: absolute; }
         .page * { z-index: 5; }
-
-        .page.active { display: flex; animation: pageIn 0.8s ease forwards; }
-        @keyframes pageIn { from { opacity: 0; transform: translateY(20px); filter: blur(3px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
         h2 { font-family: 'Crimson Text', serif; font-style: italic; color: #ffb6c1; font-size: 1.6rem; margin-top: 5px; font-weight: 400; }
         .message { font-size: 0.88rem; line-height: 1.6; margin: 15px 0; color: #6e5a5a; font-weight: 300; }
@@ -152,7 +152,8 @@
         .chat-right { background: #ffe4e1; float: right; clear: both; text-align: right; color: #5d4a4a; }
         .chat-date { font-size: 0.65rem; color: #bcaaa4; margin-bottom: 10px; display: block; text-align: center; }
 
-        .nav-btns { display: flex; justify-content: space-between; width: 100%; padding-top: 15px; margin-top: auto; position: sticky; bottom: 0; }
+        /* FIX 4: Pastikan tombol navigasi diletakkan di bagian paling bawah dengan margin top otomatis */
+        .nav-btns { display: flex; justify-content: space-between; width: 100%; padding-top: 25px; margin-top: auto; }
         .btn-nav { background: transparent; border: none; color: #db7093; padding: 5px 10px; cursor: pointer; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; opacity: 0.7; }
         .btn-nav:hover { opacity: 1; letter-spacing: 2px; }
 
@@ -224,17 +225,17 @@
         <span class="mascot">✨</span>
         <h2>Our Small Journey</h2>
         <div class="message">Napak tilas cerita acak kita yang awalnya ga keduga sama sekali:</div>
-                <div class="timeline">
+        <div class="timeline">
             <div class="timeline-item">
-                <div class="timeline-date"> April, 2026 — First Encounter</div>
+                <div class="timeline-date">🌸 April, 2026 — First Encounter</div>
                 <div class="timeline-desc">Awal obrolan random yang ternyata malah bikin keterusan sampai sekarang.</div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-date"> Every Late Night Conversations</div>
+                <div class="timeline-date">🌸 Every Late Night Conversations</div>
                 <div class="timeline-desc">Saat-saat nemenin begadang yang selalu bikin hariku besoknya jadi jauh lebih cerah.</div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-date"> Today — The Secret Page</div>
+                <div class="timeline-date">🌸 Today — The Secret Page</div>
                 <div class="timeline-desc">Hari di mana catatan-catatan kecil ini akhirnya sampai di tangan kamu.</div>
             </div>
         </div>
@@ -315,7 +316,7 @@
         <div class="decoration" style="top:15px; right:15px;">🤍</div>
         <h2>A Little Secret...</h2>
         <div class="message">
-            Maybe you're wondering, kenapa harus kamu? <br><br>
+            Maybe you're wondering, why you? <br><br>
             Honestly, it’s not about just one big thing, but many little things. Aku suka gimana caramu <i>treat</i> orang lain, aku suka gimana kita bisa nyambung pas ngobrolin hal random. <br><br>
             Kamu itu kayak kepingan puzzle yang selama ini aku cari buat ngelengkapin hariku. <b>It's always been you, Mut.</b>
         </div>
@@ -373,15 +374,13 @@
     var musicBtn = document.getElementById("musicBtn");
     var musicTitle = document.getElementById("musicTitle");
 
-    // FUNGSI CHECK GERBANG PASSWORD
     function checkPassword() {
         const password = document.getElementById("passInput").value.trim().toLowerCase();
-        // Password diset kata "lumut"
         if(password === "lumut") {
             document.getElementById("lockScreen").style.opacity = "0";
             setTimeout(() => {
                 document.getElementById("lockScreen").style.display = "none";
-                playMusic(); // Langsung otomatis main pas sukses kebuka
+                playMusic(); 
             }, 500);
         } else {
             document.getElementById("lockError").style.display = "block";
@@ -405,7 +404,9 @@
         const target = document.getElementById('p' + n);
         if (target) { target.style.display = 'flex'; setTimeout(() => target.classList.add('active'), 10); }
         document.getElementById('bar').style.width = (n/9)*100 + '%';
-        if(target) target.scrollTop = 0;
+        
+        // FIX 5: Scroll otomatis ke atas layar HP setiap ganti halaman biar ga canggung
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function moveButton() {
@@ -430,28 +431,23 @@
         btn.style.zIndex = "999";
     }
 
-        // EFEK MERAYAKAN (SUPER BLARRRR MULTI-BURST CANNON)
     function celebrate() {
         const shapes = ['💖', '🌸', '🤍', '✨', '💐', '💮', '🫧', '💘'];
         
-        // 1. Tembakan Cannon Kiri & Kanan (Simultan)
         for (let i = 0; i < 40; i++) {
-            createConfettiParticle('0vw', '90vh', Math.random() * 0.5 + 0.2, -Math.random() * 400 - 100); // Tembak dari kiri ke kanan atas
-            createConfettiParticle('100vw', '90vh', -Math.random() * 0.5 - 0.2, -Math.random() * 400 - 100); // Tembak dari kanan ke kiri atas
+            createConfettiParticle('0vw', '90vh', Math.random() * 0.5 + 0.2, -Math.random() * 400 - 100); 
+            createConfettiParticle('100vw', '90vh', -Math.random() * 0.5 - 0.2, -Math.random() * 400 - 100); 
         }
 
-        // 2. Tembakan Beruntun (Delay dikit biar makin rame)
         let burstCount = 0;
         let interval = setInterval(() => {
             for (let i = 0; i < 15; i++) {
-                // Tembakan acak dari bawah tengah
                 createConfettiParticle('50vw', '80vh', (Math.random() - 0.5) * 2, -Math.random() * 300 - 150);
             }
             burstCount++;
-            if(burstCount > 5) clearInterval(interval); // Berhenti setelah 5 kali ledakan beruntun
+            if(burstCount > 5) clearInterval(interval); 
         }, 200);
 
-        // Fungsi pembantu buat bikin partikelnya
         function createConfettiParticle(startX, startY, forceX, forceY) {
             const conf = document.createElement('div');
             conf.className = 'confetti';
@@ -459,20 +455,18 @@
             conf.style.left = startX; 
             conf.style.top = startY;
             
-            // Variasi tujuan ledakan berdasarkan gaya dorong (force)
             const x = (Math.random() * 250 * forceX) + 'px';
             const y = (forceY - (Math.random() * 100)) + 'px';
             
             conf.style.setProperty('--x', x);
             conf.style.setProperty('--y', y);
-            conf.style.setProperty('--r', Math.random() * 720 + 'deg'); // Putaran lebih kencang
-            conf.style.fontSize = Math.random() * 20 + 15 + 'px'; // Ukuran lebih variatif
+            conf.style.setProperty('--r', Math.random() * 720 + 'deg'); 
+            conf.style.fontSize = Math.random() * 20 + 15 + 'px'; 
             
             document.body.appendChild(conf);
             setTimeout(() => conf.remove(), 1500);
         }
 
-        // Kirim Formspree & Tampilkan Pesan Sukses
         fetch("https://formspree.io/f/xlgankov", {
             method: 'POST', 
             body: new FormData(document.getElementById("answerForm")), 
@@ -485,8 +479,6 @@
         });
     }
 
-
-    // Efek Bunga Cherry Blossom Melayang background biasa
     setInterval(() => {
         const petals = ['🌸', '💮', '🤍', '🫧'];
         const c = document.createElement('div');
