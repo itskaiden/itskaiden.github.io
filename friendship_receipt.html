@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twilulit Friendship Receipt Generator</title>
+    
+    <!-- Google Fonts & HTML2CANVAS (Buat Download Gambar) -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* Variabel Warna Default (Cyber Dark) */
+        :root {
+            --bg-color: #0f0f11;
+            --card-bg: #16161a;
+            --text-main: #ecefe6;
+            --accent: #00ff66;
+            --receipt-paper: #ffffff;
+            --receipt-text: #111111;
+        }
+
+        /* TEMA SOFT PINK */
+        [data-theme="pink"] {
+            --bg-color: #ffeef2;
+            --card-bg: #ffffff;
+            --text-main: #4a3f41;
+            --accent: #ff8fa3;
+            --receipt-paper: #fff5f7;
+            --receipt-text: #4a3f41;
+        }
+
+        /* TEMA VINTAGE */
+        [data-theme="vintage"] {
+            --bg-color: #f4f1ea;
+            --card-bg: #e7e3d4;
+            --text-main: #3d3a31;
+            --accent: #967bb6;
+            --receipt-paper: #fcfbfa;
+            --receipt-text: #2b2922;
+        }
+
+        /* TEMA MATTE BLACK */
+        [data-theme="matte"] {
+            --bg-color: #1a1a1a;
+            --card-bg: #262626;
+            --text-main: #ffffff;
+            --accent: #ffd700;
+            --receipt-paper: #111111;
+            --receipt-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; transition: all 0.3s ease;
+        }
+
+        /* Pilihan Warna / Theme Selector */
+        .theme-selector {
+            display: flex; gap: 10px; margin-bottom: 25px;
+            background: var(--card-bg); padding: 10px 15px; border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .theme-btn {
+            width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .theme-btn:hover { transform: scale(1.2); }
+
+        .input-container {
+            background: var(--card-bg); padding: 25px; border-radius: 20px;
+            width: 100%; max-width: 400px; box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .input-container h2 { margin-top: 0; font-size: 1.3rem; text-align: center; font-weight: 800; }
+
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 11px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.05); color: var(--text-main);
+            border-radius: 10px; box-sizing: border-box; font-family: inherit; outline: none;
+        }
+        /* Penyesuaian input text kalau di tema dark/light */
+        [data-theme="cyber"] .form-group input, [data-theme="matte"] .form-group input {
+            background: #222; border-color: #333;
+        }
+
+        .btn-action {
+            width: 100%; padding: 12px; background: var(--accent); border: none;
+            color: #000; font-weight: 700; border-radius: 10px; cursor: pointer;
+            transition: 0.3s; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+        [data-theme="pink"] .btn-action { color: #fff; }
+
+        /* --- STYLES STRUK NYENTRIK --- */
+        .receipt-wrapper {
+            display: none; width: 100%; max-width: 360px;
+            margin-bottom: 20px; animation: slideUp 0.4s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Sengaja dibungkus padding biar efek potongan gerigi bawahnya gak kepotong pas didownload */
+        .capture-area { padding-bottom: 15px; background: transparent; }
+
+        .receipt {
+            background: var(--receipt-paper); color: var(--receipt-text);
+            padding: 30px 25px; font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem; position: relative; word-break: break-all;
+        }
+        /* Efek Gerigi Kasir */
+        .receipt::after {
+            content: ""; position: absolute; left: 0; bottom: -8px;
+            width: 100%; height: 8px;
+            background-image: linear-gradient(-45deg, var(--bg-color) 4px, transparent 0), 
+                              linear-gradient(45deg, var(--bg-color) 4px, transparent 0);
+            background-size: 8px 8px; background-repeat: repeat-x;
+            transition: all 0.3s ease;
+        }
+
+        .receipt-header { text-align: center; border-bottom: 2px dashed var(--receipt-text); padding-bottom: 15px; margin-bottom: 15px; }
+        .receipt-header h1 { font-size: 1.2rem; margin: 0 0 5px 0; font-weight: 700; letter-spacing: 1px; }
+
+        .receipt-image {
+            width: 100%; height: 200px; object-fit: cover; border-radius: 2px;
+            margin: 10px 0; filter: contrast(105%) brightness(95%);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .divider { border-top: 1px dashed var(--receipt-text); margin: 12px 0; }
+        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .receipt-row.total { font-weight: bold; font-size: 0.95rem; border-top: 1px dashed var(--receipt-text); padding-top: 8px; margin-top: 10px; }
+        .footer-text { text-align: center; font-size: 0.7rem; margin-top: 25px; line-height: 1.4; }
+    </style>
+</head>
+<body data-theme="cyber"> <!-- Default Tema: Cyber Dark -->
+
+    <!-- PILIHAN WARNA TEMA -->
+    <div class="theme-selector" id="themeSelector">
+        <span style="font-size:0.75rem; font-weight:600; margin-right:5px; align-self:center;">Theme:</span>
+        <div class="theme-btn" style="background:#16161a;" onclick="setTheme('cyber')"></div>
+        <div class="theme-btn" style="background:#ff8fa3;" onclick="setTheme('pink')"></div>
+        <div class="theme-btn" style="background:#e7e3d4;" onclick="setTheme('vintage')"></div>
+        <div class="theme-btn" style="background:#262626;" onclick="setTheme('matte')"></div>
+    </div>
+
+    <!-- FORM INPUT DATA -->
+    <div class="input-container" id="inputForm">
+        <h2>🧾 Receipt Generator</h2>
+        <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="fullName" placeholder="ENTER YOUR FULL NAME">
+        </div>
+        <div class="form-group">
+            <label>Your Nickname</label>
+            <input type="text" id="nickname" placeholder="ENTER YOUR NICKNAME">
+        </div>
+        <div class="form-group">
+            <label>Favorite Track</label>
+            <input type="text" id="favSong" placeholder="SONG NAME - ARTIST">
+        </div>
+        <div class="form-group">
+            <label>Upload Favorite Photo</label>
+            <input type="file" id="favPhoto" accept="image/*">
+        </div>
+        <button class="btn-action" onclick="generateReceipt()">Print Receipt ➔</button>
+    </div>
+
+    <!-- AREA STRUK YANG MUNCUL -->
+    <div class="receipt-wrapper" id="receiptWrapper">
+        <div class="capture-area" id="captureArea">
+            <div class="receipt">
+                <div class="receipt-header">
+                    <h1>TWILULIT ORDER</h1>
+                    <div id="receiptDate">DATE: 2026.06.27</div>
+                    <div>STORE: #001-BASECAMP</div>
+                </div>
+
+                <img id="outputImage" class="receipt-image" src="" alt="Fav Moment" style="display:none;">
+                
+                <div class="divider"></div>
+                <div class="receipt-row">
+                    <span>ITEM DESCRIPTION</span>
+                    <span>QTY</span>
+                </div>
+                <div class="divider"></div>
+
+                <div class="receipt-row"><span id="outName">NAME: GUEST</span><span>01</span></div>
+                <div class="receipt-row"><span id="outNickname">AKA: STRANGER</span><span>01</span></div>
+                <div class="receipt-row"><span id="outSong">FAV TRACK: NONE</span><span>01</span></div>
+                <div class="receipt-row"><span>MEMORIES_SHARED</span><span>999</span></div>
+
+                <div class="receipt-row total">
+                    <span>TOTAL RELATIONSHIP</span>
+                    <span>100%</span>
+                </div>
+
+                <div class="footer-text">
+                    THANK YOU FOR BEING A GOOD FRIEND!<br>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn-action" style="background:#fff; color:#000;" onclick="downloadReceipt()">Save to Device 💾</button>
+        <button class="btn-action" style="background:transparent; color:var(--text-main); border:1px solid var(--text-main); margin-top:8px;" onclick="resetForm()">Create Another One ↺</button>
+    </div>
+
+    <script>
+        // Ganti Tema Warna secara Realtime
+        function setTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+        }
+
+        function generateReceipt() {
+            const name = document.getElementById('fullName').value || 'Anonymous';
+            const nickname = document.getElementById('nickname').value || 'Stranger';
+            const song = document.getElementById('favSong').value || 'No Song';
+            const photoInput = document.getElementById('favPhoto');
+
+            // Set text jadi kapital otomatis ala struk mesin kasir asli
+            document.getElementById('outName').innerText = `NAME: ${name.toUpperCase()}`;
+            document.getElementById('outNickname').innerText = `AKA: ${nickname.toUpperCase()}`;
+            document.getElementById('outSong').innerText = `TRACK: ${song.toUpperCase()}`;
+
+            // Set Tanggal Hari Ini otomatis
+            const today = new Date();
+            const dateString = `DATE: ${today.getFullYear()}.${String(today.getMonth()+1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+            document.getElementById('receiptDate').innerText = dateString;
+
+            const outputImage = document.getElementById('outputImage');
+            if (photoInput.files && photoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    outputImage.src = e.target.result;
+                    outputImage.style.display = 'block';
+                    showReceipt();
+                }
+                reader.readAsDataURL(photoInput.files[0]);
+            } else {
+                outputImage.style.display = 'none';
+                showReceipt();
+            }
+        }
+
+        function showReceipt() {
+            document.getElementById('inputForm').style.display = 'none';
+            document.getElementById('themeSelector').style.display = 'none';
+            document.getElementById('receiptWrapper').style.display = 'block';
+        }
+
+        function resetForm() {
+            document.getElementById('inputForm').style.display = 'block';
+            document.getElementById('themeSelector').style.display = 'flex';
+            document.getElementById('receiptWrapper').style.display = 'none';
+            document.getElementById('fullName').value = '';
+            document.getElementById('nickname').value = '';
+            document.getElementById('favSong').value = '';
+            document.getElementById('favPhoto').value = '';
+        }
+
+        // FUNGSI UTAMA DOWNLOAD JADI GAMBAR PNG
+        function downloadReceipt() {
+            const element = document.getElementById('captureArea');
+            
+            // html2canvas ngambil screenshot bagian struk doang
+            html2canvas(element, {
+                backgroundColor: null, // Biar background sekeliling struk transparan (.png)
+                scale: 3, // Naikin skala kualitas biar tulisan gak ngeblur pas disimpan
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Twilulit_Receipt_${document.getElementById('outNickname').innerText.replace('AKA: ', '')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
