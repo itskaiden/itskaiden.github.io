@@ -75,6 +75,8 @@
         .workspace {
             display: none; width: 100%; max-width: 480px; position: relative;
         }
+        
+        /* Area Pratinjau di Browser (Tetap pakai background gelap biar keliatan kontras struknya) */
         .capture-area {
             padding: 60px 40px; position: relative; background: #121214;
         }
@@ -85,22 +87,23 @@
             transform: translateX(-50%); z-index: 10; filter: drop-shadow(0 5px 6px rgba(0,0,0,0.3));
         }
 
-        /* STRUK UTAMA */
+        /* STRUK UTAMA - TARGET DOWNLOAD UTAMA */
         .receipt {
-            background: var(--receipt-paper-color); color: #111111; padding: 40px 28px 30px 28px;
+            background: var(--receipt-paper-color); color: #111111; padding: 55px 28px 30px 28px;
             font-family: 'Courier Prime', monospace; font-size: 0.85rem;
             box-shadow: 0 20px 45px rgba(0,0,0,0.3); text-align: left;
             position: relative; border-radius: 2px; transition: background-color 0.2s ease;
+            box-sizing: border-box; width: 100%;
         }
 
-        /* FIX FOTO: GAK BAKAL GEPENG LAGI */
+        /* CONTAINER FOTO */
         .receipt-image-container {
             width: 100%; height: 210px; margin: 12px 0; overflow: hidden; border-radius: 2px;
             border: 1px solid rgba(0,0,0,0.1);
         }
         .receipt-image {
             width: 100%; height: 100%;
-            object-fit: cover; /* Foto kepotong rapi, anti gepeng */
+            object-fit: cover;
             object-position: center;
         }
 
@@ -141,7 +144,7 @@
         <div class="form-group"><label>Your Nickname</label><input type="text" id="nickname" placeholder="KAI"></div>
         <div class="form-group"><label>Favorite Track</label><input type="text" id="favSong" placeholder="GOYANG DUMANG - CITA CITATA"></div>
         <div class="form-group"><label>Current Mood</label><input type="text" id="currentMood" placeholder="MANTAP"></div>
-        <div class="form-group"><label>Signature Phrase</label><input type="text" id="signaturePhrase" placeholder="ANJIR COK"></div>
+        <div class="form-group"><label>Signature Phrase</label><input type="text" id="signaturePhrase" placeholder="YAELAAAAH"></div>
         <div class="form-group"><label>Upload Photo</label><input type="file" id="favPhoto" accept="image/*"></div>
         
         <button class="btn-action" onclick="generateReceipt()">Print Receipt ➔</button>
@@ -154,13 +157,14 @@
 
     <div class="workspace" id="receiptWrapper">
         <div class="capture-area" id="captureArea">
-            <svg class="binder-clip" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="25" y="25" width="50" height="30" rx="3" fill="#2d2d30"/>
-                <circle cx="50" cy="40" r="4" fill="#fff"/>
-                <path d="M35 25C35 10 65 10 65 25" stroke="#a1a1aa" stroke-width="3" fill="none"/>
-            </svg>
-
+            <!-- Penjepit Besi dipindah ke dalam kertas .receipt agar ikut terbawa tanpa background hitam -->
             <div class="receipt" id="mainReceipt">
+                <svg class="binder-clip" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="25" width="50" height="30" rx="3" fill="#2d2d30"/>
+                    <circle cx="50" cy="40" r="4" fill="#fff"/>
+                    <path d="M35 25C35 10 65 10 65 25" stroke="#a1a1aa" stroke-width="3" fill="none"/>
+                </svg>
+
                 <div class="receipt-header">
                     <h1 style="margin:0 0 4px 0; font-size:1.4rem; letter-spacing:1px;">RECEIPTIFY</h1>
                     <div id="receiptDate">THURSDAY, AUGUST 7, 2025</div>
@@ -172,14 +176,14 @@
                 </div>
                 
                 <div class="divider"></div>
-                <div class="receipt-row"><span>QTY &nbsp; ITEM</span><span>AMT</span></div>
+                <div class="receipt-row"><span>QTY   ITEM</span><span>AMT</span></div>
                 <div class="divider"></div>
 
-                <div class="receipt-row"><span id="outName">01 &nbsp; NAME: GUEST</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outNickname">01 &nbsp; AKA: STRANGER</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outSong">01 &nbsp; TRACK: NONE</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outMood">01 &nbsp; MOOD: MELLOW</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outPhrase">01 &nbsp; SAYS: ""</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outName">01   NAME: GUEST</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outNickname">01   AKA: STRANGER</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outSong">01   TRACK: NONE</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outMood">01   MOOD: MELLOW</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outPhrase">01   SAYS: ""</span><span>100%</span></div>
                 
                 <div class="divider"></div>
                 <div class="receipt-row"><span>ITEM COUNT:</span><span>5 ITEMS</span></div>
@@ -198,7 +202,6 @@
     </div>
 
     <script>
-        // Database Ratusan Emoji Populer iPhone beserta Tag-nya untuk fitur Search
         const emojiDatabase = [
             {char: "✨", tags: "sparkles shine gold premium"}, {char: "💖", tags: "heart love pink glossy"},
             {char: "😭", tags: "cry sad tear face"}, {char: "💀", tags: "skull dead bone death"},
@@ -210,24 +213,22 @@
             {char: "🍒", tags: "cherry fruit food red"}, {char: "🧸", tags: "teddy bear toy cute"},
             {char: "🦋", tags: "butterfly insect fly blue"}, {char: "🎧", tags: "headphones music audio song"},
             {char: "🎨", tags: "palette paint art design"}, {char: "📸", tags: "camera photo shoot snap"},
-            {char: "⚡", font: "thunder lightning electricity"}, {char: "🪐", tags: "saturn planet space orbit"},
+            {char: "⚡", tags: "thunder lightning electricity"}, {char: "🪐", tags: "saturn planet space orbit"},
             {char: "🎸", tags: "guitar instrument music rock"}, {char: "👾", tags: "alien monster space invader"},
             {char: "👀", tags: "eyes look see spy"}, {char: "💅", tags: "nails makeup polish fashion"},
             {char: "🤡", tags: "clown face joke funny"}, {char: "💌", tags: "letter love card envelope"},
-            {char: "🎐", tags: "wind chime japan bell"}, {char: "🎐", tags: "soda drink cup fresh"},
-            {char: "🍀", tags: "leaf nature plant"}, {char: "🪐", tags: "star galaxy"},
-            {char: "🧸", tags: "bear doll"}, {char: "🐇", tags: "rabbit bunny animal"},
-            {char: "🐾", tags: "paws dog animal"}, {char: "🧁", tags: "cupcake cake sweet"},
-            {char: "🍡", tags: "dango japan sweet"}, {char: "🍩", tags: "donut sweet dessert"},
-            {char: "🥑", tags: "avocado green fruit"}, {char: "🌙", tags: "moon night sleep"},
-            {char: "☁️", tags: "cloud weather sky"}, {char: "🌈", tags: "rainbow sky color"},
-            {char: "🔮", tags: "magic crystal ball witch"}, {char: "💰", tags: "money cash rich rich"},
-            {char: "🧿", tags: "evil eye protection"}, {char: "🚬", tags: "smoke cigarette"},
-            {char: "🩹", tags: "bandage hurt heal"}, {char: " wine", tags: "glass drink alcohol"},
-            {char: "🛸", tags: "ufo space alien spaceship"}, {char: "🖤", tags: "heart black dark aesthetic"}
+            {char: "🎐", tags: "wind chime japan bell"}, {char: "🥤", tags: "soda drink cup fresh"},
+            {char: "🌿", tags: "leaf nature plant"}, {char: "🌌", tags: "star galaxy"},
+            {char: "🐇", tags: "rabbit bunny animal"}, {char: "🐾", tags: "paws dog animal"}, 
+            {char: "🧁", tags: "cupcake cake sweet"}, {char: "🍡", tags: "dango japan sweet"}, 
+            {char: " donuts", tags: "donut sweet dessert"}, {char: "🥑", tags: "avocado green fruit"}, 
+            {char: "🌙", tags: "moon night sleep"}, {char: "☁️", tags: "cloud weather sky"}, 
+            {char: "🌈", tags: "rainbow sky color"}, {char: "🔮", tags: "magic crystal ball witch"}, 
+            {char: "💰", tags: "money cash rich rich"}, {char: "🩹", tags: "bandage hurt heal"}, 
+            {char: "🍷", tags: "glass drink alcohol"}, {char: "🛸", tags: "ufo space alien spaceship"}, 
+            {char: "🖤", tags: "heart black dark aesthetic"}
         ];
 
-        // Render Awal Grid Emoji
         const grid = document.getElementById('emojiGrid');
         function renderEmojis(list) {
             grid.innerHTML = '';
@@ -241,7 +242,6 @@
         }
         renderEmojis(emojiDatabase);
 
-        // Fungsi Cari / Filter Emoji Realtime
         function filterEmojis(keyword) {
             const cleanKey = keyword.toLowerCase().trim();
             if(!cleanKey) {
@@ -259,7 +259,6 @@
             });
         }
 
-        // Live Ganti Warna Kertas Struk
         function changePaperColor(val) {
             document.documentElement.style.setProperty('--receipt-paper-color', val);
         }
@@ -277,11 +276,11 @@
             const phrase = document.getElementById('signaturePhrase').value || '';
             const photoInput = document.getElementById('favPhoto');
 
-            document.getElementById('outName').innerText = `01 &nbsp; NAME: ${name.toUpperCase()}`;
-            document.getElementById('outNickname').innerText = `01 &nbsp; AKA: ${nickname.toUpperCase()}`;
-            document.getElementById('outSong').innerText = `01 &nbsp; TRACK: ${song.toUpperCase()}`;
-            document.getElementById('outMood').innerText = `01 &nbsp; MOOD: ${mood.toUpperCase()}`;
-            document.getElementById('outPhrase').innerText = `01 &nbsp; SAYS: "${phrase.toUpperCase()}"`;
+            document.getElementById('outName').textContent = `01   NAME: ${name.toUpperCase()}`;
+            document.getElementById('outNickname').textContent = `01   AKA: ${nickname.toUpperCase()}`;
+            document.getElementById('outSong').textContent = `01   TRACK: ${song.toUpperCase()}`;
+            document.getElementById('outMood').textContent = `01   MOOD: ${mood.toUpperCase()}`;
+            document.getElementById('outPhrase').textContent = `01   SAYS: "${phrase.toUpperCase()}"`;
 
             const imgContainer = document.getElementById('imgContainer');
             const outputImage = document.getElementById('outputImage');
@@ -314,12 +313,13 @@
             document.querySelectorAll('.placed-sticker').forEach(el => el.remove());
         }
 
-        // --- SISTEM DRAG & RESIZE STICKER ---
         function spawnSticker(emojiText) {
             const sticker = document.createElement('div');
             sticker.className = 'placed-sticker';
+            
+            // Stiker ditempel langsung di dalam area koordinat kertas .receipt
             sticker.style.left = '40%';
-            sticker.style.top = '30%';
+            sticker.style.top = '150px';
             sticker.innerHTML = `
                 ${emojiText}
                 <div class="sticker-controls">
@@ -329,7 +329,7 @@
                 </div>
             `;
             
-            document.getElementById('captureArea').appendChild(sticker);
+            document.getElementById('mainReceipt').appendChild(sticker);
             makeElementDraggable(sticker);
         }
 
@@ -340,9 +340,6 @@
             if (currentScale < 0.5) currentScale = 0.5;
             if (currentScale > 3) currentScale = 3;
             sticker.setAttribute('data-scale', currentScale);
-            
-            // Ambil karakter emojinya saja
-            const emojiText = sticker.childNodes[0].textContent.trim();
             sticker.style.transform = `scale(${currentScale})`;
         }
 
@@ -355,7 +352,6 @@
                 e = e || window.event;
                 if(e.target.className === 'ctrl-btn') return;
                 
-                // Support Touch Screen HP/Tablet
                 let clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
                 let clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
 
@@ -394,14 +390,17 @@
             const controls = document.querySelectorAll('.sticker-controls');
             controls.forEach(c => c.style.setProperty('display', 'none', 'important'));
 
-            const element = document.getElementById('captureArea');
+            // SEKARANG TARGETNYA LANGSUNG KE '#mainReceipt' BUKAN '#captureArea'
+            // Biar background hitam luar ilang total!
+            const element = document.getElementById('mainReceipt');
+            
             html2canvas(element, {
-                backgroundColor: null,
+                backgroundColor: null, // Bikin sisa background luar transparan penuh (.png)
                 scale: 3,
                 useCORS: true
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Twilulit_Perfect_Receipt.png`;
+                link.download = `Twilulit_Pure_Receipt.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
                 
