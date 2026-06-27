@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friendship Custom Receipt Generator</title>
     
+    <!-- Fonts & Libraries -->
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
+    <!-- Cropper.js untuk Fitur Potong Foto Anti-Menyon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     
@@ -106,6 +108,14 @@
             box-sizing: border-box; width: 100%;
         }
 
+        /* HEADER FIX */
+        .receipt-header h1 {
+            word-wrap: break-word;
+            word-break: break-all;
+            font-size: 1.3rem !important;
+            line-height: 1.2;
+        }
+
         /* IMAGE CONTAINER */
         .receipt-image-container {
             width: 100%; margin: 12px 0; overflow: hidden; border-radius: 2px;
@@ -116,7 +126,26 @@
         }
 
         .divider { border-top: 1px dashed #111; margin: 12px 0; }
-        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 5px; line-height: 1.3; }
+        
+        /* ROW FIX: Supaya kalau teks panjang otomatis turun ke bawah tanpa nabrak kanan */
+        .receipt-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start;
+            margin-bottom: 6px; 
+            line-height: 1.4;
+            gap: 15px;
+        }
+        .receipt-item-text {
+            flex: 1;
+            word-break: break-word;
+            white-space: normal;
+        }
+        .receipt-amt-text {
+            white-space: nowrap;
+            text-align: right;
+        }
+
         .receipt-row.total { font-weight: bold; font-size: 0.95rem; border-top: 1px dashed #111; padding-top: 8px; margin-top: 10px; }
         .footer-text { text-align: center; font-size: 0.7rem; margin-top: 25px; line-height: 1.4; }
 
@@ -140,6 +169,7 @@
 </head>
 <body>
 
+    <!-- INPUT PANEL -->
     <div class="control-panel" id="inputForm">
         <h2>🧾 Receipt Customizer</h2>
         
@@ -158,6 +188,7 @@
         <button class="btn-action" style="margin-top: 10px;" onclick="generateReceipt()">Print Receipt ➔</button>
     </div>
 
+    <!-- MODAL POPUP UNTUK CROP FOTO -->
     <div class="crop-modal" id="cropModal">
         <div class="crop-container">
             <h3 style="margin-top:0;">✂️ Adjust & Crop Photo</h3>
@@ -169,37 +200,65 @@
         </div>
     </div>
 
+    <!-- STICKER DRAWER -->
     <div class="sticker-drawer" id="stickerDrawer">
         <input type="text" id="emojiSearch" class="search-emoji-input" placeholder="🔍 Search emoji..." oninput="filterEmojis(this.value)">
         <div class="emoji-grid" id="emojiGrid"></div>
     </div>
 
+    <!-- STRUK WORKSPACE -->
     <div class="workspace" id="receiptWrapper">
         <div class="capture-area" id="captureArea">
             <div class="receipt" id="mainReceipt">
+                <!-- HEADER -->
                 <div class="receipt-header">
                     <h1 style="margin:0 0 4px 0; font-size:1.4rem; letter-spacing:1px;">FRIENDSHIP_RECEIPT</h1>
                     <div id="receiptDate">THURSDAY, AUGUST 7, 2025</div>
                     <div>ORDER #0001 FOR TWILULIT</div>
                 </div>
 
+                <!-- Hasil Foto -->
                 <div class="receipt-image-container" id="imgContainer" style="display:none;">
                     <img id="outputImage" class="receipt-image" src="" alt="Fav Moment">
                 </div>
                 
                 <div class="divider"></div>
-                <div class="receipt-row"><span>QTY   ITEM</span><span>AMT</span></div>
+                <div class="receipt-row">
+                    <span class="receipt-item-text">QTY   ITEM</span>
+                    <span class="receipt-amt-text">AMT</span>
+                </div>
                 <div class="divider"></div>
 
-                <div class="receipt-row"><span id="outName">01   NAME: GUEST</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outNickname">01   AKA: STRANGER</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outSong">01   TRACK: NONE</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outMood">01   MOOD: MELLOW</span><span>100%</span></div>
-                <div class="receipt-row"><span id="outPhrase">01   SAYS: ""</span><span>100%</span></div>
+                <div class="receipt-row">
+                    <span id="outName" class="receipt-item-text"><b>01</b>   NAME: GUEST</span>
+                    <span class="receipt-amt-text">100%</span>
+                </div>
+                <div class="receipt-row">
+                    <span id="outNickname" class="receipt-item-text"><b>01</b>   AKA: STRANGER</span>
+                    <span class="receipt-amt-text">100%</span>
+                </div>
+                <div class="receipt-row">
+                    <span id="outSong" class="receipt-item-text"><b>01</b>   TRACK: NONE</span>
+                    <span class="receipt-amt-text">100%</span>
+                </div>
+                <div class="receipt-row">
+                    <span id="outMood" class="receipt-item-text"><b>01</b>   MOOD: MELLOW</span>
+                    <span class="receipt-amt-text">100%</span>
+                </div>
+                <div class="receipt-row">
+                    <span id="outPhrase" class="receipt-item-text"><b>01</b>   SAYS: ""</span>
+                    <span class="receipt-amt-text">100%</span>
+                </div>
                 
                 <div class="divider"></div>
-                <div class="receipt-row"><span>ITEM COUNT:</span><span>5 ITEMS</span></div>
-                <div class="receipt-row total"><span>TOTAL RELATIONSHIP:</span><span>999+</span></div>
+                <div class="receipt-row">
+                    <span class="receipt-item-text"><b>ITEM COUNT</b>:</span>
+                    <span class="receipt-amt-text">5 ITEMS</span>
+                </div>
+                <div class="receipt-row total">
+                    <span class="receipt-item-text">TOTAL RELATIONSHIP:</span>
+                    <span class="receipt-amt-text">999+</span>
+                </div>
 
                 <div class="footer-text">
                     THANK YOU FOR VISITING!<br>
@@ -244,16 +303,13 @@
         let cropper = null;
         let croppedBase64 = "";
 
-        // --- SISTEM AUTOMATIC DATE REALTIME ---
         function setRealtimeDate() {
             const today = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            // Format output contoh: "SUNDAY, JUNE 28, 2026"
             const formattedDate = today.toLocaleDateString('en-US', options).toUpperCase();
             document.getElementById('receiptDate').textContent = formattedDate;
         }
 
-        // Jalankan tanggal realtime pas halaman di-load
         window.onload = function() {
             setRealtimeDate();
             renderEmojis(emojiDatabase);
@@ -320,7 +376,6 @@
         }
 
         function generateReceipt() {
-            // Perbarui tanggal lagi pas klik print biar bener-bener fresh jam/harinya
             setRealtimeDate();
 
             const name = document.getElementById('fullName').value || 'Anonymous';
