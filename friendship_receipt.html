@@ -3,234 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twilulit Friendship Receipt Generator</title>
+    <title>Friendship Custom Receipt Generator</title>
     
-    <!-- Google Fonts & HTML2CANVAS (Buat Download Gambar) -->
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
-        /* Variabel Warna Default (Cyber Dark) */
         :root {
-            --bg-color: #0f0f11;
-            --card-bg: #16161a;
-            --text-main: #ecefe6;
-            --accent: #00ff66;
-            --receipt-paper: #ffffff;
-            --receipt-text: #111111;
-        }
-
-        /* TEMA SOFT PINK */
-        [data-theme="pink"] {
-            --bg-color: #ffeef2;
-            --card-bg: #ffffff;
-            --text-main: #4a3f41;
-            --accent: #ff8fa3;
-            --receipt-paper: #fff5f7;
-            --receipt-text: #4a3f41;
-        }
-
-        /* TEMA VINTAGE */
-        [data-theme="vintage"] {
-            --bg-color: #f4f1ea;
-            --card-bg: #e7e3d4;
-            --text-main: #3d3a31;
-            --accent: #967bb6;
-            --receipt-paper: #fcfbfa;
-            --receipt-text: #2b2922;
-        }
-
-        /* TEMA MATTE BLACK */
-        [data-theme="matte"] {
-            --bg-color: #1a1a1a;
-            --card-bg: #262626;
-            --text-main: #ffffff;
-            --accent: #ffd700;
-            --receipt-paper: #111111;
-            --receipt-text: #ffffff;
+            --current-bg: #e2e8f0;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--current-bg);
             margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; transition: all 0.3s ease;
+            min-height: 100vh; transition: background 0.2s ease;
+            user-select: none;
         }
 
-        /* Pilihan Warna / Theme Selector */
-        .theme-selector {
-            display: flex; gap: 10px; margin-bottom: 25px;
-            background: var(--card-bg); padding: 10px 15px; border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        /* --- CONTROL PANEL --- */
+        .control-panel {
+            background: #ffffff; padding: 20px; border-radius: 16px;
+            width: 100%; max-width: 420px; box-sizing: border-box;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px;
+            color: #333;
         }
-        .theme-btn {
-            width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff;
-            cursor: pointer; transition: transform 0.2s;
-        }
-        .theme-btn:hover { transform: scale(1.2); }
-
-        .input-container {
-            background: var(--card-bg); padding: 25px; border-radius: 20px;
-            width: 100%; max-width: 400px; box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .input-container h2 { margin-top: 0; font-size: 1.3rem; text-align: center; font-weight: 800; }
-
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; }
+        .control-panel h2 { margin: 0 0 15px 0; font-size: 1.2rem; text-align: center; font-weight: 800; }
+        .form-group { margin-bottom: 12px; text-align: left; }
+        .form-group label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; color: #666; }
         .form-group input {
-            width: 100%; padding: 11px; border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(0,0,0,0.05); color: var(--text-main);
-            border-radius: 10px; box-sizing: border-box; font-family: inherit; outline: none;
+            width: 100%; padding: 10px; border: 1px solid #e2e8f0;
+            background: #f8fafc; color: #333; border-radius: 8px; box-sizing: border-box; font-family: inherit; outline: none;
         }
-        /* Penyesuaian input text kalau di tema dark/light */
-        [data-theme="cyber"] .form-group input, [data-theme="matte"] .form-group input {
-            background: #222; border-color: #333;
+
+        /* Color Picker Styling */
+        .color-picker-wrapper {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 15px;
         }
+        .color-picker-btn {
+            -webkit-appearance: none; -moz-appearance: none; appearance: none;
+            width: 35px; height: 35px; background: none; border: none; cursor: pointer; padding: 0;
+        }
+        .color-picker-btn::-webkit-color-swatch { border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
 
         .btn-action {
-            width: 100%; padding: 12px; background: var(--accent); border: none;
-            color: #000; font-weight: 700; border-radius: 10px; cursor: pointer;
-            transition: 0.3s; margin-top: 10px; text-transform: uppercase; font-size: 0.8rem;
+            width: 100%; padding: 12px; background: #111; border: none;
+            color: #fff; font-weight: 700; border-radius: 8px; cursor: pointer;
+            transition: 0.2s; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
         }
-        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
-        [data-theme="pink"] .btn-action { color: #fff; }
+        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-        /* --- STYLES STRUK NYENTRIK --- */
-        .receipt-wrapper {
-            display: none; width: 100%; max-width: 360px;
-            margin-bottom: 20px; animation: slideUp 0.4s ease-out;
+        /* --- STICKER DRAWER --- */
+        .sticker-drawer {
+            display: none; background: #fff; border-radius: 12px; padding: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); margin-bottom: 15px; max-width: 420px;
         }
-        @keyframes slideUp { from { transform: translateY(15px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .emoji-grid {
+            display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px;
+            max-height: 150px; overflow-y: auto; font-size: 1.5rem; text-align: center;
+        }
+        .emoji-item { cursor: pointer; transition: transform 0.1s; }
+        .emoji-item:hover { transform: scale(1.2); }
 
-        /* Sengaja dibungkus padding biar efek potongan gerigi bawahnya gak kepotong pas didownload */
-        .capture-area { padding-bottom: 15px; background: transparent; }
+        /* --- CANVAS VIEW (MIRIP IMAGE_2) --- */
+        .workspace {
+            display: none; width: 100%; max-width: 450px; position: relative; text-align: center;
+        }
+        
+        /* Area khusus buat difoto oleh html2canvas */
+        .capture-area {
+            padding: 50px 40px 60px 40px; position: relative; background: var(--current-bg);
+        }
+
+        /* Penjepit Besi di Atas Struk */
+        .binder-clip {
+            width: 90px; position: absolute; top: 15px; left: 50%;
+            transform: translateX(-50%); z-index: 10; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.15));
+        }
 
         .receipt {
-            background: var(--receipt-paper); color: var(--receipt-text);
-            padding: 30px 25px; font-family: 'Courier Prime', monospace;
-            font-size: 0.85rem; position: relative; word-break: break-all;
-        }
-        /* Efek Gerigi Kasir */
-        .receipt::after {
-            content: ""; position: absolute; left: 0; bottom: -8px;
-            width: 100%; height: 8px;
-            background-image: linear-gradient(-45deg, var(--bg-color) 4px, transparent 0), 
-                              linear-gradient(45deg, var(--bg-color) 4px, transparent 0);
-            background-size: 8px 8px; background-repeat: repeat-x;
-            transition: all 0.3s ease;
+            background: #ffffff; color: #111111; padding: 35px 25px 25px 25px;
+            font-family: 'Courier Prime', monospace; font-size: 0.85rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); text-align: left;
+            position: relative; border-radius: 2px;
         }
 
-        .receipt-header { text-align: center; border-bottom: 2px dashed var(--receipt-text); padding-bottom: 15px; margin-bottom: 15px; }
-        .receipt-header h1 { font-size: 1.2rem; margin: 0 0 5px 0; font-weight: 700; letter-spacing: 1px; }
-
+        /* Foto Terpotong Otomatis Jadi Persegi Panjang Sinematik */
         .receipt-image {
-            width: 100%; height: 200px; object-fit: cover; border-radius: 2px;
-            margin: 10px 0; filter: contrast(105%) brightness(95%);
-            border: 1px solid rgba(0,0,0,0.1);
+            width: 100%; height: 150px; /* FIXED HEIGHT */
+            object-fit: cover; /* AUTO CROP FORCE PERSEGI PANJANG */
+            object-position: center; border-radius: 2px; margin: 12px 0;
+            filter: contrast(102%) brightness(98%); border: 1px solid #f0f0f0;
         }
 
-        .divider { border-top: 1px dashed var(--receipt-text); margin: 12px 0; }
-        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
-        .receipt-row.total { font-weight: bold; font-size: 0.95rem; border-top: 1px dashed var(--receipt-text); padding-top: 8px; margin-top: 10px; }
+        .divider { border-top: 1px dashed #111; margin: 12px 0; }
+        .receipt-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .receipt-row.total { font-weight: bold; font-size: 0.95rem; border-top: 1px dashed #111; padding-top: 8px; margin-top: 10px; }
         .footer-text { text-align: center; font-size: 0.7rem; margin-top: 25px; line-height: 1.4; }
+
+        /* --- LIVE DRAGGABLE STICKERS --- */
+        .placed-sticker {
+            position: absolute; font-size: 2.5rem; cursor: move;
+            display: inline-block; touch-action: none; z-index: 100;
+            padding: 5px;
+        }
+        .placed-sticker:hover { border: 1px dashed rgba(0,0,0,0.2); border-radius: 4px; }
+        .sticker-controls {
+            display: none; position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%); gap: 5px; background: #fff;
+            padding: 2px 5px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .placed-sticker:hover .sticker-controls { display: flex; }
+        .ctrl-btn {
+            font-size: 0.6rem; cursor: pointer; padding: 2px 4px;
+            background: #f1f5f9; border-radius: 4px; border: 1px solid #cbd5e1;
+        }
     </style>
 </head>
-<body data-theme="cyber"> <!-- Default Tema: Cyber Dark -->
+<body>
 
-    <!-- PILIHAN WARNA TEMA -->
-    <div class="theme-selector" id="themeSelector">
-        <span style="font-size:0.75rem; font-weight:600; margin-right:5px; align-self:center;">Theme:</span>
-        <div class="theme-btn" style="background:#16161a;" onclick="setTheme('cyber')"></div>
-        <div class="theme-btn" style="background:#ff8fa3;" onclick="setTheme('pink')"></div>
-        <div class="theme-btn" style="background:#e7e3d4;" onclick="setTheme('vintage')"></div>
-        <div class="theme-btn" style="background:#262626;" onclick="setTheme('matte')"></div>
+    <!-- CONTROL PANEL -->
+    <div class="control-panel" id="inputForm">
+        <h2>🧾 Customize Your Receipt</h2>
+        
+        <div class="color-picker-wrapper">
+            <label style="font-size:0.75rem; font-weight:700; color:#666;">CHOOSE BACKGROUND COLOR:</label>
+            <input type="color" id="bgPicker" class="color-picker-btn" value="#e2e8f0" oninput="changeBgColor(this.value)">
+        </div>
+
+        <div class="form-group"><label>Your Name</label><input type="text" id="fullName" placeholder="JOVIE ASHFORD"></div>
+        <div class="form-group"><label>Your Nickname</label><input type="text" id="nickname" placeholder="JOPI"></div>
+        <div class="form-group"><label>Favorite Track</label><input type="text" id="favSong" placeholder="GO! - CORTIS"></div>
+        <div class="form-group"><label>Current Mood</label><input type="text" id="currentMood" placeholder="SUPERHAPPY"></div>
+        <div class="form-group"><label>Signature Phrase</label><input type="text" id="signaturePhrase" placeholder="ANJIRRR"></div>
+        <div class="form-group"><label>Upload Photo (Auto-Crop)</label><input type="file" id="favPhoto" accept="image/*"></div>
+        
+        <button class="btn-action" onclick="generateReceipt()">Print & Edit Layout ➔</button>
     </div>
 
-    <!-- FORM INPUT DATA -->
-    <div class="input-container" id="inputForm">
-        <h2>🧾 Receipt Generator</h2>
-        <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" id="fullName" placeholder="ENTER YOUR FULL NAME">
-        </div>
-        <div class="form-group">
-            <label>Your Nickname</label>
-            <input type="text" id="nickname" placeholder="ENTER YOUR NICKNAME">
-        </div>
-        <div class="form-group">
-            <label>Favorite Track</label>
-            <input type="text" id="favSong" placeholder="SONG NAME - ARTIST">
-        </div>
-        <div class="form-group">
-            <label>Upload Favorite Photo</label>
-            <input type="file" id="favPhoto" accept="image/*">
-        </div>
-        <button class="btn-action" onclick="generateReceipt()">Print Receipt ➔</button>
+    <!-- STICKER DRAWER BOX -->
+    <div class="sticker-drawer" id="stickerDrawer">
+        <label style="font-size:0.7rem; font-weight:800; display:block; margin-bottom:8px; color:#666;">✨ CLICK EMOJI TO ADD AS STICKER:</label>
+        <div class="emoji-grid" id="emojiGrid"></div>
     </div>
 
-    <!-- AREA STRUK YANG MUNCUL -->
-    <div class="receipt-wrapper" id="receiptWrapper">
+    <!-- WORKSPACE STRUK -->
+    <div class="workspace" id="receiptWrapper">
         <div class="capture-area" id="captureArea">
+            <!-- Penjepit Atas SVG Minimalis mirip Besi Asli -->
+            <svg class="binder-clip" viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="25" y="25" width="50" height="30" rx="3" fill="#333336"/>
+                <circle cx="50" cy="40" r="4" fill="#fff"/>
+                <path d="M35 25C35 10 65 10 65 25" stroke="#999" stroke-width="3" fill="none"/>
+            </svg>
+
             <div class="receipt">
                 <div class="receipt-header">
-                    <h1>TWILULIT ORDER</h1>
-                    <div id="receiptDate">DATE: 2026.06.27</div>
-                    <div>STORE: #001-BASECAMP</div>
+                    <h1 style="margin:0 0 4px 0; font-size:1.3rem;">RECEIPTIFY</h1>
+                    <div id="receiptDate">THURSDAY, AUGUST 7, 2025</div>
+                    <div>ORDER #0001 FOR TWILULIT</div>
                 </div>
 
+                <!-- Foto yang di-crop otomatis lewat CSS object-fit -->
                 <img id="outputImage" class="receipt-image" src="" alt="Fav Moment" style="display:none;">
                 
                 <div class="divider"></div>
-                <div class="receipt-row">
-                    <span>ITEM DESCRIPTION</span>
-                    <span>QTY</span>
-                </div>
+                <div class="receipt-row"><span>QTY &nbsp; ITEM</span><span>AMT</span></div>
                 <div class="divider"></div>
 
-                <div class="receipt-row"><span id="outName">NAME: GUEST</span><span>01</span></div>
-                <div class="receipt-row"><span id="outNickname">AKA: STRANGER</span><span>01</span></div>
-                <div class="receipt-row"><span id="outSong">FAV TRACK: NONE</span><span>01</span></div>
-                <div class="receipt-row"><span>MEMORIES_SHARED</span><span>999</span></div>
-
-                <div class="receipt-row total">
-                    <span>TOTAL RELATIONSHIP</span>
-                    <span>100%</span>
-                </div>
+                <div class="receipt-row"><span id="outName">01 &nbsp; NAME: GUEST</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outNickname">01 &nbsp; AKA: STRANGER</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outSong">01 &nbsp; TRACK: NONE</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outMood">01 &nbsp; MOOD: MELLOW</span><span>100%</span></div>
+                <div class="receipt-row"><span id="outPhrase">01 &nbsp; SAYS: ""</span><span>100%</span></div>
+                
+                <div class="divider"></div>
+                <div class="receipt-row"><span>ITEM COUNT:</span><span>5 ITEMS</span></div>
+                <div class="receipt-row total"><span>TOTAL RELATIONSHIP:</span><span>999+</span></div>
 
                 <div class="footer-text">
-                    THANK YOU FOR BEING A GOOD FRIEND!<br>
+                    THANK YOU FOR VISITING!<br>
+                    itskaiden.github.io
                 </div>
             </div>
         </div>
         
-        <button class="btn-action" style="background:#fff; color:#000;" onclick="downloadReceipt()">Save to Device 💾</button>
-        <button class="btn-action" style="background:transparent; color:var(--text-main); border:1px solid var(--text-main); margin-top:8px;" onclick="resetForm()">Create Another One ↺</button>
+        <!-- BUTTON EDITING TAMBAHAN -->
+        <button class="btn-action" style="background:#00c853; margin-bottom:8px;" onclick="toggleStickerDrawer()">＋ Add Sticker (Emoji)</button>
+        <button class="btn-action" style="background:#fff; color:#000; margin-bottom:8px;" onclick="downloadReceipt()">Save Receipt Images 💾</button>
+        <button class="btn-action" style="background:transparent; color:#333; border:1px solid #333;" onclick="resetForm()">Create New ↺</button>
     </div>
 
     <script>
-        // Ganti Tema Warna secara Realtime
-        function setTheme(themeName) {
-            document.body.setAttribute('data-theme', themeName);
+        // Daftar Koleksi Emoji Populer ala iPhone
+        const emojiList = ["🍕","🍟","🍦","🥝","🍀","🐱","🐙","🎀","🌟","🔥","🍒","🧸","🦋","🎧","🎨","📸","⚡","🪐","🧸","🎸","✨","💖","😭","💀","🤡","👾","👀","💅"];
+
+        // Generate Grid Emoji di Panel
+        const grid = document.getElementById('emojiGrid');
+        emojiList.forEach(emoji => {
+            let span = document.createElement('span');
+            span.className = 'emoji-item';
+            span.innerText = emoji;
+            span.onclick = () => spawnSticker(emoji);
+            grid.appendChild(span);
+        });
+
+        function changeBgColor(val) {
+            document.documentElement.style.setProperty('--current-bg', val);
+        }
+
+        function toggleStickerDrawer() {
+            const drawer = document.getElementById('stickerDrawer');
+            drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
         }
 
         function generateReceipt() {
             const name = document.getElementById('fullName').value || 'Anonymous';
             const nickname = document.getElementById('nickname').value || 'Stranger';
-            const song = document.getElementById('favSong').value || 'No Song';
+            const song = document.getElementById('favSong').value || 'No Track';
+            const mood = document.getElementById('currentMood').value || 'Normal';
+            const phrase = document.getElementById('signaturePhrase').value || 'Hello';
             const photoInput = document.getElementById('favPhoto');
 
-            // Set text jadi kapital otomatis ala struk mesin kasir asli
-            document.getElementById('outName').innerText = `NAME: ${name.toUpperCase()}`;
-            document.getElementById('outNickname').innerText = `AKA: ${nickname.toUpperCase()}`;
-            document.getElementById('outSong').innerText = `TRACK: ${song.toUpperCase()}`;
-
-            // Set Tanggal Hari Ini otomatis
-            const today = new Date();
-            const dateString = `DATE: ${today.getFullYear()}.${String(today.getMonth()+1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-            document.getElementById('receiptDate').innerText = dateString;
+            document.getElementById('outName').innerText = `01   NAME: ${name.toUpperCase()}`;
+            document.getElementById('outNickname').innerText = `01   AKA: ${nickname.toUpperCase()}`;
+            document.getElementById('outSong').innerText = `01   TRACK: ${song.toUpperCase()}`;
+            document.getElementById('outMood').innerText = `01   MOOD: ${mood.toUpperCase()}`;
+            document.getElementById('outPhrase').innerText = `01   SAYS: "${phrase.toUpperCase()}"`;
 
             const outputImage = document.getElementById('outputImage');
             if (photoInput.files && photoInput.files[0]) {
@@ -238,46 +238,116 @@
                 reader.onload = function(e) {
                     outputImage.src = e.target.result;
                     outputImage.style.display = 'block';
-                    showReceipt();
+                    showWorkspace();
                 }
                 reader.readAsDataURL(photoInput.files[0]);
             } else {
                 outputImage.style.display = 'none';
-                showReceipt();
+                showWorkspace();
             }
         }
 
-        function showReceipt() {
+        function showWorkspace() {
             document.getElementById('inputForm').style.display = 'none';
-            document.getElementById('themeSelector').style.display = 'none';
             document.getElementById('receiptWrapper').style.display = 'block';
         }
 
         function resetForm() {
             document.getElementById('inputForm').style.display = 'block';
-            document.getElementById('themeSelector').style.display = 'flex';
             document.getElementById('receiptWrapper').style.display = 'none';
-            document.getElementById('fullName').value = '';
-            document.getElementById('nickname').value = '';
-            document.getElementById('favSong').value = '';
-            document.getElementById('favPhoto').value = '';
+            document.getElementById('stickerDrawer').style.display = 'none';
+            // Bersihkan stiker lama yang nempel
+            document.querySelectorAll('.placed-sticker').forEach(el => el.remove());
         }
 
-        // FUNGSI UTAMA DOWNLOAD JADI GAMBAR PNG
-        function downloadReceipt() {
-            const element = document.getElementById('captureArea');
+        // --- CORE SYSTEM: DRAG & RESIZE STICKER EMOTICON ---
+        function spawnSticker(emojiText) {
+            const sticker = document.createElement('div');
+            sticker.className = 'placed-sticker';
+            sticker.style.left = '150px';
+            sticker.style.top = '150px';
+            sticker.innerHTML = `
+                ${emojiText}
+                <div class="sticker-controls">
+                    <span class="ctrl-btn" onclick="resizeSticker(this, 0.2)">＋</span>
+                    <span class="ctrl-btn" onclick="resizeSticker(this, -0.2)">－</span>
+                    <span class="ctrl-btn" style="color:red;" onclick="this.parentElement.parentElement.remove()">✕</span>
+                </div>
+            `;
             
-            // html2canvas ngambil screenshot bagian struk doang
+            document.getElementById('captureArea').appendChild(sticker);
+            makeElementDraggable(sticker);
+        }
+
+        function resizeSticker(btn, amount) {
+            const sticker = btn.parentElement.parentElement;
+            let currentScale = parseFloat(sticker.getAttribute('data-scale')) || 1;
+            currentScale += amount;
+            if (currentScale < 0.5) currentScale = 0.5;
+            if (currentScale > 3) currentScale = 3;
+            sticker.setAttribute('data-scale', currentScale);
+            
+            // Ambil text emojinya aja tanpa html tombol kontrol
+            const emojiOnly = sticker.childNodes[0].textContent.trim();
+            sticker.style.transform = `scale(${currentScale})`;
+        }
+
+        function makeElementDraggable(elmnt) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+            elmnt.ontouchstart = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                if(e.target.className === 'ctrl-btn') return; // Jangan drag kalau ngeklik tombol size/close
+                e.preventDefault();
+                pos3 = e.clientX || e.touches[0].clientX;
+                pos4 = e.clientY || e.touches[0].clientY;
+                document.onmouseup = closeDragElement;
+                document.ontouchend = closeDragElement;
+                document.onmousemove = elementDrag;
+                document.ontouchmove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                let clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                let clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                
+                pos1 = pos3 - clientX;
+                pos2 = pos4 - clientY;
+                pos3 = clientX;
+                pos4 = clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchmove = null;
+                document.ontouchend = null;
+            }
+        }
+
+        function downloadReceipt() {
+            // Sembunyikan panel control sticker bunderan pas difoto biar ga bocor ke hasil gambar
+            const controls = document.querySelectorAll('.sticker-controls');
+            controls.forEach(c => c.style.setProperty('display', 'none', 'important'));
+
+            const element = document.getElementById('captureArea');
             html2canvas(element, {
-                backgroundColor: null, // Biar background sekeliling struk transparan (.png)
-                scale: 3, // Naikin skala kualitas biar tulisan gak ngeblur pas disimpan
-                logging: false,
+                backgroundColor: null,
+                scale: 3,
                 useCORS: true
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Twilulit_Receipt_${document.getElementById('outNickname').innerText.replace('AKA: ', '')}.png`;
+                link.download = `Twilulit_Aesthetic_Receipt.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
+                
+                // Balikin kontrol stickernya lagi setelah selesai disave
+                controls.forEach(c => c.style.removeProperty('display'));
             });
         }
     </script>
