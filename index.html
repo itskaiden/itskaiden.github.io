@@ -6,6 +6,7 @@
     <title>KAIDEN | 01% Done</title>
     <!-- Import Font Tambahan buat Si Tatang yang Lucu -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
         body {
             background: #1e1e1e; color: #d1d1d1;     
@@ -138,11 +139,11 @@
         .news-headline { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; line-height: 1.2; font-style: italic; }
         .news-source { font-size: 0.7rem; color: #666; margin-top: 15px; display: block; text-transform: uppercase; }
 
-                /* --- STYLING SI TATANG MAWA KAYU (MEME STYLE) --- */
+                 /* --- STYLING SI TATANG MAWA KAYU (TRUE REPLICA) --- */
         .tatang-banner {
             width: 100%;
-            background: transparent; /* Background abu-abu ilang, jadi transparan */
-            padding: 60px 20px;
+            background: transparent; /* Background abu-abu ilang total */
+            padding: 50px 20px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -150,29 +151,33 @@
             margin-top: 20px;
         }
         .tatang-text {
-            /* Pake font Impact biar aura memenya dapet banget, backupnya pake sans-serif tebal */
-            font-family: 'Impact', 'Arial Black', sans-serif; 
-            font-size: 2.8rem; /* Agak digedein biar makin berasa komedinya */
-            font-weight: 900;
-            color: #a3a3a3; /* Warna font jadi abu-abu sesuai request lu */
+            font-family: 'Luckiest Guy', cursive; /* Font komik/kartun tebal mirip gambar */
+            font-size: 2.6rem; /* Ukuran pas biar dapet 3 baris di mobile */
+            color: #a3a3a3; /* Font warna abu-abu sesuai request */
             text-transform: uppercase;
             line-height: 1.1;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             
-            /* Trik CSS buat bikin border text warna putih */
-            -webkit-text-stroke: 1.5px #ffffff; 
-            text-stroke: 1.5px #ffffff;
+            /* Trik text-shadow tebal warna putih biar efek bordernya solid dan rapi */
+            text-shadow: 
+                -2px -2px 0 #fff,  
+                 2px -2px 0 #fff,
+                -2px  2px 0 #fff,
+                 2px  2px 0 #fff,
+                -3px  0px 0 #fff,
+                 3px  0px 0 #fff,
+                 0px -3px 0 #fff,
+                 0px  3px 0 #fff;
             
-            max-width: 600px;
+            max-width: 280px; /* Dikunci lebarnya biar motongnya pas 3 baris otomatis */
             text-align: center;
         }
-
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight:900; letter-spacing:2px; color:#fff;">ITSKAIDEN</div>
+        <div style="font-weight:900; letter-spacing:2px; color:#fff;">KAIDEN</div>
         <div class="nav-links">
             <a href="#playlist">Playlist</a>
             <a href="#snapshots">Snapshots</a>
@@ -313,13 +318,12 @@
         </section>
     </div>
 
-        <!-- REPLACEMENT: Text Box Si Tatang Versi Meme Kocak -->
+        <!-- REPLACEMENT: Versi Akurat Sesuai Gambar -->
     <div class="tatang-banner">
         <div class="tatang-text">
-            SI TATANG MAWA KAYU<br>THANK YOU
+            SI TATANG MAWA KAYU THANK YOU
         </div>
     </div>
-
 
     <footer>
         <a href="https://instagram.com/sarangmokel" style="color:#fff; text-decoration:none; font-weight:bold;">@sarangmokel</a>
