@@ -138,30 +138,35 @@
         .news-headline { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; line-height: 1.2; font-style: italic; }
         .news-source { font-size: 0.7rem; color: #666; margin-top: 15px; display: block; text-transform: uppercase; }
 
-        /* --- STYLING SI TATANG MAWA KAYU (Substitusi profile8.jpg) --- */
+                /* --- STYLING SI TATANG MAWA KAYU (MEME STYLE) --- */
         .tatang-banner {
             width: 100%;
-            background: #a3a3a3; /* Background abu-abu mirip di gambar lo */
-            padding: 40px 20px;
+            background: transparent; /* Background abu-abu ilang, jadi transparan */
+            padding: 60px 20px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            margin-top: 40px;
+            margin-top: 20px;
         }
         .tatang-text {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #ffffff;
+            /* Pake font Impact biar aura memenya dapet banget, backupnya pake sans-serif tebal */
+            font-family: 'Impact', 'Arial Black', sans-serif; 
+            font-size: 2.8rem; /* Agak digedein biar makin berasa komedinya */
+            font-weight: 900;
+            color: #a3a3a3; /* Warna font jadi abu-abu sesuai request lu */
             text-transform: uppercase;
-            line-height: 1.2;
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.15); /* Bayangan tipis biar makin lucu */
+            line-height: 1.1;
+            letter-spacing: 2px;
+            
+            /* Trik CSS buat bikin border text warna putih */
+            -webkit-text-stroke: 1.5px #ffffff; 
+            text-stroke: 1.5px #ffffff;
+            
             max-width: 600px;
+            text-align: center;
         }
+
     </style>
 </head>
 <body>
@@ -308,12 +313,13 @@
         </section>
     </div>
 
-    <!-- REPLACEMENT: Mengubah profile8.jpg jadi pure text box lucu -->
+        <!-- REPLACEMENT: Text Box Si Tatang Versi Meme Kocak -->
     <div class="tatang-banner">
         <div class="tatang-text">
-            Si Tatang Mawa Kayu<br>Thank You
+            SI TATANG MAWA KAYU<br>THANK YOU
         </div>
     </div>
+
 
     <footer>
         <a href="https://instagram.com/sarangmokel" style="color:#fff; text-decoration:none; font-weight:bold;">@sarangmokel</a>
