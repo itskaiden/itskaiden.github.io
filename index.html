@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITSKAIDEN | 01% Done</title>
+    <title>KAIDEN | 01% Done</title>
+    <!-- Import Font Tambahan buat Si Tatang yang Lucu -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             background: #1e1e1e; color: #d1d1d1;     
@@ -18,9 +20,19 @@
         }
         .nav-links a { color: #888; text-decoration: none; font-size: 0.7rem; margin-left: 15px; text-transform: uppercase; }
 
+        /* --- HERO FIX (Mendempetkan teks & Gedein Kapsul) --- */
         .hero { padding: 80px 20px; background: #252525; }
-        .welcome-tag { font-size: 0.7rem; color: #fff; background: #3a3a3a; padding: 6px 16px; border-radius: 50px; margin-bottom: 20px; display: inline-block; }
-        h1 { font-size: 3.5rem; margin: 0; color: #fff; letter-spacing: -2px; }
+        .welcome-tag { 
+            font-size: 0.8rem; /* Digedein dikit dari 0.7rem */
+            font-weight: 700;  /* Dibikin lebih tegas */
+            color: #fff; 
+            background: #3a3a3a; 
+            padding: 8px 20px; /* Ditambah biar kapsulnya lebih gemuk */
+            border-radius: 50px; 
+            margin-bottom: 8px; /* Didempetkan ke bawah (dari 20px jadi 8px) */
+            display: inline-block; 
+        }
+        h1 { font-size: 3.5rem; margin: 0; color: #fff; letter-spacing: -2px; line-height: 1.1; }
 
         .banner-img { width: 100%; max-height: 500px; object-fit: cover; display: block; border-top: 1px solid #333; border-bottom: 1px solid #333; }
 
@@ -80,7 +92,6 @@
             opacity: 0.8;
         }
 
-
         .scroll-arrow {
             position: absolute;
             right: -10px;
@@ -112,7 +123,7 @@
 
         footer { margin-top: 60px; padding: 60px 20px; border-top: 1px solid #333; }
 
-        /* --- NEWS STYLE (Nambahin ini doang) --- */
+        /* --- NEWS STYLE --- */
         .news-section {
             margin: 40px auto 20px;
             padding: 25px;
@@ -126,6 +137,31 @@
         .news-tag { font-size: 0.6rem; color: #ff4d4d; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; display: block; margin-bottom: 10px; }
         .news-headline { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; line-height: 1.2; font-style: italic; }
         .news-source { font-size: 0.7rem; color: #666; margin-top: 15px; display: block; text-transform: uppercase; }
+
+        /* --- STYLING SI TATANG MAWA KAYU (Substitusi profile8.jpg) --- */
+        .tatang-banner {
+            width: 100%;
+            background: #a3a3a3; /* Background abu-abu mirip di gambar lo */
+            padding: 40px 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            margin-top: 40px;
+        }
+        .tatang-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.15); /* Bayangan tipis biar makin lucu */
+            max-width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -141,7 +177,7 @@
     <div class="hero">
         <div class="welcome-tag">Welcome to Kai's personal web.</div>
         <h1>01% Done</h1>
-        <p style="color:#777; font-size: 0.9rem;">just taking it slow, one pixel at a time.</p>
+        <p style="color:#777; font-size: 0.9rem; margin-top: 5px;">just taking it slow, one pixel at a time.</p>
     </div>
 
     <img src="profile2.jpg" class="banner-img">
@@ -179,7 +215,7 @@
                         <div class="album-card"><img src="music5.jpg"></div>
                         <div class="album-title">Creep</div>
                     </a>
-                    <a href="https://open.spotify.com/track/4RGeIxGrN9VH1TJ94ppyje?si=Nb6R7_IRSSqzQwIs1KIF7Q" class="album-link" target="_blank">
+                    <a href="https://open.spotify.com/track/4RGeIxGrN9VH1TJ94ppyje?si=Nb6R7_IRSSqwQwIs1KIF7Q" class="album-link" target="_blank">
                         <div class="album-card"><img src="music6.jpg"></div>
                         <div class="album-title">Secukupnya</div>
                     </a>
@@ -194,7 +230,6 @@
     </div>
 
     <img src="profile3.jpg" class="banner-img">
-
 
     <div class="container">
         <section class="news-section">
@@ -216,78 +251,69 @@
 
         <section id="on-repeat">
             <h2>ON REPEAT</h2>
-            <p style="font-size: 0.8rem; font-style: italic; color: #666; margin-bottom: 20px;">"This is a music video i made with my friends, go check it out guys!:D"</p>
+            <p style="font-size: 0.8rem; font-style: italic; color: #666; margin-bottom: 20px;">"This is a music video i made with my friends, go check it out guys! :D"</p>
             <div class="video-box">
                 <iframe src="https://www.youtube.com/embed/42wfEs7oIP8" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
 
         <section id="poetry-gift" style="padding: 10px 0;">
-    <h2 style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px; color: #444; margin-bottom: 20px;">
-        A GIFT OF WORDS
-    </h2>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 100%;">
-        
-        <a href="https://sarangmokel.carrd.co" target="_blank" style="text-decoration: none;">
-            <div style="background: #252525; border: 1px solid #333; padding: 15px 10px; border-radius: 8px; height: 100%; box-sizing: border-box; text-align: left;">
-                <span style="font-size: 0.45rem; color: #555; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">— Part I —</span>
-                <p style="font-size: 0.75rem; color: #bbb; font-style: italic; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                    "Kau dan aku, sejatinya satu dalam rasa, namun takdir Tuhan melukiskan jalan yang berbeda...."
-                </p>
-                <div style="margin-top: 10px; font-size: 0.5rem; color: #444;">READ ↗</div>
+            <h2 style="font-size: 0.6rem; text-transform: uppercase; letter-spacing: 3px; color: #444; margin-bottom: 20px;">
+                A GIFT OF WORDS
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 100%;">
+                <a href="https://sarangmokel.carrd.co" target="_blank" style="text-decoration: none;">
+                    <div style="background: #252525; border: 1px solid #333; padding: 15px 10px; border-radius: 8px; height: 100%; box-sizing: border-box; text-align: left;">
+                        <span style="font-size: 0.45rem; color: #555; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">— Part I —</span>
+                        <p style="font-size: 0.75rem; color: #bbb; font-style: italic; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            "Kau dan aku, sejatinya satu dalam rasa, namun takdir Tuhan melukiskan jalan yang berbeda...."
+                        </p>
+                        <div style="margin-top: 10px; font-size: 0.5rem; color: #444;">READ ↗</div>
+                    </div>
+                </a>
+
+                <a href="LINK_CARRD_2" target="_blank" style="text-decoration: none;">
+                    <div style="background: #252525; border: 1px solid #333; padding: 15px 10px; border-radius: 8px; height: 100%; box-sizing: border-box; text-align: left;">
+                        <span style="font-size: 0.45rem; color: #555; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">— Part II —</span>
+                        <p style="font-size: 0.75rem; color: #bbb; font-style: italic; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            "Tentang cinta yang menemukan kedamaiannya dalam sebuah kepergian...."
+                        </p>
+                        <div style="margin-top: 10px; font-size: 0.5rem; color: #444;">READ ↗</div>
+                    </div>
+                </a>
             </div>
-        </a>
-
-        <a href="LINK_CARRD_2" target="_blank" style="text-decoration: none;">
-            <div style="background: #252525; border: 1px solid #333; padding: 15px 10px; border-radius: 8px; height: 100%; box-sizing: border-box; text-align: left;">
-                <span style="font-size: 0.45rem; color: #555; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px;">— Part II —</span>
-                <p style="font-size: 0.75rem; color: #bbb; font-style: italic; line-height: 1.4; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                    "Tentang cinta yang menemukan kedamaiannya dalam sebuah kepergian...."
-                </p>
-                <div style="margin-top: 10px; font-size: 0.5rem; color: #444;">READ ↗</div>
-            </div>
-        </a>
-
-    </div>
-</section>
+        </section>
         
-
         <section id="journal">
             <h2>THE JOURNAL</h2>
             <div class="journal-box">
-    being 01% done is a choice. it means i'm always starting, always learning, and never standing still. today was just another day of trying to get the vision right. sometimes it works, sometimes it doesn't, but the struggle is what makes it fun. we move regardless.
+                being 01% done is a choice. it means i'm always starting, always learning, and never standing still. today was just another day of trying to get the vision right. sometimes it works, sometimes it doesn't, but the struggle is what makes it fun. we move regardless.
             </div>
         </section>
-    </div>
-            <section id="the-twilulit-gate" style="margin-top: 50px;">
-            <h2 style="margin-bottom: 20px;">THE SUPPORT SYSTEM</h2>
+
+        <section id="the-twilulit-gate" style="margin-top: 50px;">
+            <h2 style="margin-bottom: 20px;"> THE SUPPORT SYSTEM</h2>
             <a href="twilulit.html" style="text-decoration: none; display: block;">
-                <div style="background: #252525; border: 1px solid #333; padding: 50px 20px; border-radius: 12px; transition: 0.4s; position: relative; overflow: hidden; group">
+                <div style="background: #252525; border: 1px solid #333; padding: 50px 20px; border-radius: 12px; transition: 0.4s; position: relative; overflow: hidden;">
                     <span style="font-size: 0.6rem; color: #666; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 15px;">— The People Behind The Noise —</span>
-                    
                     <h3 style="font-size: 2rem; color: #fff; letter-spacing: -1px; margin: 0; font-weight: 900; font-style: italic;">
                         THE ARCHIVE.
                     </h3>
-                    
                     <p style="font-size: 0.8rem; color: #555; margin-top: 15px; letter-spacing: 1px;">
                         Meet the collective that keeps the vision alive <span style="margin-left: 5px;">→</span>
                     </p>
                 </div>
             </a>
         </section>
+    </div>
 
-        <style>
-            /* Efek hover khusus buat gate circle lo */
-            #the-circle-gate div:hover {
-                border-color: #555;
-                background: #2a2a2a;
-                transform: translateY(-5px);
-            }
-        </style>
-
-
-    <img src="profile8.jpg" class="banner-img" style="margin-top: 40px;">
+    <!-- REPLACEMENT: Mengubah profile8.jpg jadi pure text box lucu -->
+    <div class="tatang-banner">
+        <div class="tatang-text">
+            Si Tatang Mawa Kayu<br>Thank You
+        </div>
+    </div>
 
     <footer>
         <a href="https://instagram.com/sarangmokel" style="color:#fff; text-decoration:none; font-weight:bold;">@sarangmokel</a>
