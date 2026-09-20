@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TWILULIT.exe | 16 MONTHS OF PINK PUNK</title>
-    <!-- Import Font Cyber Y2K & Monospace -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Syne:wght@700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <title>TWILULIT | 16 Months Together</title>
+    <!-- Font Cyber Y2K & Monospace -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --hot-pink: #ff007f;
@@ -23,6 +23,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* --- MARQUEE HEADER --- */
@@ -42,7 +43,7 @@
         }
         .marquee-text {
             display: inline-block;
-            animation: marquee 15s linear infinite;
+            animation: marquee 18s linear infinite;
         }
         @keyframes marquee {
             0% { transform: translateX(0%); }
@@ -50,7 +51,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 30px 20px;
         }
@@ -61,7 +62,7 @@
             border: 2px solid var(--hot-pink);
             box-shadow: 6px 6px 0px var(--neon-purple);
             border-radius: 16px;
-            padding: 30px 20px;
+            padding: 35px 25px;
             text-align: center;
             position: relative;
             margin-bottom: 40px;
@@ -70,8 +71,8 @@
             background: #222;
             color: var(--hot-pink);
             font-family: 'VT323', monospace;
-            font-size: 0.9rem;
-            padding: 4px 12px;
+            font-size: 1rem;
+            padding: 4px 14px;
             border-radius: 20px;
             border: 1px dashed var(--hot-pink);
             display: inline-block;
@@ -79,7 +80,7 @@
         }
         h1.title-y2k {
             font-family: 'Syne', sans-serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 800;
             margin: 0;
             text-transform: uppercase;
@@ -88,14 +89,17 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
-        .bio-cyber {
-            font-family: 'VT323', monospace;
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            margin: 15px 0;
-            line-height: 1.3;
+        .hero-letter {
+            font-size: 0.95rem;
+            color: #d1d1d1;
+            margin-top: 20px;
+            text-align: left;
+            background: #0d0d0d;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #222;
         }
-        
+
         /* STATS GRID */
         .stats-grid {
             display: grid;
@@ -106,8 +110,9 @@
         .stat-card {
             background: #000;
             border: 1px solid #333;
-            padding: 10px;
+            padding: 12px 8px;
             border-radius: 8px;
+            text-align: center;
         }
         .stat-num {
             font-family: 'VT323', monospace;
@@ -125,10 +130,10 @@
         /* --- SECTION TITLE --- */
         .section-header {
             font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #fff;
             text-transform: uppercase;
-            margin: 50px 0 20px;
+            margin: 45px 0 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -140,7 +145,31 @@
             background: linear-gradient(90deg, var(--hot-pink), transparent);
         }
 
-        /* --- MEMBERS GRID (10 BADDIES + 1 MISSING) --- */
+        /* --- LETTER CARDS (THANK YOU & SORRY) --- */
+        .letter-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .letter-card h3 {
+            font-family: 'Syne', sans-serif;
+            color: var(--hot-pink);
+            margin-top: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .letter-card p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 0;
+        }
+
+        /* --- MEMBERS GRID --- */
         .members-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -156,7 +185,7 @@
         }
         .member-card:hover {
             border-color: var(--hot-pink);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
         .member-img-placeholder {
             width: 100%;
@@ -172,15 +201,10 @@
             border: 1px solid #333;
             overflow: hidden;
         }
-        .member-img-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
         .member-name {
             font-family: 'Syne', sans-serif;
             font-size: 1.1rem;
-            margin: 12px 0 4px;
+            margin: 12px 0 2px;
             color: #fff;
         }
         .member-role {
@@ -193,7 +217,6 @@
         .member-quote {
             font-size: 0.75rem;
             color: var(--text-dim);
-            font-style: italic;
             margin-top: 8px;
             line-height: 1.3;
         }
@@ -202,80 +225,11 @@
         .missing-card {
             background: #180812;
             border: 2px dashed var(--hot-pink) !important;
-            box-shadow: inset 0 0 15px rgba(ff, 0, 127, 0.2);
-            animation: pulse-border 2s infinite;
-        }
-        @keyframes pulse-border {
-            0%, 100% { border-color: var(--hot-pink); }
-            50% { border-color: #555; }
+            box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.15);
         }
         .missing-img {
             background: #2a0a1a !important;
             color: var(--hot-pink) !important;
-        }
-
-        /* --- TIMELINE SECTION --- */
-        .timeline-box {
-            background: var(--card-bg);
-            border: 1px solid #222;
-            border-radius: 12px;
-            padding: 20px;
-        }
-        .timeline-item {
-            border-left: 2px solid var(--hot-pink);
-            padding-left: 20px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .timeline-item::before {
-            content: '★';
-            position: absolute;
-            left: -9px;
-            top: 0;
-            color: var(--hot-pink);
-            background: var(--cyber-black);
-            font-size: 0.8rem;
-        }
-        .timeline-date {
-            font-family: 'VT323', monospace;
-            color: var(--hot-pink);
-            font-size: 1rem;
-        }
-        .timeline-title {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #fff;
-            margin: 2px 0;
-        }
-        .timeline-desc {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-        }
-
-        /* --- INSIDE JOKES / STICKER WALL --- */
-        .jokes-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .sticker-tag {
-            background: #222;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-        .sticker-tag:hover {
-            background: var(--hot-pink);
-            color: #000;
-            border-color: #fff;
-            transform: scale(1.05) rotate(-2deg);
         }
 
         footer {
@@ -296,10 +250,10 @@
 </head>
 <body>
 
-    <!-- MARQUEE HEADER (Teks Jalan) -->
+    <!-- MARQUEE HEADER -->
     <div class="marquee-container">
         <div class="marquee-text">
-            ★ TWILULIT 16th MONTHiversary ★ 16 MONTHS OF CHAOS & BADDIES ★ SYSTEM BREACH DETECTED ★ PINK_ANARCHY.exe ★ TWILULIT 16th MONTHiversary ★ 16 MONTHS OF CHAOS & BADDIES ★
+            ★ TWILULIT 16th MONTHiversary ★ 16 MONTHS OF GROWING TOGETHER ★ THANK YOU FOR BEING HERE ★ WE MISS OUR 11th BADDIES ★ 16 MONTHS OF GROWING TOGETHER ★
         </div>
     </div>
 
@@ -307,37 +261,63 @@
 
         <!-- HERO SECTION -->
         <div class="hero-box">
-            <span class="badge-glitch">⚙️ STATUS: 16 MONTHS SURVIVED</span>
-            <h1 class="title-y2k">TWILULIT.exe</h1>
-            <div class="bio-cyber">
-                © 2023-2026 .. PINK__PUNK! 💖📞 REBELLION.ON:: // TWILULIT_ANARCHY (&.) 👻💽<br>
-                "11 Baddies, 1 Lost in Space, 100% Unstable"
+            <span class="badge-glitch">💌 16 MONTHS MENSIVERSITY</span>
+            <h1 class="title-y2k">TWILULIT ★</h1>
+            
+            <div class="hero-letter">
+                Gak berasa banget udah 16 bulan kita jalan bareng-bareng. Seneng dan bangga banget rasanya bisa liat anak-anak Twilulit pada tumbuh, berkembang, dan jadi versi terbaik dari diri kalian masing-masing sebaik ini. Makasih ya udah bertahan dan tetep ada di sini 💖
             </div>
 
-            <!-- COUNTER STATS -->
+            <!-- STATS -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-num">16</div>
                     <div class="stat-label">Months Together</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-num">10+1</div>
-                    <div class="stat-label">Members</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">999+</div>
-                    <div class="stat-label">Inside Jokes</div>
+                    <div class="stat-num">10</div>
+                    <div class="stat-label">Active Baddies</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-num" style="color: #ff3333;">1</div>
-                    <div class="stat-label">Missing Person 💀</div>
+                    <div class="stat-label">Lost in Space 😭</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">∞</div>
+                    <div class="stat-label">Love & Memories</div>
                 </div>
             </div>
         </div>
 
+        <!-- UNTUK TWILULIT (SURAT / UCAPAN) -->
+        <div class="section-header">
+            <span>💌 DEAR TWILULIT</span>
+        </div>
+
+        <div class="letter-card">
+            <h3>💖 TERIMA KASIH</h3>
+            <p>
+                Makasih banyak ya udah selalu jadi tempat pulang yang nyaman, tempat cerita tanpa takut di-judge, dan temen yang selalu ada di saat seneng maupun cape. Makasih udah bertahan selama 16 bulan ini dan bikin hari-hari terasa lebih berwana!
+            </p>
+        </div>
+
+        <div class="letter-card">
+            <h3>🥺 MAAF YA</h3>
+            <p>
+                Maaf kalau selama 16 bulan ini kadang ada salah kata, egois, atau kurang peka satu sama lain. Maaf juga kalau belum bisa jadi temen yang sempurna, tapi percayalah kalian semua itu berharga banget.
+            </p>
+        </div>
+
+        <div class="letter-card">
+            <h3>🌱 SEEING YOU ALL GROW</h3>
+            <p>
+                Satu hal yang paling bikin terharu adalah ngeliat kalian semua bertumbuh sejauh ini. Liat gimana kalian berproses, makin dewasa, makin keren, dan makin pinter ngelewatin hal-hal berat. *So proud of every single one of you!*
+            </p>
+        </div>
+
         <!-- MEMBER SECTION -->
         <div class="section-header">
-            <span>💖 THE BADDIES ARCHIVE</span>
+            <span>✨ THE 11 BADDIES</span>
         </div>
 
         <div class="members-grid">
@@ -345,9 +325,9 @@
             <!-- Member 1 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">SUNNY</div>
-                <div class="member-role">@MerhayuMentari</div>
-                <div class="member-quote">"The glue that holds this chaotic group together."</div>
+                <div class="member-name">JANELLE</div>
+                <div class="member-role">@janelleissante</div>
+                <div class="member-quote">"Makasih udah selalu jadi sosok kakak yappingers di Twilulit."</div>
             </div>
 
             <!-- Member 2 -->
@@ -355,15 +335,15 @@
                 <div class="member-img-placeholder">[ PHOTO ]</div>
                 <div class="member-name">MYRE</div>
                 <div class="member-role">@tjiwoopark</div>
-                <div class="member-quote">"Professional overthinker & vibe manager."</div>
+                <div class="member-quote">"Proud of how much you've grown mir!"</div>
             </div>
 
             <!-- Member 3 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">ALARA</div>
-                <div class="member-role">@iYeounju</div>
-                <div class="member-quote">"24/7 online, chief gossip officer."</div>
+                <div class="member-name">JIANNA</div>
+                <div class="member-role">@jihuupa</div>
+                <div class="member-quote">"Gak rame kalau gak ada kehebohan bunda Twilulit."</div>
             </div>
 
             <!-- Member 4 -->
@@ -371,15 +351,15 @@
                 <div class="member-img-placeholder">[ PHOTO ]</div>
                 <div class="member-name">MECHI</div>
                 <div class="member-role">@cherishbie</div>
-                <div class="member-quote">"Cute but will fight you."</div>
+                <div class="member-quote">"Tetep jadi Mechi yang gemes & suportif ya!"</div>
             </div>
 
             <!-- Member 5 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">ASYAH</div>
-                <div class="member-role">@MingZaixuan</div>
-                <div class="member-quote">"Midnight deep talk catalyst."</div>
+                <div class="member-name">Tian</div>
+                <div class="member-role">@dqisappear</div>
+                <div class="member-quote">"Tetap menjadi bocil kematian."</div>
             </div>
 
             <!-- Member 6 -->
@@ -387,7 +367,7 @@
                 <div class="member-img-placeholder">[ PHOTO ]</div>
                 <div class="member-name">ODIE</div>
                 <div class="member-role">@Imeean</div>
-                <div class="member-quote">"Sarcasm is her love language."</div>
+                <div class="member-quote">"Makasih karena tetap tinggal."</div>
             </div>
 
             <!-- Member 7 -->
@@ -395,94 +375,51 @@
                 <div class="member-img-placeholder">[ PHOTO ]</div>
                 <div class="member-name">ALDO</div>
                 <div class="member-role">@icyarus</div>
-                <div class="member-quote">"The cool one (or so he thinks)."</div>
+                <div class="member-quote">"Makasih ya do. Serius."</div>
             </div>
 
             <!-- Member 8 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">OWEN</div>
-                <div class="member-role">@jungleeanw</div>
-                <div class="member-quote">"Supplier of random memes at 3 AM."</div>
+                <div class="member-name">Amaerys</div>
+                <div class="member-role">@ianjeonwg</div>
+                <div class="member-quote">"Always bringing good vibes to the group >_<"</div>
             </div>
 
             <!-- Member 9 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">OJIK</div>
-                <div class="member-role">@ibakugoukats</div>
-                <div class="member-quote">"Main character energy only."</div>
+                <div class="member-name">Ziggy</div>
+                <div class="member-role">@lowkprofile</div>
+                <div class="member-quote">"Keren banget liat perkembangan lu bro jik."</div>
             </div>
 
             <!-- Member 10 -->
             <div class="member-card">
                 <div class="member-img-placeholder">[ PHOTO ]</div>
-                <div class="member-name">JOVIE</div>
-                <div class="member-role">@ahnkoeonho</div>
-                <div class="member-quote">"Always ready for spontaneous chaos."</div>
+                <div class="member-name">ANNA</div>
+                <div class="member-role">@yevonju</div>
+                <div class="member-quote">"Twilulit wouldn't be complete without you (kata gw)."</div>
             </div>
 
-            <!-- SPECIAL CARD: MEMBER KE-11 YANG HILANG -->
+            <!-- MEMBER KE-11 (YANG HILANG) -->
             <div class="member-card missing-card">
                 <div class="member-img-placeholder missing-img">
-                    ❓ LOST IN SPACE
+                    🕊️ WE MISS YOU
                 </div>
-                <div class="member-name" style="color: var(--hot-pink);">MIA MEMBER 👻</div>
-                <div class="member-role" style="color: #ff4d4d;">@STATUS_OFFLINE</div>
+                <div class="member-name" style="color: var(--hot-pink);">OUR 11th BAD DIE</div>
+                <div class="member-role" style="color: #ff4d4d;">@WHEREVER_YOU_ARE</div>
                 <div class="member-quote" style="color: #ff99c8;">
-                    "Bro if you see this, please reply the group chat... we miss you! 😭"
+                    "Dimanapun lu berada sekarang, semoga lu sehat selalu & bahagia ya. Twilulit bakal selalu ada spot buat lu 💖"
                 </div>
             </div>
 
-        </div>
-
-        <!-- TIMELINE SECTION -->
-        <div class="section-header">
-            <span>📟 16-MONTH TIMELINE</span>
-        </div>
-
-        <div class="timeline-box">
-            <div class="timeline-item">
-                <div class="timeline-date">MONTH 01 — THE GENESIS</div>
-                <div class="timeline-title">Awal Mula Dibuatnya Twilulit</div>
-                <div class="timeline-desc">Masih pada jaim, ngobrol seadanya, belum kelihatan wujud aslinya.</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">MONTH 06 — CHAOS UNLOCKED</div>
-                <div class="timeline-title">Era Kebongkaran Sifat Asli</div>
-                <div class="timeline-desc">Grup chat mulai rame 24/7, stiker konyol bermunculan, grup gak pernah sepi.</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">MONTH 12 — 1 YEAR SURVIVAL</div>
-                <div class="timeline-title">Setahun Bersama</div>
-                <div class="timeline-desc">Bukti kalau pertemanan ini lumayan tahan banting meskipun random banget.</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">MONTH 16 — TODAY</div>
-                <div class="timeline-title">Pink Anarchy Mensiversary</div>
-                <div class="timeline-desc">Masih bareng, makin gila, dan tetep nungguin 1 member balik.</div>
-            </div>
-        </div>
-
-        <!-- INSIDE JOKES SECTION -->
-        <div class="section-header">
-            <span>🕷️ HALL OF INSIDE JOKES</span>
-        </div>
-
-        <div class="jokes-grid">
-            <div class="sticker-tag">🔥 "Siapp ngab"</div>
-            <div class="sticker-tag">💀 Si Tatang Mawa Kayu</div>
-            <div class="sticker-tag">📞 Drama Jam 2 Pagi</div>
-            <div class="sticker-tag">💿 Spotify Jammed</div>
-            <div class="sticker-tag">🚀 Lost in Parallel Universe</div>
-            <div class="sticker-tag">💅 Baddie Energy</div>
-            <div class="sticker-tag">⚡ 01% Done Behavior</div>
         </div>
 
     </div>
 
     <footer>
-        ✦ TWILULIT ARCHIVE // 2023 - 2026 // ALL RIGHTS RESERVED ✦
+        HAPPY 16th MONTHSARY TWILULIT ★ STAY BADDIES, STAY TOGETHER
     </footer>
 
 </body>
