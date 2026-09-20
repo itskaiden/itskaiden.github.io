@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TWILULIT.exe | 16 MONTHS OF PINK PUNK</title>
+    <!-- Import Font Cyber Y2K & Monospace -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Syne:wght@700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hot-pink: #ff007f;
+            --neon-purple: #b500ff;
+            --cyber-black: #0a0a0a;
+            --card-bg: #141414;
+            --text-main: #ffffff;
+            --text-dim: #a3a3a3;
+        }
+
+        body {
+            background-color: var(--cyber-black);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- MARQUEE HEADER --- */
+        .marquee-container {
+            background: var(--hot-pink);
+            color: #000;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 6px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 2px solid #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-box {
+            background: var(--card-bg);
+            border: 2px solid var(--hot-pink);
+            box-shadow: 6px 6px 0px var(--neon-purple);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .badge-glitch {
+            background: #222;
+            color: var(--hot-pink);
+            font-family: 'VT323', monospace;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px dashed var(--hot-pink);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        h1.title-y2k {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, var(--hot-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+        .bio-cyber {
+            font-family: 'VT323', monospace;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin: 15px 0;
+            line-height: 1.3;
+        }
+        
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 25px;
+        }
+        .stat-card {
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .stat-num {
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
+            color: var(--hot-pink);
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- SECTION TITLE --- */
+        .section-header {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            text-transform: uppercase;
+            margin: 50px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--hot-pink), transparent);
+        }
+
+        /* --- MEMBERS GRID (10 BADDIES + 1 MISSING) --- */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .member-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
+            transition: 0.3s;
+        }
+        .member-card:hover {
+            border-color: var(--hot-pink);
+            transform: translateY(-5px);
+        }
+        .member-img-placeholder {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #222;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'VT323', monospace;
+            color: #555;
+            font-size: 1.5rem;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+        .member-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .member-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            margin: 12px 0 4px;
+            color: #fff;
+        }
+        .member-role {
+            font-size: 0.7rem;
+            color: var(--hot-pink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .member-quote {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-style: italic;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+
+        /* --- SPECIAL CARD: MISSING MEMBER --- */
+        .missing-card {
+            background: #180812;
+            border: 2px dashed var(--hot-pink) !important;
+            box-shadow: inset 0 0 15px rgba(ff, 0, 127, 0.2);
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--hot-pink); }
+            50% { border-color: #555; }
+        }
+        .missing-img {
+            background: #2a0a1a !important;
+            color: var(--hot-pink) !important;
+        }
+
+        /* --- TIMELINE SECTION --- */
+        .timeline-box {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .timeline-item {
+            border-left: 2px solid var(--hot-pink);
+            padding-left: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '★';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            color: var(--hot-pink);
+            background: var(--cyber-black);
+            font-size: 0.8rem;
+        }
+        .timeline-date {
+            font-family: 'VT323', monospace;
+            color: var(--hot-pink);
+            font-size: 1rem;
+        }
+        .timeline-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            margin: 2px 0;
+        }
+        .timeline-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* --- INSIDE JOKES / STICKER WALL --- */
+        .jokes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .sticker-tag {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .sticker-tag:hover {
+            background: var(--hot-pink);
+            color: #000;
+            border-color: #fff;
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px 30px;
+            border-top: 1px solid #222;
+            margin-top: 60px;
+            font-family: 'VT323', monospace;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            h1.title-y2k { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MARQUEE HEADER (Teks Jalan) -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            ★ TWILULIT 16th MONTHiversary ★ 16 MONTHS OF CHAOS & BADDIES ★ SYSTEM BREACH DETECTED ★ PINK_ANARCHY.exe ★ TWILULIT 16th MONTHiversary ★ 16 MONTHS OF CHAOS & BADDIES ★
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <div class="hero-box">
+            <span class="badge-glitch">⚙️ STATUS: 16 MONTHS SURVIVED</span>
+            <h1 class="title-y2k">TWILULIT.exe</h1>
+            <div class="bio-cyber">
+                © 2023-2026 .. PINK__PUNK! 💖📞 REBELLION.ON:: // TWILULIT_ANARCHY (&.) 👻💽<br>
+                "11 Baddies, 1 Lost in Space, 100% Unstable"
+            </div>
+
+            <!-- COUNTER STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num">16</div>
+                    <div class="stat-label">Months Together</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">10+1</div>
+                    <div class="stat-label">Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">999+</div>
+                    <div class="stat-label">Inside Jokes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color: #ff3333;">1</div>
+                    <div class="stat-label">Missing Person 💀</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEMBER SECTION -->
+        <div class="section-header">
+            <span>💖 THE BADDIES ARCHIVE</span>
+        </div>
+
+        <div class="members-grid">
+            
+            <!-- Member 1 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">SUNNY</div>
+                <div class="member-role">@MerhayuMentari</div>
+                <div class="member-quote">"The glue that holds this chaotic group together."</div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">MYRE</div>
+                <div class="member-role">@tjiwoopark</div>
+                <div class="member-quote">"Professional overthinker & vibe manager."</div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">ALARA</div>
+                <div class="member-role">@iYeounju</div>
+                <div class="member-quote">"24/7 online, chief gossip officer."</div>
+            </div>
+
+            <!-- Member 4 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">MECHI</div>
+                <div class="member-role">@cherishbie</div>
+                <div class="member-quote">"Cute but will fight you."</div>
+            </div>
+
+            <!-- Member 5 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">ASYAH</div>
+                <div class="member-role">@MingZaixuan</div>
+                <div class="member-quote">"Midnight deep talk catalyst."</div>
+            </div>
+
+            <!-- Member 6 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">ODIE</div>
+                <div class="member-role">@Imeean</div>
+                <div class="member-quote">"Sarcasm is her love language."</div>
+            </div>
+
+            <!-- Member 7 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">ALDO</div>
+                <div class="member-role">@icyarus</div>
+                <div class="member-quote">"The cool one (or so he thinks)."</div>
+            </div>
+
+            <!-- Member 8 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">OWEN</div>
+                <div class="member-role">@jungleeanw</div>
+                <div class="member-quote">"Supplier of random memes at 3 AM."</div>
+            </div>
+
+            <!-- Member 9 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">OJIK</div>
+                <div class="member-role">@ibakugoukats</div>
+                <div class="member-quote">"Main character energy only."</div>
+            </div>
+
+            <!-- Member 10 -->
+            <div class="member-card">
+                <div class="member-img-placeholder">[ PHOTO ]</div>
+                <div class="member-name">JOVIE</div>
+                <div class="member-role">@ahnkoeonho</div>
+                <div class="member-quote">"Always ready for spontaneous chaos."</div>
+            </div>
+
+            <!-- SPECIAL CARD: MEMBER KE-11 YANG HILANG -->
+            <div class="member-card missing-card">
+                <div class="member-img-placeholder missing-img">
+                    ❓ LOST IN SPACE
+                </div>
+                <div class="member-name" style="color: var(--hot-pink);">MIA MEMBER 👻</div>
+                <div class="member-role" style="color: #ff4d4d;">@STATUS_OFFLINE</div>
+                <div class="member-quote" style="color: #ff99c8;">
+                    "Bro if you see this, please reply the group chat... we miss you! 😭"
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TIMELINE SECTION -->
+        <div class="section-header">
+            <span>📟 16-MONTH TIMELINE</span>
+        </div>
+
+        <div class="timeline-box">
+            <div class="timeline-item">
+                <div class="timeline-date">MONTH 01 — THE GENESIS</div>
+                <div class="timeline-title">Awal Mula Dibuatnya Twilulit</div>
+                <div class="timeline-desc">Masih pada jaim, ngobrol seadanya, belum kelihatan wujud aslinya.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">MONTH 06 — CHAOS UNLOCKED</div>
+                <div class="timeline-title">Era Kebongkaran Sifat Asli</div>
+                <div class="timeline-desc">Grup chat mulai rame 24/7, stiker konyol bermunculan, grup gak pernah sepi.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">MONTH 12 — 1 YEAR SURVIVAL</div>
+                <div class="timeline-title">Setahun Bersama</div>
+                <div class="timeline-desc">Bukti kalau pertemanan ini lumayan tahan banting meskipun random banget.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">MONTH 16 — TODAY</div>
+                <div class="timeline-title">Pink Anarchy Mensiversary</div>
+                <div class="timeline-desc">Masih bareng, makin gila, dan tetep nungguin 1 member balik.</div>
+            </div>
+        </div>
+
+        <!-- INSIDE JOKES SECTION -->
+        <div class="section-header">
+            <span>🕷️ HALL OF INSIDE JOKES</span>
+        </div>
+
+        <div class="jokes-grid">
+            <div class="sticker-tag">🔥 "Siapp ngab"</div>
+            <div class="sticker-tag">💀 Si Tatang Mawa Kayu</div>
+            <div class="sticker-tag">📞 Drama Jam 2 Pagi</div>
+            <div class="sticker-tag">💿 Spotify Jammed</div>
+            <div class="sticker-tag">🚀 Lost in Parallel Universe</div>
+            <div class="sticker-tag">💅 Baddie Energy</div>
+            <div class="sticker-tag">⚡ 01% Done Behavior</div>
+        </div>
+
+    </div>
+
+    <footer>
+        ✦ TWILULIT ARCHIVE // 2023 - 2026 // ALL RIGHTS RESERVED ✦
+    </footer>
+
+</body>
+</html>
